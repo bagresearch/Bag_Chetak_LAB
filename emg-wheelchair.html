@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EMG-Controlled Wheelchair Project Report</title>
+    <style>
+        /* Center the body content */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Main container styling */
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Center headings */
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Align lists properly */
+        ul, ol {
+            display: inline-block;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        /* Center images */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        /* Back link styling */
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Content Container -->
+    <div class="container">
+
+        <h1>EMG-Controlled Wheelchair</h1>
+
+        <h2>Introduction</h2>
+        <p>The EMG-Controlled Wheelchair is a smart mobility solution designed for individuals with mobility impairments. It utilizes electromyography (EMG) signals to control the movement of the wheelchair, allowing users to navigate their surroundings using muscle activity.</p>
+
+        <h2>Objective</h2>
+        <p>The primary objective of this project is to develop a hands-free wheelchair system that provides independence to users by detecting muscle signals and translating them into motion commands.</p>
+
+        <h2>Components Used</h2>
+        <ul>
+            <li>EMG Sensor</li>
+            <li>Arduino Mega</li>
+            <li>Motor Driver (L298N)</li>
+            <li>12V DC Motors</li>
+            <li>Rechargeable Battery</li>
+            <li>Joystick (for calibration and backup control)</li>
+            <li>LCD Display (16x4)</li>
+            <li>Bluetooth Module (HC-05) (optional for wireless control)</li>
+        </ul>
+
+        <h2>Working Principle</h2>
+        <p>The EMG sensor captures electrical activity from muscles, which is then processed by the Arduino Mega. Based on the signal intensity and predefined thresholds, the Arduino controls the motor driver to move the wheelchair in the desired direction.</p>
+
+        <h2>Implementation</h2>
+        <ol>
+            <li>EMG sensor detects muscle signals.</li>
+            <li>Signals are amplified and filtered for noise reduction.</li>
+            <li>Arduino processes the signals and maps them to movement commands.</li>
+            <li>The motor driver controls the motors accordingly.</li>
+            <li>An LCD displays real-time status updates.</li>
+        </ol>
+
+        <h2>Features</h2>
+        <ul>
+            <li>Hands-free control using muscle signals</li>
+            <li>Backup joystick control for safety</li>
+            <li>LCD display for real-time feedback</li>
+            <li>Rechargeable battery for mobility</li>
+            <li>Adjustable EMG sensitivity</li>
+        </ul>
+
+        <h2>Advantages</h2>
+        <ul>
+            <li>Increased independence for users</li>
+            <li>Non-invasive muscle signal detection</li>
+            <li>Customizable control settings</li>
+            <li>Cost-effective compared to commercial solutions</li>
+        </ul>
+
+        <h2>Challenges</h2>
+        <ul>
+            <li>Signal noise interference</li>
+            <li>Calibration for different muscle strengths</li>
+            <li>Battery efficiency optimization</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>The EMG-Controlled Wheelchair is an innovative solution that enhances mobility for disabled individuals. With further improvements in signal processing and AI integration, this technology can be further refined for better accuracy and usability.</p>
+
+        <h2>Future Scope</h2>
+        <ul>
+            <li>Integration with AI for better signal processing</li>
+            <li>Wireless control through smartphone apps</li>
+            <li>Improved battery management system</li>
+            <li>Voice-controlled assistance</li>
+        </ul>
+
+        <h2>Project Images</h2>
+        <img src="images/emg-wheelchair.jpg" alt="EMG Wheelchair Image 1">
+        <img src="images/emg-wheelchair1.jpg" alt="EMG Wheelchair Image 2">
+        <img src="images/emg-wheelchair2.png" alt="EMG Wheelchair Image 3">
+        <img src="images/emg-wheelchair3.png" alt="EMG Wheelchair Image 4">
+        <img src="images/emg-wheelchair4.png" alt="EMG Wheelchair Image 5">
+
+        <!-- Navigation link -->
+        <a href="index.html">Back to Home</a>
+
+    </div>
+
+</body>
+
+</html>

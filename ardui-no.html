@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Tetris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            text-align: justify;
+        }
+        img {
+            width: 300px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Arduino Tetris</h1>
+        <p>Arduino-based Tetris game using an LED strip and joystick for control.</p>
+        
+        <h2>Actual Prototype</h2>
+        <img src="tetries1.jpg" alt="Actual Prototype of Arduino Tetris">
+        <h2>Futuristic Look</h2>
+        <img src="tetries.jpg" alt="Futuristic Look of Arduino Tetris">
+        
+        <h2>Technical Description</h2>
+        <p>The Arduino Tetris game is a project that brings the classic Tetris game to life using an LED matrix or strip, controlled by an Arduino Mega. It includes the following components:</p>
+        <ul>
+            <li><strong>Arduino Mega:</strong> Handles game logic and LED control.</li>
+            <li><strong>LED Strip:</strong> Displays the Tetris game.</li>
+            <li><strong>Joystick Module:</strong> Allows players to move and rotate blocks.</li>
+            <li><strong>Buzzer:</strong> Provides sound effects.</li>
+            <li><strong>I2C LCD Display:</strong> Shows the player's score.</li>
+            <li><strong>Power Supply:</strong> Ensures stable power delivery for smooth operation.</li>
+        </ul>
+        
+        <h2>Working Mechanism</h2>
+        <p>The game follows these key steps:</p>
+        <ol>
+            <li>Blocks are generated at the top of the LED matrix.</li>
+            <li>The player controls movement and rotation using the joystick.</li>
+            <li>When a row is filled, it clears, and the player earns points.</li>
+            <li>The game speed increases as the score rises.</li>
+            <li>The game ends when the blocks reach the top.</li>
+        </ol>
+        
+        <h2>Applications and Benefits</h2>
+        <p>This project is an excellent example of interactive gaming with hardware, merging embedded systems and programming concepts. Some key benefits include:</p>
+        <ul>
+            <li><strong>Educational Value:</strong> Helps students learn about LED control, microcontrollers, and game logic.</li>
+            <li><strong>Entertainment:</strong> A fun way to experience classic gaming on Arduino.</li>
+            <li><strong>DIY Project:</strong> Great for hobbyists interested in electronics and game design.</li>
+        </ul>
+        
+        <h2>Future Enhancements</h2>
+        <p>Potential future upgrades include:</p>
+        <ul>
+            <li><strong>Wireless Control:</strong> Bluetooth integration for remote gameplay.</li>
+            <li><strong>Multiplayer Mode:</strong> Two-player functionality.</li>
+            <li><strong>Advanced LED Display:</strong> Using an LED matrix for better visuals.</li>
+            <li><strong>AI-based Difficulty Adjustment:</strong> Making the game adapt based on player performance.</li>
+        </ul>
+        
+        <h2>Conclusion</h2>
+        <p>The Arduino Tetris project is an innovative way to merge gaming and embedded systems, making it a great learning experience for students, educators, and electronics enthusiasts.</p>
+        
+        <a href="index.html">Back to Home</a>
+    </div>
+</body>
+</html>

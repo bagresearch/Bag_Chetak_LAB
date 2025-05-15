@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHETAK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        p, ul {
+            text-align: justify;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>CHETAK</h1>
+        <p><strong><b>This project is designed by Saswata Bag for improving safety in coal mines.</b></strong></p>
+
+        <h2>Abstract</h2>
+        <p>The CHETAK project focuses on developing a cost-effective and reliable solution to enhance the safety and monitoring systems in coal mines. The system can detect hazardous gases, monitor environmental conditions, and provide real-time alerts to improve worker safety and emergency response.</p>
+
+        <h2>Problem Statement</h2>
+        <p>Coal mining is one of the most hazardous industries worldwide. Workers face severe risks from gas explosions, suffocation, and environmental hazards. Traditional monitoring systems lack real-time responsiveness. CHETAK aims to solve these challenges using advanced sensing and communication technologies.</p>
+
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Gas Detection:</strong> Real-time monitoring of CH4 (Methane), CO2, H2 (Hydrogen), and CO (Carbon Monoxide) levels.</li>
+            <li><strong>Environmental Monitoring:</strong> Temperature and humidity tracking to prevent heat stress and equipment malfunction.</li>
+            <li><strong>Alert System:</strong> Immediate SMS notifications for gas leaks and hazardous conditions.</li>
+            <li><strong>Data Logging:</strong> Continuous environmental data storage for future analysis using an SD card module.</li>
+            <li><strong>Worker Safety:</strong> Single helmet integration with real-time data for centralized monitoring.</li>
+        </ul>
+
+        <h2>Technical Description</h2>
+        <p>The CHETAK system is built around the Arduino Uno microcontroller. It uses various gas sensors (MQ-4, MQ-7, MQ-8, MG811), a DHT11 temperature and humidity sensor, an RTC (DS3231) module for real-time clock data, and an SD card module for logging. Alerts are sent using a GSM module, ensuring immediate notification in case of danger.</p>
+
+        <h2>Methodology</h2>
+        <ul>
+            <li>Researching coal mine hazards and existing monitoring systems.</li>
+            <li>Designing a robust sensor array and integrating with Arduino Uno.</li>
+            <li>Implementing real-time gas detection and environmental monitoring.</li>
+            <li>Enabling wireless alerts via SMS to relevant authorities.</li>
+            <li>Testing the system in simulated hazardous environments for validation.</li>
+        </ul>
+
+        <h2>Components Used</h2>
+        <img src="chetak-components.png" alt="CHETAK Project Components">
+        <ul>
+            <li>Arduino Uno</li>
+            <li>MQ-4 (Methane) Sensor</li>
+            <li>MQ-7 (Carbon Monoxide) Sensor</li>
+            <li>MQ-8 (Hydrogen) Sensor</li>
+            <li>MG811 (CO2) Sensor</li>
+            <li>DHT11 Temperature & Humidity Sensor</li>
+            <li>RTC DS3231 Module</li>
+            <li>SD Card Module</li>
+            <li>GSM SIM900A Module</li>
+            <li>LCD Display (I2C)</li>
+            <li>Buzzer</li>
+        </ul>
+
+        <h2>Block Diagram</h2>
+        <img src="chetak-block-diagram.png" alt="CHETAK System Block Diagram">
+
+        <h2>Experimental Results</h2>
+        <p>CHETAK successfully detects gas leaks, temperature fluctuations, and environmental anomalies. Real-time alerts via SMS ensure rapid emergency response, and data logging provides long-term monitoring capabilities.</p>
+        <img src="chetak-test.png" alt="CHETAK in Testing Environment">
+
+        <h2>Achievements</h2>
+        <ul>
+            <li>1st Prize in Disaster Management at the Rajya Stariya Bal Vaigyanik Pradarshani.</li>
+            <li>1st Prize in Research & Industrial Conclave Integration '24 (RIC).</li>
+            <li>1st Prize under Environmental Hackathon 2024 at IIT Guwahati (IITG).</li>
+            <li>Best Theme Award at the India International Science Festival (IISF).</li>
+        </ul>
+
+        <h2>Future Scope</h2>
+        <ul>
+            <li>Integration of AI-based hazard prediction algorithms.</li>
+            <li>Improved wireless range for remote underground monitoring.</li>
+            <li>Additional gas detection (SO2, NOx) for expanded safety.</li>
+            <li>Enhanced communication system with real-time video monitoring.</li>
+            <li>Deployment in other hazardous environments like oil refineries.</li>
+        </ul>
+
+        <h2>Patent Notice</h2>
+        <p>This project is patented. Unauthorized use, reproduction, or distribution without proper authorization will result in legal action.</p>
+
+        <h2>Acknowledgment</h2>
+        <p><strong><b>I express my sincere gratitude to my mentors and the research community for their support and guidance in making the CHETAK project a success.</b></strong></p>
+
+        <a href="index.html">Back to Home</a>
+    </div>
+
+</body>
+
+</html>
