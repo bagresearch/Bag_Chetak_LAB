@@ -10,16 +10,30 @@
       text-align: center;
       background-color: #f4f4f4;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
 
-    h1 {
-      color: #333;
+    .top-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #ffffff;
     }
 
-    p {
-      font-size: 18px;
-      text-align: justify;
+    .top-banner img {
+      width: 120px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-marquee {
+      background-color: #007BFF;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      padding: 10px 0;
     }
 
     .container {
@@ -39,19 +53,18 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .image-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
+    h1 {
+      color: #333;
     }
 
-    .welcome {
-      font-size: 24px;
-      font-weight: bold;
-      color: #007BFF;
-      margin-bottom: 30px;
+    p {
+      font-size: 18px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      text-align: left;
+      margin-left: 30px;
     }
 
     a {
@@ -70,8 +83,19 @@
   </style>
 </head>
 <body>
-  <div class="welcome">Welcome to the Arduino Tetris Project Page!</div>
 
+  <!-- Top Left and Right Images -->
+  <div class="top-banner">
+    <img src="chetak123.jpg" alt="Left Image">
+    <img src="chetak222.jpg" alt="Right Image">
+  </div>
+
+  <!-- Moving Welcome Message -->
+  <div class="welcome-marquee">
+    <marquee behavior="scroll" direction="left">Welcome to the Arduino Tetris Project Page! Explore the innovation and creativity behind this amazing DIY game.</marquee>
+  </div>
+
+  <!-- Main Content -->
   <div class="container">
     <h1>Arduino Tetris</h1>
     <p>Arduino-based Tetris game using an LED strip and joystick for control.</p>
@@ -80,11 +104,7 @@
     <img src="tetries1.jpg" alt="Actual Prototype of Arduino Tetris" />
 
     <h2>Futuristic Look</h2>
-    <div class="image-row">
-      <img src="chetak123.jpg" alt="Side View Left">
-      <img src="tetries.jpg" alt="Futuristic Look of Arduino Tetris" />
-      <img src="chetak222.jpg" alt="Side View Right">
-    </div>
+    <img src="tetries.jpg" alt="Futuristic Look of Arduino Tetris" />
 
     <h2>Technical Description</h2>
     <p>The Arduino Tetris game is a project that brings the classic Tetris game to life using an LED matrix or strip, controlled by an Arduino Mega. It includes the following components:</p>
