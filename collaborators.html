@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collaboration - Saswata Bag</title>
+    <title>   Collaboration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #faf9e8;
+            background: url("Background2010.jpg") no-repeat center center fixed;
+            background-size: cover;
             text-align: center;
             overflow: hidden;
         }
@@ -23,14 +24,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 10px 40px;
         }
 
         .title {
             font-size: 40px;
             font-weight: bold;
-            color: #333;
-            text-shadow: 2px 2px 5px #888;
+            color: #ffffff;
+            text-shadow: 2px 2px 6px #000;
         }
 
         .navbar {
@@ -39,24 +40,27 @@
 
         .navbar a {
             text-decoration: none;
-            color: #4B0082;
+            color: #ffffff;
             font-weight: bold;
             margin: 0 15px;
             font-size: 18px;
+            text-shadow: 1px 1px 3px #000;
         }
 
         .navbar a:hover {
             text-decoration: underline;
         }
 
-        /* Moving Text Animation */
         .content {
-            font-size: 28px;
-            color: #FF00FF;
+            font-size: 30px;
+            color: #fffcfc;
             font-weight: bold;
             position: absolute;
+            bottom: 160px;
+            width: 100%;
             white-space: nowrap;
             animation: moveText 10s linear infinite;
+            text-shadow: 2px 2px 6px #000;
         }
 
         @keyframes moveText {
@@ -69,10 +73,35 @@
             }
         }
 
+        .back-button {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .back-button a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4B0082;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-button a:hover {
+            background-color: #6a0dad;
+        }
+
         .footer {
-            margin-top: 40px;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
             font-size: 14px;
-            color: #4B0082;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px #000;
         }
     </style>
 </head>
@@ -99,14 +128,19 @@
         <a href="contact.html">Contact</a>
     </div>
 
-    <!-- Moving Content -->
+    <!-- Moving Under Construction Message -->
     <div class="content">
         PAGE UNDER CONSTRUCTION 🚧
     </div>
 
+    <!-- Back to Home Button -->
+    <div class="back-button">
+        <a href="index.html">Back to Home</a>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
-        © 2025 Saswata Bag - The Bag Laboratory | 
+        © 2025 Saswata Bag - The Bag Laboratory | Indian Institute of Technology Guwahati
     </div>
 
 </body>
