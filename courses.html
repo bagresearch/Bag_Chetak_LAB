@@ -7,44 +7,55 @@
     body {
       margin: 0;
       padding: 0;
-      background-image: url('cources.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100vh;
       font-family: Arial, sans-serif;
-      color: #fff;
+      background-color: #f0f0f0; /* fallback background */
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .background-container {
+      background-image: url('cources.png');
+      background-size: 600px auto; /* smaller size */
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 700px;
+      height: 500px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .notice-text {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
       text-align: center;
     }
 
-    .notice-box {
-      background-color: rgba(0, 0, 0, 0.6); /* semi-transparent overlay */
-      padding: 40px;
-      border-radius: 10px;
-      max-width: 800px;
-    }
-
     h1 {
-      margin-bottom: 20px;
-      font-size: 36px;
-      color: #f0f0f0;
+      margin: 0;
+      font-size: 28px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 16px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="notice-box">
-    <h1>Important Notice</h1>
-    <p>
-      Please check the latest updates regarding your courses. The background contains full details.
-    </p>
+  <div class="background-container">
+    <div class="notice-text">
+      <h1>Important Notice</h1>
+      <p>Kindly check the latest course details displayed in the notice background.</p>
+    </div>
   </div>
 
 </body>
