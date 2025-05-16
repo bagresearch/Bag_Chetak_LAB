@@ -5,18 +5,76 @@
     <meta charset="UTF-8">
     <title>EMG-Controlled Wheelchair Project Report</title>
     <style>
-        /* Center the body content */
+        /* Reset box-sizing for all */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Body and page centering */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             background-color: #f4f4f4;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
             text-align: center;
+            padding-top: 70px; /* space for fixed header */
+        }
+
+        /* Fixed top banner */
+        .top-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .top-left {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Scrolling welcome text */
+        .scrolling-text {
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            animation: scroll-left 15s linear infinite;
+            padding-left: 100%;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* Main container styling */
@@ -26,16 +84,18 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
 
         /* Center headings */
-        h1, h2 {
-            text-align: center;
+        h1,
+        h2 {
             color: #333;
         }
 
         /* Align lists properly */
-        ul, ol {
+        ul,
+        ol {
             display: inline-block;
             text-align: left;
             margin: 0 auto;
@@ -66,6 +126,13 @@
 </head>
 
 <body>
+
+    <!-- Fixed Top Banner -->
+    <div class="top-banner">
+        <img src="chetak123.jpg" alt="Chetak 123" class="top-left" />
+        <img src="chetak222.png" alt="Chetak 222" class="top-right" />
+        <div class="scrolling-text">Welcome to the EMG-Controlled Wheelchair Project by Saswata Bag</div>
+    </div>
 
     <!-- Main Content Container -->
     <div class="container">
