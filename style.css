@@ -1,143 +1,103 @@
-/* Reset */
-* {
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
     color: #333;
-    line-height: 1.6;
 }
 
-/* Header */
 header {
-    background-color: #222;
+    background-color: #004080;
     color: white;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 20px 10px;
 }
 
 .logo {
     width: 80px;
     height: auto;
-    margin-bottom: 1rem;
 }
 
-h1 {
-    font-size: 1.8rem;
+nav {
+    background-color: #0066cc;
 }
 
-.highlight {
-    color: #00bcd4;
-    font-weight: bold;
-}
-
-/* Navigation */
-.navbar {
-    background-color: #333;
-}
-
-.navbar ul {
-    list-style: none;
+nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-.navbar li {
-    margin: 0.3rem;
+nav ul li {
+    margin: 10px;
 }
 
-.navbar a {
+nav ul li a {
     color: white;
     text-decoration: none;
-    padding: 0.8rem 1rem;
-    display: block;
-    transition: background 0.3s ease;
+    font-weight: bold;
 }
 
-.navbar a:hover {
-    background-color: #555;
-    border-radius: 5px;
+nav ul li a:hover {
+    text-decoration: underline;
 }
 
-/* Main Content */
-.main-content {
-    padding: 2rem;
-    text-align: center;
-}
-
-/* Announcement */
-.announcement {
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 1rem;
-    text-align: center;
-    margin: 1rem;
-    border: 1px solid #ffeeba;
+.announcement, .projects {
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 10px;
     border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
-/* Projects */
-.projects {
-    padding: 2rem 1rem;
-    background-color: #fff;
-    text-align: center;
-}
-
-.projects h2 {
-    margin-bottom: 1.5rem;
-    color: #007bff;
+.projects h2, .announcement h2 {
+    color: #004080;
 }
 
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
-    padding: 0 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
 }
 
-.project-card {
-    background: #e9ecef;
-    border-radius: 10px;
-    padding: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.project-grid div {
+    background-color: #e6f0ff;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.project-card a {
-    font-size: 1.1rem;
+.project-grid a {
     font-weight: bold;
-    color: #0d6efd;
+    color: #003366;
     text-decoration: none;
 }
 
-/* Footer */
 footer {
-    background-color: #222;
+    background-color: #004080;
     color: white;
     text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    margin-top: 2rem;
+    padding: 10px;
+    margin-top: 30px;
 }
 
-/* Responsive Text */
+/* Responsive Design */
 @media (max-width: 600px) {
-    h1 {
-        font-size: 1.5rem;
+    header h1 {
+        font-size: 1.4rem;
     }
 
-    .navbar ul {
+    nav ul {
         flex-direction: column;
         align-items: center;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
     }
 }
