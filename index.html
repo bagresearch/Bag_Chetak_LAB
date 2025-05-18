@@ -4,10 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saswata Bag | Home</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #fffbe6;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        header {
+            background: linear-gradient(to right, #ffccff, #ccffff);
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px double #444;
+        }
+
+        header h1 {
+            color: darkblue;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        nav {
+            background-color: lightyellow;
+            border-top: 2px solid #999;
+            border-bottom: 2px solid #999;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-weight: bold;
+            color: darkred;
+        }
+
+        .announcement, .projects {
+            padding: 20px;
+            border-bottom: 2px dashed #999;
+            background-color: #fff;
+        }
+
+        .announcement h2, .projects h2 {
+            color: #006600;
+            text-align: center;
+        }
+
+        .announcement p {
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .project-grid div {
+            background: #e6f9ff;
+            border: 1px solid #99ccff;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .project-grid a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #0033cc;
+        }
+
+        footer {
+            background: #ccffff;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #333;
+            border-top: 3px double #444;
+        }
+
+        .logo {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-
     <!-- Header -->
     <header>
         <img src="assets/index.png" alt="Saswata Bag Logo" class="logo">
@@ -54,6 +150,5 @@
     <footer>
         <p>&copy; 2025 Saswata Bag | All Rights Reserved</p>
     </footer>
-
 </body>
 </html>
