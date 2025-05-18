@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,63 +10,60 @@
       background-color: #fcfbe3;
     }
 
-```
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 50px;
-}
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 50px;
+    }
 
-.header img {
-  height: 80px;
-}
+    .header img {
+      height: 80px;
+    }
 
-h3, h4 {
-  margin: 10px;
-  font-weight: bold;
-}
+    h3, h4 {
+      margin: 10px;
+      font-weight: bold;
+    }
 
-.nav {
-  margin: 10px 0;
-}
+    .nav {
+      margin: 10px 0;
+    }
 
-.nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #4b0082;
-  font-weight: bold;
-}
+    .nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #4b0082;
+      font-weight: bold;
+    }
 
-table {
-  margin: 0 auto;
-  border-collapse: collapse;
-  width: 95%;
-}
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 95%;
+    }
 
-th, td {
-  border: 1px solid #000;
-  padding: 8px;
-  text-align: center;
-  vertical-align: top;
-}
+    th, td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: center;
+      vertical-align: top;
+    }
 
-th {
-  background-color: #e0e0e0;
-}
+    th {
+      background-color: #e0e0e0;
+    }
 
-p a {
-  color: #006600;
-  text-decoration: none;
-  font-weight: bold;
-}
+    p a {
+      color: #006600;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-footer {
-  margin-top: 20px;
-  font-size: 14px;
-}
-```
-
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -167,12 +163,381 @@ footer {
       <td>Completed</td>
     </tr>
   </table>
+  
 
   <footer>
     © 2025 Saswata Bag - The Bag Laboratory | Indian Institute of Technology Guwahati
   </footer>
+ 
+  
+  <a href="index.html">Back to Home</a>
+    </div>
+</body>
+</html>
+ChatGPT said:
 
-<a href="index.html">Back to Home</a> </div>
+Great! Since your page doesn’t use an external CSS file and all styles are written in the <style> tag, we can simply update the existing CSS in your <head> to include the background image.
+✅ Steps to Add the Official Background
+
+    Upload your background image (7ed152b8-fdd9-49c3-8b7b-c78f3a96a7d0.png) to the same folder as this HTML file in your GitHub repository.
+    Rename it to something clean like:
+    official-bg.png
+
+    Update the <style> block like this:
+
+✅ Updated CSS Inside Your <style> Tag:
+
+Replace the body block with the following:
+
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-image: url("official-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: #000; /* Ensure text is readable */
+}
+
+Optionally, add a semi-transparent background to the <table> and <footer> for better readability:
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 95%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+✅ Result:
+
+    Your entire page will now have the uploaded background image.
+
+    Table and footer contents remain clear and readable.
+
+Would you like me to provide the full updated HTML code with these changes applied?
+You said:
+yes
+ChatGPT said:
+
+Here is your full updated HTML code with the official background (official-bg.png) and improved readability using semi-transparent table styling:
+✅ Full HTML Code (Save as project-funding.html)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Funding - The Bag Laboratory</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-image: url("official-bg.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      color: #000;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 32px;
+      color: #000;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 95%;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #d3d3d3;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0645AD;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    nav {
+      margin: 10px 0;
+    }
+
+    nav a {
+      margin: 0 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="logo.png" alt="Chetak Innovations Logo" width="150">
+  <h1>The Bag Laboratory</h1>
+  <h2>PROJECT FUNDING</h2>
+  <nav>
+    <a href="#">Home</a> |
+    <a href="#">Biography</a> |
+    <a href="#">Research</a> |
+    <a href="#">Publications</a> |
+    <a href="#">Courses</a> |
+    <a href="#">Group Photos</a> |
+    <a href="#">Contact</a>
+  </nav>
+
+  <p><b>DST | SIC | IITG-ENV | RSVBP | NIF | IISF</b></p>
+  <h3>ONGOING/COMPLETED RESEARCH PROJECTS</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sl. No.</th>
+        <th>Project Title</th>
+        <th>Funding Agency</th>
+        <th>Duration / Total Cost</th>
+        <th>Role PI / Co-PI</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Design and Development of Smart Safety Helmet for the Detection of Accident and Monitoring the Health</td>
+        <td>DST-Manak, Government of India</td>
+        <td>3 years (July 2022–June 2025) ₹ 10 K</td>
+        <td>Co-PI</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>EMG-CONTROLLED WHEELCHAIR (Charaibeti)</td>
+        <td>DST-NIF (National Innovation Foundation), Government of India</td>
+        <td>2 years (July 2024 – July 2026) ₹120,000</td>
+        <td>PI</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>CHETAK (CoalMine Hazard Evaluation and Tracking Assessment Kit)</td>
+        <td>RSVBP, Government of India</td>
+        <td>1 year (2024–2025) ₹ 30 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>CHETAK (CoalMine Hazard Evaluation and Tracking Assessment Kit)</td>
+        <td>IIT Guwahati, Government of India</td>
+        <td>1 year (2024–2025) ₹ 5 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Tetris on Arduino</td>
+        <td>KVIITGuwahati & SIC (School Innovation Council), Government of India</td>
+        <td>1 year (2024–2025) ₹ 3 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Smart Security Lock with Auto Attendance System and Auto Unwanted Access Stopper System</td>
+        <td>KVIITGuwahati & SIC (School Innovation Council), Government of India</td>
+        <td>1 year (2024–2025) ₹ 5 K</td>
+        <td>PI</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Detection of Cyclone Patterns Using Satellite Data and AI/ML</td>
+        <td>IISF-IITG, Government of India</td>
+        <td>1 year (2024–2025) ₹ 5 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>
+    © 2025 Saswata Bag - The Bag Laboratory | Indian Institute of Technology Guwahati <br>
+    <a href="index.html">Back to Home</a>
+  </footer>
 
 </body>
 </html>
+
+🔁 What You Need to Do Next:
+
+    Rename and upload your background image to the repository as official-bg.png.
+
+    Save and upload this HTML file (project-funding.html) to your GitHub Pages repo.
+
+    Make sure all internal links (like index.html and logo.png) point correctly.
+
+Let me know if you also want to:
+
+    Make it mobile-friendly.
+
+    Add a header bar with a transparent logo.
+
+    Or convert this into a React-based site.
+
+You said:
+yes  and i want no css just a best background in only html code 
+ChatGPT said:
+
+Got it! Here's the cleanest HTML-only version (no CSS styles at all) that still displays a background image across the page.
+✅ Pure HTML Code with Background Image (No CSS)
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Funding - The Bag Laboratory</title>
+</head>
+<body background="official-bg.png">
+
+  <center>
+    <img src="logo.png" alt="Chetak Innovations Logo" width="150">
+    <h1>The Bag Laboratory</h1>
+    <h2>PROJECT FUNDING</h2>
+    <p><b>DST
+
+You said:
+and make it mobile friendly also if possible
+ChatGPT said:
+
+To make it mobile-friendly while still keeping it pure HTML (no CSS styles), we can only use the <meta> viewport tag and <table width="100%"> so it scales properly. Here's your updated version:
+✅ Pure HTML Code with Background + Mobile Friendly
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Funding - The Bag Laboratory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body background="official-bg.png">
+
+  <center>
+    <img src="logo.png" alt="Chetak Innovations Logo" width="150">
+    <h1>The Bag Laboratory</h1>
+    <h2>PROJECT FUNDING</h2>
+    <p><b>DST | SIC | IITG-ENV | RSVBP | NIF | IISF</b></p>
+    <h3>ONGOING/COMPLETED RESEARCH PROJECTS</h3>
+
+    <table border="1" width="100%">
+      <tr>
+        <th>Sl. No.</th>
+        <th>Project Title</th>
+        <th>Funding Agency</th>
+        <th>Duration / Total Cost</th>
+        <th>Role PI / Co-PI</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Design and Development of Smart Safety Helmet for the Detection of Accident and Monitoring the Health</td>
+        <td>DST-Manak, Government of India</td>
+        <td>3 years (July 2022–June 2025) ₹10 K</td>
+        <td>Co-PI</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>EMG-CONTROLLED WHEELCHAIR (Charaibeti)</td>
+        <td>DST-NIF, Government of India</td>
+        <td>2 years (July 2024 – July 2026) ₹120,000</td>
+        <td>PI</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>CHETAK (CoalMine Hazard Evaluation and Tracking Assessment Kit)</td>
+        <td>RSVBP, Government of India</td>
+        <td>1 year (2024–2025) ₹30 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>CHETAK (CoalMine Hazard Evaluation and Tracking Assessment Kit)</td>
+        <td>IIT Guwahati, Government of India</td>
+        <td>1 year (2024–2025) ₹5 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Tetris on Arduino</td>
+        <td>KVIITGuwahati & SIC, Government of India</td>
+        <td>1 year (2024–2025) ₹3 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Smart Security Lock with Auto Attendance System and Auto Unwanted Access Stopper System</td>
+        <td>KVIITGuwahati & SIC, Government of India</td>
+        <td>1 year (2024–2025) ₹5 K</td>
+        <td>PI</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Detection of Cyclone Patterns Using Satellite Data and AI/ML</td>
+        <td>IISF-IITG, Government of India</td>
+        <td>1 year (2024–2025) ₹5 K</td>
+        <td>PI</td>
+        <td>Completed</td>
+      </tr>
+    </table>
+
+    <p>© 2025 Saswata Bag - The Bag Laboratory | Indian Institute of Technology Guwahati</p>
+    <p><a href="index.html">Back to Home</a></p>
+  </center>
+
+</body>
+</html>
+
+📌 Notes:
+
+    Responsive Behavior: The <meta name="viewport"> tag ensures proper scaling on mobile.
+
+    Table Width: Set to width="100%" so it uses full width of the screen.
+
+    Background Image: body background="official-bg.png" works in all basic browsers.
+
+    No CSS used at all—just pure HTML.
+
+Let me know if you want a version using <div> blocks instead of <table>, or if you want to auto-resize the image or text.
