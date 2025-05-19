@@ -1,112 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>Saswata Bag | Home</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            background: #fffbe6;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            font-size: 14px;
-        }
-
-        header {
-            background: linear-gradient(to right, #ffccff, #ccffff);
-            text-align: center;
+        .device-info {
+            background: #f0f0f0;
             padding: 20px;
-            border-bottom: 3px double #444;
-        }
-
-        header h1 {
-            color: darkblue;
-            font-weight: bold;
-            font-size: 24px;
-        }
-
-        nav {
-            background-color: lightyellow;
-            border-top: 2px solid #999;
-            border-bottom: 2px solid #999;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 10px 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            font-weight: bold;
-            color: darkred;
-        }
-
-        .announcement, .projects {
-            padding: 20px;
-            border-bottom: 2px dashed #999;
-            background-color: #fff;
-        }
-
-        .announcement h2, .projects h2 {
-            color: #006600;
-            text-align: center;
-        }
-
-        .announcement p {
-            color: #000;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 10px;
-        }
-
-        .project-grid div {
-            background: #e6f9ff;
-            border: 1px solid #99ccff;
+            margin-top: 30px;
             border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .project-grid a {
-            text-decoration: none;
-            font-weight: bold;
-            color: #0033cc;
-        }
-
-        footer {
-            background: #ccffff;
-            text-align: center;
-            padding: 15px;
-            font-size: 13px;
-            color: #333;
-            border-top: 3px double #444;
-        }
-
-        .logo {
-            max-width: 100px;
-            margin-bottom: 10px;
+            font-family: monospace;
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
-        <img src="index.png" alt="Saswata Bag Logo" class="logo">
+        <img src="assets/index.png" alt="Saswata Bag Logo" class="logo">
         <h1>WELCOME TO THE WEBSITE OF<br> Saswata Bag</h1>
     </header>
 
@@ -122,6 +36,7 @@
             <li><a href="group-members.html">Group Members</a></li>
             <li><a href="photo-gallery.html">Photo Gallery</a></li>
             <li><a href="project-funding.html">Project Funding</a></li>
+            <li><a href="see.html">Visitor Log (Admin)</a></li>
             <li><a href="https://www.iitg.ac.in/ssbag75/index.html">Dr. Subhendu Sekhar Bag (IITG)</a></li>
         </ul>
     </nav>
@@ -145,6 +60,24 @@
             <div><a href="https://www.iitg.ac.in/ssbag75/index.html">Visit Dr. SSBag (IITG)</a><p>Official webpage.</p></div>
         </div>
     </section>
+
+    <!-- Device Info Section -->
+    <section class="device-info">
+        <h2>Your Device Info</h2>
+        <p><strong>Browser:</strong> <span id="browser"></span></p>
+        <p><strong>Platform:</strong> <span id="platform"></span></p>
+        <p><strong>Screen Size:</strong> <span id="screen"></span></p>
+        <p><strong>Language:</strong> <span id="language"></span></p>
+        <p><strong>User Agent:</strong> <span id="userAgent"></span></p>
+    </section>
+
+    <script>
+        document.getElementById("browser").textContent = navigator.appName + " " + navigator.appVersion;
+        document.getElementById("platform").textContent = navigator.platform;
+        document.getElementById("screen").textContent = screen.width + " x " + screen.height;
+        document.getElementById("language").textContent = navigator.language;
+        document.getElementById("userAgent").textContent = navigator.userAgent;
+    </script>
 
     <!-- Footer -->
     <footer>
