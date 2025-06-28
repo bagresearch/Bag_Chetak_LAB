@@ -47,9 +47,7 @@
             const user = document.getElementById("username").value;
             const pass = document.getElementById("password").value;
 
-            if (user === "admin" && pass === "12345") {
-                localStorage.setItem("isAdmin", "true");
-                window.location.href = "see-dashboard.html";
+        
             } else {
                 document.getElementById("msg").innerText = "Invalid credentials!";
             }
