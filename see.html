@@ -2,165 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ACCESS DENIED</title>
+  <title>Access Denied</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: black;
-      color: red;
-      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      background-color: #1a0000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      background-image: linear-gradient(135deg, #1a0000 0%, #330000 100%);
+    }
+
+    .container {
       text-align: center;
-      padding-top: 10%;
-      overflow: hidden;
-      animation: flashBg 1s infinite;
+      padding: 40px;
+      border: 3px solid red;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 0 25px red;
+      max-width: 650px;
+      width: 90%;
+      animation: pulseRed 1.5s infinite;
     }
 
     h1 {
-      font-size: 4em;
-      text-shadow: 0 0 10px red;
-      animation: glitch 0.3s infinite;
-    }
-
-    #typewriter {
-      font-size: 1.5em;
-      color: #ff4444;
-      width: 60%;
-      margin: 20px auto;
-      white-space: pre-wrap;
-      border-left: 3px solid red;
-      padding-left: 10px;
-      animation: blink-caret 0.75s step-end infinite;
-    }
-
-    #countdown {
-      font-size: 2em;
-      margin-top: 20px;
+      font-size: 3.2em;
+      margin-bottom: 20px;
       color: red;
-      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: blink 1s infinite;
     }
 
-    @keyframes flashBg {
-      0%, 100% { background-color: black; }
-      50% { background-color: #3a0000; }
+    .warning-icon {
+      font-size: 3em;
+      color: red;
+      margin-bottom: 10px;
+      animation: pulse 1.5s infinite;
     }
 
-    @keyframes glitch {
-      0% { transform: translate(0px, 0px); }
-      20% { transform: translate(2px, -2px); }
-      40% { transform: translate(-2px, 2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(-2px, -2px); }
-      100% { transform: translate(0px, 0px); }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: red; }
-    }
-
-    .prank-reveal {
-      color: lime;
-      font-size: 2em;
-      margin-top: 50px;
-      animation: fadeIn 3s ease-in-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .home-btn {
-      padding: 10px 20px;
+    p {
       font-size: 1.2em;
-      background-color: lime;
-      color: black;
+      color: #f2f2f2;
+      margin: 20px 0;
+    }
+
+    .vpn-note {
+      font-size: 0.95em;
+      color: #ffcccc;
+      margin-top: 30px;
+      font-style: italic;
+      border-top: 1px solid #ff3333;
+      padding-top: 15px;
+    }
+
+    .btn {
+      background-color: red;
       border: none;
-      border-radius: 8px;
+      color: white;
+      padding: 12px 30px;
+      font-size: 1em;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 25px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #cc0000;
+      transform: scale(1.05);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulseRed {
+      0% { box-shadow: 0 0 15px red; }
+      50% { box-shadow: 0 0 30px red; }
+      100% { box-shadow: 0 0 15px red; }
     }
   </style>
 </head>
-<body onload="initScare()">
-  <h1>ACCESS DENIED</h1>
-  <div id="typewriter"></div>
-  <div id="countdown"></div>
-
-  <script>
-    const messages = [
-      "🔒 Access Blocked.",
-      "⚠️ Unauthorized attempt detected.",
-      "🛑 Security lock engaged.",
-      "💣 Initiating countdown..."
-    ];
-
-    let currentIndex = 0;
-    let typingArea = document.getElementById("typewriter");
-    let countdownDisplay = document.getElementById("countdown");
-
-    function typeLine(line, callback) {
-      let i = 0;
-      let interval = setInterval(() => {
-        typingArea.textContent += line[i];
-        i++;
-        if (i >= line.length) {
-          clearInterval(interval);
-          typingArea.textContent += "\n";
-          setTimeout(callback, 700);
-        }
-      }, 50);
-    }
-
-    function showNextLine() {
-      if (currentIndex < messages.length) {
-        typeLine(messages[currentIndex], showNextLine);
-        currentIndex++;
-      } else {
-        startCountdown(7);
-      }
-    }
-
-    function startCountdown(seconds) {
-      let count = seconds;
-      let interval = setInterval(() => {
-        countdownDisplay.textContent = `💥 System lock in ${count} seconds...`;
-        count--;
-        if (count < 0) {
-          clearInterval(interval);
-          showTerminatedScreen();
-        }
-      }, 1000);
-    }
-
-    function showTerminatedScreen() {
-      requestFullScreen(); // Re-enter fullscreen in case it was exited
-      document.body.innerHTML = "<h1 style='color: red; font-size: 3em;'>💥 SYSTEM TERMINATED 💥</h1>";
-      setTimeout(showPrank, 3000);
-    }
-
-    function showPrank() {
-      document.body.innerHTML += `
-        <div class='prank-reveal'>
-          😂 It was just a prank! Sorry for the scare.<br><br>
-          <button onclick="location.href='index.html'" class="home-btn">Return to Home</button>
-        </div>
-      `;
-    }
-
-    function requestFullScreen() {
-      const el = document.documentElement;
-      if (el.requestFullscreen) el.requestFullscreen();
-      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
-      else if (el.msRequestFullscreen) el.msRequestFullscreen();
-    }
-
-    function initScare() {
-      requestFullScreen();
-      showNextLine();
-      setTimeout(() => { alert("⚠️ ACCESS VIOLATION!"); }, 1500);
-      setTimeout(() => { alert("🚨 SECURITY ALERT TRIGGERED."); }, 3500);
-    }
-  </script>
+<body>
+  <div class="container">
+    <div class="warning-icon">⚠️</div>
+    <h1>Access Denied</h1>
+    <p>
+      You are attempting to access a highly restricted area.<br>
+      This action has been logged and flagged for investigation.<br>
+      Please step back unless you have authorized clearance.
+    </p>
+    <button class="btn" onclick="window.location.href='index.html'">Return to Home</button>
+    <div class="vpn-note">
+      🔒 If you are the administrator, please configure a secure VPN connection before accessing this section.
+    </div>
+  </div>
 </body>
 </html>
