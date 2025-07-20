@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ACCESS DENIED</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding-top: 10%;
+      overflow: hidden;
+      animation: flashBg 1s infinite;
+    }
+
+    h1 {
+      font-size: 4em;
+      text-shadow: 0 0 10px red;
+      animation: glitch 0.3s infinite;
+    }
+
+    #typewriter {
+      font-size: 1.5em;
+      color: #ff4444;
+      width: 60%;
+      margin: 20px auto;
+      white-space: pre-wrap;
+      border-left: 3px solid red;
+      padding-left: 10px;
+      animation: blink-caret 0.75s step-end infinite;
+    }
+
+    #countdown {
+      font-size: 2em;
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+
+    @keyframes flashBg {
+      0%, 100% { background-color: black; }
+      50% { background-color: #3a0000; }
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0px, 0px); }
+      20% { transform: translate(2px, -2px); }
+      40% { transform: translate(-2px, 2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(-2px, -2px); }
+      100% { transform: translate(0px, 0px); }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: red; }
+    }
+
+    .prank-reveal {
+      color: lime;
+      font-size: 2em;
+      margin-top: 50px;
+      animation: fadeIn 3s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body onload="initScare()">
+  <h1>ACCESS DENIED</h1>
+  <div id="typewriter"></div>
+  <div id="countdown"></div>
+
+  <!-- Siren Sound -->
+  <audio id="siren" autoplay loop>
+    <source src="https://www.soundjay.com/misc/sounds/siren-noise-01.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const messages = [
+      "🔒 Access Blocked.",
+      "⚠️ Unauthorized attempt detected.",
+      "🛑 Security lock engaged.",
+      "💣 Initiating countdown..."
+    ];
+
+    let currentIndex = 0;
+    let typingArea = document.getElementById("typewriter");
+    let countdownDisplay = document.getElementById("countdown");
+
+    function typeLine(line, callback) {
+      let i = 0;
+      let interval = setInterval(() => {
+        typingArea.textContent += line[i];
+        i++;
+        if (i >= line.length) {
+          clearInterval(interval);
+          typingArea.textContent += "\n";
+          setTimeout(callback, 700);
+        }
+      }, 50);
+    }
+
+    function showNextLine() {
+      if (currentIndex < messages.length) {
+        typeLine(messages[currentIndex], showNextLine);
+        currentIndex++;
+      } else {
+        startCountdown(7);
+      }
+    }
+
+    function startCountdown(seconds) {
+      let count = seconds;
+      let interval = setInterval(() => {
+        countdownDisplay.textContent = `💥 System lock in ${count} seconds...`;
+        count--;
+        if (count < 0) {
+          clearInterval(interval);
+          showTerminatedScreen();
+        }
+      }, 1000);
+    }
+
+    function showTerminatedScreen() {
+      // Try fullscreen again (after countdown)
+      requestFullScreen();
+      document.body.innerHTML = "<h1 style='color: red; font-size: 3em;'>💥 SYSTEM TERMINATED 💥</h1>";
+      setTimeout(showPrank, 3000);
+    }
+
+    function showPrank() {
+      document.body.innerHTML += "<div class='prank-reveal'>😂 It was just a prank! Sorry for the scare.</div>";
+      document.getElementById("siren").pause();
+    }
+
+    function requestFullScreen() {
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+
+    function initScare() {
+      requestFullScreen();
+      showNextLine();
+
+      setTimeout(() => { alert("⚠️ ACCESS VIOLATION!"); }, 1500);
+      setTimeout(() => { alert("🚨 SECURITY ALERT TRIGGERED."); }, 3500);
+
+       ">Return to Home</button>
+  </div>
+`;
+    }
+  </script>
+</body>
+</html>
