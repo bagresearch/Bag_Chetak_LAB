@@ -68,6 +68,17 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    .home-btn {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background-color: lime;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body onload="initScare()">
@@ -76,7 +87,7 @@
   <div id="countdown"></div>
 
   <!-- Siren Sound -->
-  <audio id="siren" autoplay loop>
+  <audio id="siren" preload="auto">
     <source src="https://www.soundjay.com/misc/sounds/siren-noise-01.mp3" type="audio/mpeg">
   </audio>
 
@@ -127,15 +138,21 @@
     }
 
     function showTerminatedScreen() {
-      // Try fullscreen again (after countdown)
-      requestFullScreen();
+      requestFullScreen(); // Re-enter fullscreen in case it was exited
       document.body.innerHTML = "<h1 style='color: red; font-size: 3em;'>💥 SYSTEM TERMINATED 💥</h1>";
       setTimeout(showPrank, 3000);
     }
 
     function showPrank() {
-      document.body.innerHTML += "<div class='prank-reveal'>😂 It was just a prank! Sorry for the scare.</div>";
-      document.getElementById("siren").pause();
+      const siren = document.getElementById("siren");
+      siren.pause();
+
+      document.body.innerHTML += `
+        <div class='prank-reveal'>
+          😂 It was just a prank! Sorry for the scare.<br><br>
+          <button onclick="location.href='index.html'" class="home-btn">Return to Home</button>
+        </div>
+      `;
     }
 
     function requestFullScreen() {
@@ -146,16 +163,24 @@
       else if (el.msRequestFullscreen) el.msRequestFullscreen();
     }
 
+    function playSirenSound() {
+      const audio = document.getElementById("siren");
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          alert("🔊 Click OK to allow sound");
+          audio.play(); // Try again after interaction
+        });
+      }
+    }
+
     function initScare() {
       requestFullScreen();
       showNextLine();
+      playSirenSound();
 
       setTimeout(() => { alert("⚠️ ACCESS VIOLATION!"); }, 1500);
       setTimeout(() => { alert("🚨 SECURITY ALERT TRIGGERED."); }, 3500);
-
-       ">Return to Home</button>
-  </div>
-`;
     }
   </script>
 </body>
