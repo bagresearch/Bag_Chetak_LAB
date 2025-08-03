@@ -1,118 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Access Denied</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login - SB Chetak Corp</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #1a0000;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #f3f6f9;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      color: #fff;
-      background-image: linear-gradient(135deg, #1a0000 0%, #330000 100%);
+      margin: 0;
     }
-
-    .container {
-      text-align: center;
+    .login-box {
+      background: white;
       padding: 40px;
-      border: 3px solid red;
       border-radius: 10px;
-      background-color: rgba(0, 0, 0, 0.85);
-      box-shadow: 0 0 25px red;
-      max-width: 650px;
-      width: 90%;
-      animation: pulseRed 1.5s infinite;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      text-align: center;
     }
-
-    h1 {
-      font-size: 3.2em;
-      margin-bottom: 20px;
-      color: red;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      animation: blink 1s infinite;
+    input {
+      display: block;
+      margin: 15px auto;
+      padding: 10px;
+      width: 280px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
-
-    .warning-icon {
-      font-size: 3em;
-      color: red;
-      margin-bottom: 10px;
-      animation: pulse 1.5s infinite;
-    }
-
-    p {
-      font-size: 1.2em;
-      color: #f2f2f2;
-      margin: 20px 0;
-    }
-
-    .vpn-note {
-      font-size: 0.95em;
-      color: #ffcccc;
-      margin-top: 30px;
-      font-style: italic;
-      border-top: 1px solid #ff3333;
-      padding-top: 15px;
-    }
-
-    .btn {
-      background-color: red;
-      border: none;
+    button {
+      background-color: #007bff;
       color: white;
-      padding: 12px 30px;
-      font-size: 1em;
+      padding: 10px;
+      width: 300px;
+      border: none;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 25px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-
-    .btn:hover {
-      background-color: #cc0000;
-      transform: scale(1.05);
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes pulseRed {
-      0% { box-shadow: 0 0 15px red; }
-      50% { box-shadow: 0 0 30px red; }
-      100% { box-shadow: 0 0 15px red; }
+    #status {
+      color: red;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="warning-icon">⚠️</div>
-    <h1>Access Denied</h1>
-    <p>
-      You are attempting to access a highly restricted area.<br>
-      This action has been logged and flagged for investigation.<br>
-      Please step back unless you have authorized clearance.
-    </p>
-    <button class="btn" onclick="window.location.href='index.html'">Return to Home</button>
-    <div class="vpn-note">
-      🔒 If you are the administrator, please configure a secure VPN connection before accessing this section.
-    </div>
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="status"></p>
   </div>
+
+  <script>
+    let failedAttempts = 0;
+
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (email === "amitavha@chetakcorp.com" && password === "7928@amitabha") {
+        window.location.href = "userlog.html";
+      } else {
+        failedAttempts++;
+        document.getElementById('status').innerText = "Invalid credentials.";
+
+        if (failedAttempts >= 3) {
+          window.location.href = "access-denied.html";
+        }
+      }
+    }
+  </script>
 </body>
 </html>
+
