@@ -3,75 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login - SB Chetak Corp</title>
+  <title>Access Denied</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f6f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      background-color: #000000;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .login-box {
-      background: white;
-      padding: 40px;
+
+    .box {
+      background-color: #0a0a0a;
+      border: 3px solid red;
+      padding: 30px;
+      max-width: 90%;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      box-shadow: 0 0 30px red;
       text-align: center;
     }
-    input {
-      display: block;
-      margin: 15px auto;
-      padding: 10px;
-      width: 280px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+
+    .warning-icon {
+      font-size: 50px;
+      color: yellow;
     }
-    button {
-      background-color: #007bff;
+
+    h1 {
+      color: red;
+      margin: 15px 0;
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      background-color: red;
       color: white;
-      padding: 10px;
-      width: 300px;
       border: none;
-      border-radius: 6px;
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      border-radius: 5px;
       cursor: pointer;
     }
-    #status {
-      color: red;
-      margin-top: 10px;
+
+    .footer {
+      font-size: 14px;
+      margin-top: 30px;
+      color: #d1d5db;
+    }
+
+    .lock {
+      font-size: 18px;
+      color: gold;
+      margin-right: 5px;
+    }
+
+    #ip {
+      color: #00ffcc;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p id="status"></p>
+  <div class="box">
+    <div class="warning-icon">⚠️</div>
+    <h1>ACCESS DENIED</h1>
+    <p>
+      You are attempting to access a highly restricted area.<br>
+      This action has been logged and flagged for investigation.<br>
+      Your IP Address: <span id="ip">Loading...</span><br>
+      Please step back unless you have authorized clearance.
+    </p>
+
+    <button class="btn" onclick="window.location.href='index.html'">Return to Home</button>
+
+    <div class="footer">
+      <span class="lock">🔒</span>
+      If you are the administrator, please configure a secure VPN connection before accessing this section.
+    </div>
   </div>
 
   <script>
-    let failedAttempts = 0;
-
-    function login() {
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (email === "amitavha@chetakcorp.com" && password === "7928@amitabha") {
-        window.location.href = "see-dashboard.html";
-      } else {
-        failedAttempts++;
-        document.getElementById('status').innerText = "Invalid credentials.";
-
-        if (failedAttempts >= 3) {
-          window.location.href = "access-denied.html";
-        }
-      }
-    }
+    // Fetch and show the visitor's original IP address
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ip').textContent = data.ip;
+      })
+      .catch(() => {
+        document.getElementById('ip').textContent = 'Unable to fetch';
+      });
   </script>
 </body>
 </html>
