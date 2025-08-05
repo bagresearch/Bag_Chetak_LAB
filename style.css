@@ -1,31 +1,46 @@
+/* Import Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Basic styles for the entire page */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background-color: #f0f2f5;
     color: #333;
+    line-height: 1.6;
 }
 
+/* Global container for consistent spacing */
 .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
+/* --- Header & Navigation Bar --- */
 .navbar {
     background-color: #001f3f;
     color: #fff;
     padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .navbar .logo {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
+}
+
+.navbar nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .navbar nav ul {
@@ -33,27 +48,32 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .navbar nav ul li {
-    margin-left: 25px;
+    margin-left: 20px;
 }
 
 .navbar nav ul li a {
     color: #fff;
     text-decoration: none;
     font-size: 14px;
+    font-weight: 500;
+    padding: 5px 0;
     transition: color 0.3s ease;
 }
 
 .navbar nav ul li a:hover {
-    color: #bbb;
+    color: #c0c0c0;
 }
 
+/* --- Hero Section (Profile) --- */
 .hero {
     background-color: #001f3f;
     color: #fff;
-    padding: 60px 0;
+    padding: 80px 0;
 }
 
 .hero .container {
@@ -68,6 +88,7 @@ body {
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
+    border: 3px solid #fff; /* Added a white border for prominence */
 }
 
 .profile-image {
@@ -78,19 +99,21 @@ body {
 
 .hero-content h1 {
     margin: 0;
-    font-size: 2.5rem;
-    font-weight: 600;
+    font-size: 2.8rem;
+    font-weight: 700;
 }
 
 .hero-content p {
-    font-size: 1rem;
-    margin: 10px 0 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 10px 0 25px;
+    opacity: 0.8;
 }
 
 .btn {
     background-color: #fff;
     color: #001f3f;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
@@ -103,45 +126,53 @@ body {
     background-color: #e6e6e6;
 }
 
+/* --- Projects Section (Cards) --- */
 .projects {
-    padding: 40px 0;
+    padding: 60px 0;
     background-color: #f0f2f5;
 }
 
 .projects .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
 }
 
 .project-card {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
 }
 
 .card-content {
-    padding: 20px;
+    padding: 25px;
 }
 
 .card-content h3 {
     margin: 0 0 10px;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .card-content p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #666;
+    line-height: 1.5;
 }
 
 .card-footer {
-    border-top: 1px solid #eee;
-    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px 25px;
     display: flex;
     justify-content: flex-start;
     gap: 20px;
@@ -151,6 +182,7 @@ body {
 .card-footer a {
     color: #007bff;
     text-decoration: none;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
@@ -162,6 +194,7 @@ body {
     margin-right: 5px;
 }
 
+/* --- Menu Links Section --- */
 .menu-links {
     padding: 40px 0;
     background-color: #f0f2f5;
@@ -169,15 +202,15 @@ body {
 
 .menu-links .container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
 
 .menu-link {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -187,7 +220,7 @@ body {
 }
 
 .menu-link:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .menu-link span {
@@ -198,21 +231,25 @@ body {
     color: #999;
 }
 
+/* --- Project Funding Section --- */
 .project-funding-section {
-    padding: 40px 0;
+    padding: 60px 0;
     background-color: #fff;
     text-align: center;
 }
 
 .project-funding-section h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: 600;
     color: #333;
+    margin: 0;
 }
 
+/* --- Footer --- */
 .footer {
     background-color: #333;
     color: #fff;
-    padding: 20px 0;
+    padding: 30px 0;
     font-size: 0.9rem;
 }
 
@@ -223,6 +260,13 @@ body {
     text-align: center;
 }
 
+.footer-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
 .footer-info span {
     margin: 0 15px;
     display: inline-block;
@@ -230,22 +274,26 @@ body {
 
 .copyright {
     margin-top: 10px;
+    opacity: 0.8;
 }
 
-/* Responsive design */
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
     .navbar .container {
         flex-direction: column;
     }
 
-    .navbar nav ul {
-        flex-wrap: wrap;
+    .navbar nav {
         justify-content: center;
-        margin-top: 10px;
+        margin-top: 15px;
+    }
+
+    .navbar nav ul {
+        justify-content: center;
     }
 
     .navbar nav ul li {
-        margin: 5px 10px;
+        margin: 0 10px;
     }
 
     .hero .container {
@@ -253,13 +301,24 @@ body {
         text-align: center;
     }
 
-    .projects .container,
+    .profile-image-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .projects .container {
+        grid-template-columns: 1fr;
+    }
+
     .menu-links .container {
         grid-template-columns: 1fr;
     }
 
     .footer-info {
-        display: flex;
         flex-direction: column;
     }
 
