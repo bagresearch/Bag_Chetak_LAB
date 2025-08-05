@@ -1,133 +1,139 @@
-/* Base Styles */
-body {
-  background: #fffbe6;
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f4f8;
+  color: #1f2937;
 }
 
 header {
-  background: linear-gradient(to right, #ffccff, #ccffff);
-  text-align: center;
-  padding: 20px;
-  border-bottom: 3px double #444;
+  background-color: #1e293b;
+  padding: 1rem 0;
 }
 
-header h1 {
-  color: darkblue;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-nav {
-  background-color: lightyellow;
-  border-top: 2px solid #999;
-  border-bottom: 2px solid #999;
-  text-align: center;
-}
-
-nav ul {
+.navbar {
   list-style: none;
-  margin: 0;
-  padding: 10px 0;
-}
-
-nav ul li {
-  display: inline;
-  margin: 0 10px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  font-weight: bold;
-  color: darkred;
-}
-
-/* Sections */
-.announcement,
-.projects {
-  padding: 20px;
-  border-bottom: 2px dashed #999;
-  background-color: #fff;
-}
-
-.announcement h2,
-.projects h2 {
-  color: #006600;
-  text-align: center;
-}
-
-.announcement p {
-  color: #000;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* Projects Grid */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
-  padding: 10px;
 }
 
-.project-grid div {
-  background: #e6f9ff;
-  border: 1px solid #99ccff;
+.navbar li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e293b;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.profile-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.profile-info h1 {
+  font-size: 2rem;
+}
+
+.profile-info p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.overview-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #334155;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.card {
+  background-color: white;
+  padding: 1rem;
   border-radius: 10px;
-  padding: 10px;
+  width: 250px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-actions button {
+  flex: 1;
+  padding: 0.4rem;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.quick-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem;
+  background-color: #f8fafc;
+  gap: 1rem;
+  font-size: 1.1rem;
+}
+
+.funding {
   text-align: center;
-}
-
-.project-grid a {
-  text-decoration: none;
+  padding: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #0033cc;
 }
 
-/* Footer */
 footer {
-  background: #ccffff;
+  background-color: #1e293b;
+  color: white;
   text-align: center;
-  padding: 15px;
-  font-size: 13px;
-  color: #333;
-  border-top: 3px double #444;
+  padding: 2rem 1rem;
 }
 
-/* Logo */
-.logo {
-  max-width: 100px;
-  margin-bottom: 10px;
-}
-
-/* Admin Login Section */
-.admin-login {
-  text-align: center;
-  margin: 40px 0;
-}
-
-.admin-icon {
-  width: 50px;
-  height: 50px;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
-.admin-button {
-  display: inline-block;
-  padding: 12px 25px;
-  background-color: #0033cc;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.admin-button:hover {
-  background-color: #3366ff;
-  transform: scale(1.05);
+.footer-grid {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 10px;
 }
