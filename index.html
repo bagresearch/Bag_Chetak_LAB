@@ -3,51 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Website Under Maintenance</title>
+  <title>Website Closed for Maintenance</title>
   <style>
     body {
-      background-color: #1e293b;
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      color: #f8fafc;
-    }
-
-    .moving-text {
-      position: absolute;
-      top: 50%;
-      white-space: nowrap;
-      font-size: 2em;
-      font-weight: bold;
-      animation: slide 10s linear infinite;
-      color: #facc15;
-      text-shadow: 2px 2px 4px #000000;
-    }
-
-    @keyframes slide {
-      0% {
-        left: -100%;
-      }
-      100% {
-        left: 100%;
-      }
-    }
-
-    .background-message {
-      position: absolute;
-      top: 60%;
-      width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1740&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 1.2em;
-      color: #cbd5e1;
+      color: white;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      padding: 40px 30px;
+      border-radius: 16px;
+      max-width: 700px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: #ffcc00;
+    }
+
+    p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+    }
+
+    .contact {
+      margin-top: 25px;
+      font-size: 1.1rem;
+      color: #00ffff;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.95rem;
+      color: #cccccc;
+    }
+
+    .footer span {
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <div class="moving-text">⚙️ Web Under Maintenance and Upgradation ⚙️</div>
-  <div class="background-message">
-    Please check back later. We appreciate your patience!
+  <div class="overlay">
+    <h1>Website Temporarily Closed & Under Maintenance</h1>
+    <p>
+      This website is temporarily closed until <strong>September 30</strong>  
+      for scheduled <strong>maintenance and upgradation</strong>.<br><br>
+      We sincerely apologize for the inconvenience.<br>
+      For any urgent queries or support, please contact us.
+    </p>
+    <div class="contact">
+      📞 0361-2919581 / 0361-2582324<br>
+      📧 saswatabag7928@gmail.com
+    </div>
+    <div class="footer">
+      <br>
+      <span>&copy;</span> 2019–2025 Saswata Bag.<br>
+      All rights reserved.
+    </div>
   </div>
 </body>
 </html>
