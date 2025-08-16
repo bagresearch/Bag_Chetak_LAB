@@ -1,121 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Saswata Bag Website</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background: #f5f7fa;
-    color: #333;
-  }
-  header {
-    background: linear-gradient(90deg, #d3c5fa, #a0d8ef);
-    text-align: center;
-    padding: 30px 10px;
-    color: #060652;
-  }
-  header img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid #060652;
-    margin-bottom: 15px;
-  }
-  header h1 {
-    margin: 0;
-    font-size: 24px;
-  }
-  nav {
-    background-color: #fff8dc;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 12px 10px;
-    font-weight: 600;
-  }
-  nav a {
-    color: #9b2a00;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s;
-  }
-  nav a:hover {
-    color: #3a3a92;
-  }
-  section {
-    max-width: 700px;
-    margin: 25px auto;
-    padding: 0 20px;
-  }
-  .announcement-title, .project-title {
-    color: #1f6537;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 20px;
-  }
-  .announcement-title span, .project-title span {
-    font-size: 22px;
-  }
-  .project-card {
-    background: #d8ebf9;
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-top: 12px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-    color: #155a8a;
-  }
-  .project-card strong {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 700;
-    color: #104a72;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>index</title>
+  <style>
+    body {
+      background: #fffbe6;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+    header {
+      background: linear-gradient(to right, #ffccff, #ccffff);
+      text-align: center;
+      padding: 20px;
+      border-bottom: 3px double #444;
+    }
+    header h1 {
+      color: darkblue;
+      font-weight: bold;
+      font-size: 24px;
+    }
+    nav {
+      background-color: lightyellow;
+      border-top: 2px solid #999;
+      border-bottom: 2px solid #999;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 10px 0;
+    }
+    nav ul li {
+      display: inline;
+      margin: 0 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      font-weight: bold;
+      color: darkred;
+    }
+    .announcement,
+    .projects {
+      padding: 20px;
+      border-bottom: 2px dashed #999;
+      background-color: #fff;
+    }
+    .announcement h2,
+    .projects h2 {
+      color: #006600;
+      text-align: center;
+    }
+    .announcement p {
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+    .project-grid div {
+      background: #e6f9ff;
+      border: 1px solid #99ccff;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    .project-grid a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #0033cc;
+    }
+    footer {
+      background: #ccffff;
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      color: #333;
+      border-top: 3px double #444;
+    }
+    .logo {
+      max-width: 100px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
+  <header>
+    <img src="index.png" alt="Saswata Bag Logo" class="logo" />
+    <h1>
+      WELCOME TO THE WEBSITE OF<br />
+      Saswata Bag
+    </h1>
+  </header>
 
-<header>
-  <img src="your-image-url.jpg" alt="Profile Picture" />
-  <h1>WELCOME TO THE WEBSITE<br>OF<br>Saswata Bag</h1>
-</header>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="biography.html">Biography</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="collaborators.html">Collaborators</a></li>
+      <li><a href="group-members.html">Group Members</a></li>
+      <li><a href="photo-gallery.html">Photo Gallery</a></li>
+      <li><a href="project-funding.html">Project Funding</a></li>
+        <li><a href="see.html">ADMIN</a></li>
+      <li><a href="https://www.iitg.ac.in/ssbag75/index.html">Dr. Subhendu Sekhar Bag (IITG)</a></li>
+    </ul>
+  </nav>
 
-<nav>
-  <a href="#">Home</a>
-  <a href="#">Biography</a>
-  <a href="#">Research</a>
-  <a href="#">Publications</a>
-  <a href="#">Courses</a>
-  <a href="#">Collaborators</a>
-  <a href="#">Group Members</a>
-  <a href="#">Photo Gallery</a>
-  <a href="#">Project Funding</a>
-  <a href="#">ADMIN</a>
-  <a href="#">Dr. Subhendu Sekhar Bag (IITG)</a>
-</nav>
+  <!-- Announcement -->
+  <section class="announcement">
+    <h2>📢 Announcements</h2>
 
-<section>
-  <h2 class="announcement-title">📢 Announcements</h2>
-  <!-- Add your announcements here -->
-  <p>No announcements at the moment.</p>
-</section>
+  </section>
 
-<section>
-  <h2 class="project-title">💼 My Projects</h2>
-  <div class="project-card">
-    <strong>Chetak</strong>
-    Invention for coal mines.
+  <!-- Projects -->
+  <section class="projects">
+    <h2>💼 My Projects</h2>
+    <div class="project-grid">
+      <div>
+        <a href="chetak.html">Chetak</a>
+        <p>Invention for coal mines.</p>
+      </div>
+      <div>
+        <a href="smart-helmet.html">Smart Safety Helmet</a>
+        <p>Safety-enhancing helmet.</p>
+      </div>
+      <div>
+        <a href="emg-wheelchair.html">EMG-Controlled Wheelchair</a>
+        <p>EMG-based mobility aid.</p>
+      </div>
+      <div>
+        <a href="ardui-no.html">Tetris On Arduino</a>
+        <p>Game using LED strips.</p>
+      </div>
+      <div><a href="achievements.html">Achievements</a></div>
+      <div>
+        <a href="https://www.iitg.ac.in/ssbag75/index.html">Visit Dr. SSBag (IITG)</a>
+        <p>Official webpage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Saswata Bag | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    function detectDevice() {
+      const ua = navigator.userAgent;
+      if (/mobile/i.test(ua)) return "Mobile";
+      if (/tablet/i.test(ua)) return "Tablet";
+      return "Desktop";
+    }
+
+    function detectBrowser() {
+      const ua = navigator.userAgent;
+      if (ua.indexOf("Chrome") > -1) return "Chrome";
+      if (ua.indexOf("Firefox") > -1) return "Firefox";
+      if (ua.indexOf("Safari") > -1 && ua.indexOf("Chrome") === -1) return "Safari";
+      return "Other";
+    }
+
+    const visitorData = {
+      time: new Date().toLocaleString(),
+      browser: detectBrowser(),
+      device: detectDevice(),
+      ua: navigator.userAgent,
+    };
+
+    let logs = JSON.parse(localStorage.getItem("visitorLogs")) || [];
+    logs.push(visitorData);
+    localStorage.setItem("visitorLogs", JSON.stringify(logs));
+  </script>
+
+  <div style="text-align: center; padding: 20px;">
+    <a href="see.html" style="padding: 10px 20px; background-color: #0033cc; color: white; text-decoration: none; border-radius: 5px;">Admin Login</a>
   </div>
-  <div class="project-card">
-    <strong>Smart Safety Helmet</strong>
-    <!-- Description of this project -->
-  </div>
-</section>
-
 </body>
 </html>
