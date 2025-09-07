@@ -2,191 +2,219 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Saswata Bag — Home</title>
+  <meta name="description" content="Official website of Saswata Bag — research, academics, news, and events." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      background: #fffbe6;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      font-size: 14px;
+    /* Blinking red button */
+    .blink-red {
+      background: red;
+      color: #fff !important;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      animation: blink 1s infinite;
     }
-    header {
-      background: linear-gradient(to right, #ffccff, #ccffff);
-      text-align: center;
-      padding: 20px;
-      border-bottom: 3px double #444;
-    }
-    header h1 {
-      color: darkblue;
-      font-weight: bold;
-      font-size: 24px;
-    }
-    nav {
-      background-color: lightyellow;
-      border-top: 2px solid #999;
-      border-bottom: 2px solid #999;
-      text-align: center;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 10px 0;
-    }
-    nav ul li {
-      display: inline;
-      margin: 0 10px;
-    }
-    nav ul li a {
-      text-decoration: none;
-      font-weight: bold;
-      color: darkred;
-    }
-    .announcement,
-    .projects {
-      padding: 20px;
-      border-bottom: 2px dashed #999;
-      background-color: #fff;
-    }
-    .announcement h2,
-    .projects h2 {
-      color: #006600;
-      text-align: center;
-    }
-    .announcement p {
-      color: #000;
-      font-weight: bold;
-      text-align: center;
-    }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 10px;
-    }
-    .project-grid div {
-      background: #e6f9ff;
-      border: 1px solid #99ccff;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-    }
-    .project-grid a {
-      text-decoration: none;
-      font-weight: bold;
-      color: #0033cc;
-    }
-    footer {
-      background: #ccffff;
-      text-align: center;
-      padding: 15px;
-      font-size: 13px;
-      color: #333;
-      border-top: 3px double #444;
-    }
-    .logo {
-      max-width: 100px;
-      margin-bottom: 10px;
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0.4; }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <img src="index.png" alt="Saswata Bag Logo" class="logo" />
-    <h1>
-      WELCOME TO THE WEBSITE OF<br />
-      Saswata Bag
-    </h1>
+  <div class="util-bar">
+    <div class="container util-inner">
+      <div class="util-left">
+        <a href="biography.html">About</a>
+        <a href="research.html">Research</a>
+        <a href="maintanence.html" class="blink-red">Publications (Currently being Upgraded)</a>
+        <a href="photo-gallery.html">Gallery</a>
+      </div>
+      <div class="util-right">
+        <a href="project-funding.html">Funding</a>
+        <a href="Admin.html">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="index.png" alt="Lab logo" onerror="this.style.display='none'">
+        <div class="brand-text">
+          <span class="brand-title">Saswata Bag</span>
+          <span class="brand-sub"></span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">☰</button>
+
+      <nav id="primary-nav" class="primary-nav">
+        <a href="index.html" class="active">Home</a>
+        <div class="nav-group">
+          <button class="nav-parent">Academics ▾</button>
+          <div class="nav-menu">
+            <a href="courses.html">Courses</a>
+            <a href="group-members.html">Group Members</a>
+            <a href="maintanence.html" class="blink-red">Collaborators (Currently Upgrading)</a>
+          </div>
+        </div>
+        <a href="research.html">Research</a>
+        <a href="maintanence.html" class="blink-red">Publications (Currently being Upgraded)</a>
+        <a href="https://bagresearch.github.io/OLD-WEB-BAGCHETAKLAB/">OLD WEB </a>
+        <a href="achievements.html">Highlights</a>
+        <a href="contact.html" class="button small">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="biography.html">Biography</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="publications.html">Publications</a></li>
-      <li><a href="courses.html">Courses</a></li>
-      <li><a href="collaborators.html">Collaborators</a></li>
-      <li><a href="group-members.html">Group Members</a></li>
-      <li><a href="photo-gallery.html">Photo Gallery</a></li>
-      <li><a href="project-funding.html">Project Funding</a></li>
-        <li><a href="see.html">ADMIN</a></li>
-      <li><a href="https://www.iitg.ac.in/ssbag75/index.html">Dr. Subhendu Sekhar Bag (IITG)</a></li>
-    </ul>
-  </nav>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <div class="kicker">WELCOME SPEECH. . . . . . . . . . . . . . . . . .</div>
+        <h1>Creating with rigor and imagination.</h1>
+        <p>Welcome to the official website of Saswata Bag.
+Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing mine safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application.
 
-  <!-- Announcement -->
-  <section class="announcement">
-    <h2>📢 Announcements</h2>
-
+This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.</p>
+        <div class="actions">
+          <a class="button" href="research.html">Explore Research</a>
+          <a class="button ghost blink-red" href="maintanence.html">Publications (Currently being Upgraded)</a>
+        </div>
+      </div>
+      <div class="hero-art"></div>
+    </div>
   </section>
 
-  <!-- Projects -->
-  <section class="projects">
-    <h2>💼 My Projects</h2>
-    <div class="project-grid">
-      <div>
-        <a href="chetak.html">Chetak</a>
-        <p>Invention for coal mines.</p>
-      </div>
-      <div>
-        <a href="smart-helmet.html">Smart Safety Helmet</a>
-        <p>Safety-enhancing helmet.</p>
-      </div>
-      <div>
-        <a href="emg-wheelchair.html">EMG-Controlled Wheelchair</a>
-        <p>EMG-based mobility aid.</p>
-      </div>
-      <div>
-        <a href="ardui-no.html">Tetris On Arduino</a>
-        <p>Game using LED strips.</p>
-      </div>
-      <div><a href="achievements.html">Achievements</a></div>
-      <div>
-        <a href="https://www.iitg.ac.in/ssbag75/index.html">Visit Dr. SSBag (IITG)</a>
-        <p>Official webpage.</p>
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Quick Links</h2>
+      <div class="grid quicklinks">
+        <a class="tile" href="biography.html">Biography</a>
+        <a class="tile" href="project-funding.html">Project Funding</a>
+        <a class="tile" href="photo-gallery.html">Photo Gallery</a>
+        <a class="tile" href="https://www.iitg.ac.in/ssbag75/index.html" target="_blank">Dr. S. S. Bag (IITG)</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Saswata Bag | All Rights Reserved</p>
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="grid projects">
+        <a class="tile project" href="chetak.html">
+          <h3>Chetak</h3>
+          <p>Invention for coal mines.</p>
+        </a>
+        <a class="tile project" href="smart-helmet.html">
+          <h3>Smart Safety Helmet</h3>
+          <p>Safety-enhancing helmet.</p>
+        </a>
+        <a class="tile project" href="emg-wheelchair.html">
+          <h3>EMG-Controlled Wheelchair</h3>
+          <p>EMG-based mobility aid.</p>
+        </a>
+        <a class="tile project" href="ardui-no.html">
+          <h3>Tetris on Arduino</h3>
+          <p>LED strip game implementation.</p>
+        </a>
+        <a class="tile project" href="achievements.html">
+          <h3>Achievements</h3>
+          <p>Selected awards and recognitions.</p>
+        </a>
+        <a class="tile project" href="https://www.iitg.ac.in/ssbag75/index.html" target="_blank" rel="noopener">
+          <h3>Dr. S. S. Bag (IITG)</h3>
+          <p>External collaboration & profile.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container two-col">
+      <div>
+        <h2 class="section-title">News</h2>
+        <ul class="list">
+          <li><a href="chetak.html">Chetak project recognized in safety innovation drive.</a><time>Aug 2025</time></li>
+          <li><a href="emg-wheelchair.html">EMG Wheelchair Recognized By NIF.</a><time>Jun 2025</time></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="section-title">Events</h2>
+        <ul class="list">
+          <li><a href="courses.html">Guest lecture: Translational Biochemistry</a><time>Sep 2025</time></li>
+          <li><a href="research.html">Workshop: Genetic Circuits</a><time>Oct 2025</time></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container glance">
+      <div class="stat"><span class="num" data-target="12">0</span><span class="label">Active Projects</span></div>
+      <div class="stat"><span class="num" data-target="20">0</span><span class="label">Publications</span></div>
+      <div class="stat"><span class="num" data-target="1">0</span><span class="label">Collaborations</span></div>
+      <div class="stat"><span class="num" data-target="15">0</span><span class="label">Group Members</span></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand mini">Saswata Bag</div>
+        <p class="muted">© <span id="y"></span> The Bag Laboratory | Indian Institute of Technology Guwahati</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul class="linklist">
+          <li><a href="research.html">Research</a></li>
+          <li><a href="maintanence.html" class="blink-red">Publications (Currently being Upgraded)</a></li>
+          <li><a href="photo-gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Academics</h3>
+        <ul class="linklist">
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="group-members.html">Group Members</a></li>
+          <li><a href="maintanence.html" class="blink-red">Collaborators (Currently Upgrading)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Connect</h3>
+        <ul class="linklist">
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="mailto:saswata7928@example.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
   </footer>
 
   <script>
-    function detectDevice() {
-      const ua = navigator.userAgent;
-      if (/mobile/i.test(ua)) return "Mobile";
-      if (/tablet/i.test(ua)) return "Tablet";
-      return "Desktop";
-    }
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    function detectBrowser() {
-      const ua = navigator.userAgent;
-      if (ua.indexOf("Chrome") > -1) return "Chrome";
-      if (ua.indexOf("Firefox") > -1) return "Firefox";
-      if (ua.indexOf("Safari") > -1 && ua.indexOf("Chrome") === -1) return "Safari";
-      return "Other";
-    }
+    var toggle = document.querySelector('.nav-toggle');
+    var nav = document.getElementById('primary-nav');
+    toggle.addEventListener('click', function() { nav.classList.toggle('open'); });
 
-    const visitorData = {
-      time: new Date().toLocaleString(),
-      browser: detectBrowser(),
-      device: detectDevice(),
-      ua: navigator.userAgent,
-    };
+    document.querySelectorAll('.nav-parent').forEach(function(btn){
+      btn.addEventListener('click', function(){ btn.nextElementSibling.classList.toggle('open'); });
+    });
 
-    let logs = JSON.parse(localStorage.getItem("visitorLogs")) || [];
-    logs.push(visitorData);
-    localStorage.setItem("visitorLogs", JSON.stringify(logs));
+    document.querySelectorAll('.num').forEach(function(el){
+      var target = +el.dataset.target; var count = 0;
+      var step = Math.ceil(target / 100);
+      var int = setInterval(function(){
+        count += step;
+        if (count >= target) { count = target; clearInterval(int); }
+        el.textContent = count;
+      }, 20);
+    });
   </script>
-
-  <div style="text-align: center; padding: 20px;">
-    <a href="see.html" style="padding: 10px 20px; background-color: #0033cc; color: white; text-decoration: none; border-radius: 5px;">Admin Login</a>
-  </div>
 </body>
 </html>
