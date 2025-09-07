@@ -1,1 +1,269 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <title>Dr. Subhendu Sekhar Bag | Bio‑Organic Chemistry Lab</title> <link rel="stylesheet" href="style.css" /> </head> <body> <header> <div class="header-banner"> <img src="index.gif" alt="Saswata Bag Banner" class="banner-img"/> </div> <nav class="main-nav"> <a href="https://sb-chetak.github.io/OLD_WEB_2024-2025/">OLD WEB</a> <a href="biography.html">Biography</a> <a href="research.html">Research</a> <a href="publications.html">Publications</a> <a href="contact.html">Contact</a> <a href="#">Graphical Abstract</a> <a href="#">Project Funding</a> <a href="#">Collaborators</a> <a href="#">Courses</a> <a href="#">SB.Chetak</a> <a href="#">Group Members</a> <a href="#">Photo Gallery</a> </nav> </header> <hr class="section-divider"> <section class="announcement-section"> <h2 class="placement-header">Announcements</h2> <div class="columns"> <div class="column news-column"> <ul> <li>Saswata Bag Got Awarded 1st Position In RSVBP Regional</li> <li>1st Prize In Research Industrial Conclave IITG</li> <li>Got Best Theme Prize In India International Science Festival</li> <li>Got Selected For Nationals In RSVBP</li> </ul> </div> </div> </section> <hr class="section-divider"> <section class="projects"> <h2 class="section-title">My Projects</h2> <div class="card-grid"> <div class="project-card"> <h3>CHETAK</h3> <p>Smart coal mine safety system using gas sensors, SD logging & alert system.</p> <a href="#">View Details</a> </div> <div class="project-card"> <h3>Smart Safety Helmet</h3> <p>Helmet with accident detection, location tracking and emergency alerts.</p> <a href="#">View Details</a> </div> <div class="project-card"> <h3>TETRIS ON ARDUINO</h3> <p>Classic Tetris game made using Arduino, LCD and button inputs.</p> <a href="#">View Details</a> </div> <div class="project-card"> <h3>Smart Bin</h3> <p>Automatic waste bin with fill-level detection and real-time SMS alerts to authorities.</p> <a href="#">View Details</a> </div> <div class="project-card"> <h3>EMG-Controlled Wheelchair</h3> <p>Wheelchair controlled using muscle signals, designed for paralyzed patients.</p> <a href="#">View Details</a> </div> <div class="project-card"> <h3>Attendance System</h3> <p>Smart classroom system with RFID, GSM alerts and real-time attendance tracking.</p> <a href="#">View Details</a> </div> </div> </section> <hr class="section-divider"> <section class="membership-section"> <div class="column"> <h2>Membership / Fellow</h2> <ul> <li>Member – AAAS (2017), CRS‑I (2009), CSJ (2006), ACS (2010)</li> <li>Alumni – JSPS (2009)</li> </ul> </div> </section> <hr class="section-divider"> <footer> <p>Department Overview | Academic Programs | Faculty | Research | News | Facilities | The IIT Guwahati</p> <p>Departmental CIF</p> <button class="footer-button">VISIT SB.Chetak Lab PVT LTD</button> </footer> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Maintenance & Upgrade Status — Saswata Bag</title>
+  <meta name="description" content="Live maintenance and upgrade status for the Saswata Bag website — progress, timelines, and contact." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Minimal page-specific helpers */
+    .page-wrap { padding: 24px 0; }
+    .status-banner {
+      background: #1a1f2e; border: 1px solid #2a3347; border-radius: 12px;
+      padding: 16px; margin-bottom: 16px; color: #cfe3ff;
+    }
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 800px){ .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (min-width: 800px){ .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    .card {
+      background: #0f1422; border: 1px solid #1f2940; border-radius: 14px;
+      padding: 16px;
+    }
+    .card h3 { margin: 4px 0 6px; font-size: 18px; }
+    .muted { color: #9fb0c7; }
+    .tiny { font-size: 12px; color: #8aa0bb; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: .3px;
+      padding: 4px 10px; border-radius: 999px; border: 1px solid #2f3a54;
+      background: #121a2c; color: #cfe3ff;
+    }
+    .badge.ok { background: #0f1f16; color: #b7f7cf; border-color: #1b3b2e; }
+    .badge.warn { background: #2a1820; color: #ffd5d5; border-color: #4a1f2b; }
+
+    /* Blinking red indicator (shared with index but defined locally too) */
+    .blink-red {
+      background: red; color: #fff; padding: 4px 10px; border-radius: 999px;
+      font-weight: 700; animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%, 50%, 100% {opacity:1} 25%, 75% {opacity:.35} }
+
+    .list { margin: 0; padding-left: 18px; }
+    .list li { margin: 6px 0; }
+
+    .kicker {
+      font-size: 12px; text-transform: uppercase; letter-spacing: .2em;
+      color: #9fb0c7; margin-bottom: 8px;
+    }
+
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .button {
+      display:inline-block; padding:8px 14px; border-radius:8px;
+      background:#36cfc9; color:#041014; font-weight:700; text-decoration:none;
+    }
+    .button.ghost { background:transparent; border:1px solid #30405a; color:#d6e3ff; }
+  </style>
+</head>
+<body>
+  <!-- Simple top bar -->
+  <div class="util-bar">
+    <div class="container util-inner">
+      <div class="util-left">
+        <a href="index.html">← Back to Home</a>
+      </div>
+      <div class="util-right">
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="index.png" alt="Lab logo" onerror="this.style.display='none'">
+        <div class="brand-text">
+          <span class="brand-title">Maintenance & Upgrade Status</span>
+          <span class="brand-sub tiny">Live information for visitors</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="page-wrap">
+    <div class="container">
+      <!-- Status banner -->
+      <div class="status-banner">
+        <div class="kicker">Site status</div>
+        <h1 style="margin:0 0 8px;">We’re upgrading sections of the website</h1>
+        <p class="muted" style="margin:0;">
+          Some pages are being refreshed for accuracy, accessibility, and performance.
+          The rest of the site remains available. Thanks for your patience!
+        </p>
+        <p class="tiny" id="updated" style="margin-top:8px;"></p>
+      </div>
+
+      <!-- Component status -->
+      <section style="margin: 24px 0;">
+        <h2 style="margin:0 0 10px;">Component Status</h2>
+        <div class="grid cols-3">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Publications</h3>
+              <span class="blink-red">Upgrading</span>
+            </div>
+            <p class="muted">Content migration and formatting improvements in progress.</p>
+            <ul class="list tiny">
+              <li>Impact: May be incomplete or temporarily inconsistent.</li>
+              <li>What’s changing: citations, links, and layout.</li>
+            </ul>
+            <div class="tiny" style="margin-top:8px;">Expected: Rolling updates</div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Collaborators</h3>
+              <span class="blink-red">Currently 1 — Upgrading</span>
+            </div>
+            <p class="muted">We’re expanding and verifying collaborator entries.</p>
+            <ul class="list tiny">
+              <li>Impact: Listing may show only confirmed partners.</li>
+              <li>What’s changing: logos, affiliations, and descriptions.</li>
+            </ul>
+            <div class="tiny" style="margin-top:8px;">Expected: Additions soon</div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Research & Projects</h3>
+              <span class="badge ok">Available</span>
+            </div>
+            <p class="muted">These sections remain accessible and stable during the upgrade.</p>
+            <ul class="list tiny">
+              <li>Research overview and project pages are live.</li>
+              <li>Minor layout tweaks may occur.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- What’s improving -->
+      <section style="margin: 24px 0;">
+        <h2 style="margin:0 0 10px;">What’s Being Improved</h2>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3>Accuracy & Citations</h3>
+            <p class="muted">We’re ensuring publication entries, dates, and links are correct and consistently formatted.</p>
+          </div>
+          <div class="card">
+            <h3>Accessibility</h3>
+            <p class="muted">Better contrast, semantic structure, and keyboard navigation across pages.</p>
+          </div>
+          <div class="card">
+            <h3>Performance</h3>
+            <p class="muted">Lighter pages and faster loads on mobile and slow networks.</p>
+          </div>
+          <div class="card">
+            <h3>Design Consistency</h3>
+            <p class="muted">Unified typography, spacing, and components for a cleaner experience.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Changelog -->
+      <section style="margin: 24px 0;">
+        <h2 style="margin:0 0 10px;">Changelog (High-Level)</h2>
+        <div class="card">
+          <ul class="list">
+            <li><strong>Sep 2025:</strong> Introduced upgrade notices. Publications & Collaborators flagged for updates.</li>
+            <li><strong>Sep 2025:</strong> Added this maintenance page with live status and FAQs.</li>
+            <li><strong>Aug 2025:</strong> Refined homepage hero and quick links.</li>
+          </ul>
+          <p class="tiny" style="margin-top:8px;">Note: Dates are approximate and for visitor awareness.</p>
+        </div>
+      </section>
+
+      <!-- FAQs -->
+      <section style="margin: 24px 0;">
+        <h2 style="margin:0 0 10px;">FAQs</h2>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3>Why are some buttons blinking?</h3>
+            <p class="muted">Blinking red indicates a section is actively being upgraded or verified.</p>
+          </div>
+          <div class="card">
+            <h3>Can I still access Publications?</h3>
+            <p class="muted">Yes, but entries might be incomplete or temporarily formatted. We’ll stabilize it soon.</p>
+          </div>
+          <div class="card">
+            <h3>How many collaborators are listed right now?</h3>
+            <p class="muted">Currently one confirmed collaborator is visible while we update details.</p>
+          </div>
+          <div class="card">
+            <h3>Whom do I contact for urgent information?</h3>
+            <p class="muted">Please email <a href="mailto:saswata7928@gmail.com">saswata7928@gmail.com</a> or use the <a href="contact.html">contact page</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact / Actions -->
+      <section style="margin: 24px 0;">
+        <h2 style="margin:0 0 10px;">Need Something Specific?</h2>
+        <div class="actions">
+          <a class="button" href="contact.html">Contact Form</a>
+          <a class="button ghost" href="index.html">Return to Home</a>
+          <a class="button ghost" href="publications.html">Go to Publications</a>
+          <a class="button ghost" href="collaborators.html">Go to Collaborators</a>
+        </div>
+        <p class="tiny" style="margin-top:8px;">We appreciate your feedback—if you spot an error, please let us know.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand mini">Saswata Bag</div>
+        <p class="muted">© <span id="y"></span> The Bag Laboratory | Indian Institute of Technology Guwahati</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul class="linklist">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="publications.html" class="blink-red">Publications (Upgrading)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Academics</h3>
+        <ul class="linklist">
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="group-members.html">Group Members</a></li>
+          <li><a href="collaborators.html" class="blink-red">Collaborators (1 — Upgrading)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Connect</h3>
+        <ul class="linklist">
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="mailto:saswata7928@gmail.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Last updated (IST)
+    (function(){
+      try {
+        var el = document.getElementById('updated');
+        var nowIST = new Date().toLocaleString('en-IN', {
+          timeZone: 'Asia/Kolkata',
+          year: 'numeric', month: 'short', day: '2-digit',
+          hour: '2-digit', minute: '2-digit'
+        });
+        el.textContent = 'Last updated (IST): ' + nowIST;
+      } catch(e){}
+    })();
+  </script>
+</body>
+</html>
