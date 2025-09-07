@@ -2,104 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Access Denied</title>
   <style>
+    :root {
+      --bg: #0a0a0a;
+      --danger: #ff3333;
+      --warn: #ffcc00;
+      --ink: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      background-color: #000000;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+      background: radial-gradient(circle at center, #1a0000, #000);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
       height: 100vh;
-    }
-
-    .box {
-      background-color: #0a0a0a;
-      border: 3px solid red;
-      padding: 30px;
-      max-width: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 30px red;
+      overflow: hidden;
       text-align: center;
     }
 
-    .warning-icon {
-      font-size: 50px;
-      color: yellow;
-    }
-
     h1 {
-      color: red;
-      margin: 15px 0;
-      font-size: 32px;
+      font-size: clamp(28px, 6vw, 56px);
+      color: var(--danger);
+      text-shadow: 0 0 10px rgba(255,0,0,.7), 0 0 20px rgba(255,0,0,.5);
+      margin: 0 0 12px;
     }
-
     p {
-      font-size: 16px;
-      margin-top: 15px;
+      font-size: clamp(14px, 3.5vw, 20px);
+      margin: 8px 0;
     }
-
+    .warn {
+      color: var(--warn);
+      text-shadow: 0 0 8px rgba(255,204,0,.6);
+    }
     .btn {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
       margin-top: 20px;
-      border-radius: 5px;
-      cursor: pointer;
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--warn);
+      color: var(--warn);
+      background: transparent;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .btn:hover {
+      background: rgba(255,204,0,.1);
     }
 
-    .footer {
-      font-size: 14px;
-      margin-top: 30px;
-      color: #d1d5db;
+    @keyframes blink {
+      50% { opacity: 0.2; }
     }
-
-    .lock {
-      font-size: 18px;
-      color: gold;
-      margin-right: 5px;
-    }
-
-    #ip {
-      color: #00ffcc;
-      font-weight: bold;
-    }
+    .blink { animation: blink 1s infinite; }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="warning-icon">⚠️</div>
-    <h1>ACCESS DENIED</h1>
-    <p>
-      You are attempting to access a highly restricted area.<br>
-      This action has been logged and flagged for investigation.<br>
-      Your IP Address: <span id="ip">Loading...</span><br>
-      Please step back unless you have authorized clearance.
-    </p>
-
-    <button class="btn" onclick="window.location.href='index.html'">Return to Home</button>
-
-    <div class="footer">
-      <span class="lock">🔒</span>
-      If you are the administrator, please configure a secure VPN connection before accessing this section.
-    </div>
-  </div>
+  <main>
+    <h1>⛔ ACCESS DENIED ⛔</h1>
+    <p class="warn blink">Too many failed login attempts detected.</p>
+    <p>You will be redirected back to <strong>Login</strong> in <span id="count">5</span> seconds.</p>
+    <a href="admin.html" class="btn">Return Now</a>
+  </main>
 
   <script>
-    // Fetch and show the visitor's original IP address
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('ip').textContent = data.ip;
-      })
-      .catch(() => {
-        document.getElementById('ip').textContent = 'Unable to fetch';
-      });
+    let count = 5;
+    const span = document.getElementById('count');
+    const timer = setInterval(() => {
+      count--;
+      span.textContent = count;
+      if(count <= 0){
+        clearInterval(timer);
+        window.location.href = 'admin.html';
+      }
+    }, 1000);
   </script>
 </body>
 </html>
