@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Blinking red button */
+    /* Blinking red button (optional utility) */
     .blink-red {
       background: red;
       color: #fff !important;
@@ -19,28 +19,25 @@
       font-weight: 600;
       animation: blink 1s infinite;
     }
-    @keyframes blink {
-      0%, 50%, 100% { opacity: 1; }
-      25%, 75% { opacity: 0.4; }
-    }
+    @keyframes blink { 0%,50%,100%{opacity:1} 25%,75%{opacity:.4} }
   </style>
 </head>
 <body>
+  <!-- Top utility bar -->
   <div class="util-bar">
     <div class="container util-inner">
       <div class="util-left">
         <a href="biography.html">About</a>
         <a href="research.html">Research</a>
-       
         <a href="photo-gallery.html">Gallery</a>
       </div>
       <div class="util-right">
         <a href="project-funding.html">Funding</a>
-        
       </div>
     </div>
   </div>
 
+  <!-- Header / Primary nav -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
@@ -51,49 +48,46 @@
         </div>
       </a>
 
-      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">☰</button>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">☰</button>
 
-      <nav id="primary-nav" class="primary-nav">
+      <nav id="primary-nav" class="primary-nav" aria-label="Main">
         <a href="index.html" class="active">Home</a>
-        <div class="nav-group">
-      
-           
-          </div>
-        </div>
         <a href="research.html">Research</a>
-      
         <a href="achievements.html">Highlights</a>
-      
       </nav>
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <div class="kicker">WELCOME SPEECH. . . . . . . . . . . . . . . . . .</div>
+        <div class="kicker">WELCOME SPEECH . . . . . . . . . . . . . . . . .</div>
         <h1>Creating with rigor and imagination.</h1>
-        <p>Welcome to the official website of Saswata Bag.
-Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing mine safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application.
-
-This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.</p>
+        <p>
+          Welcome to the official website of Saswata Bag. Our mission is to design and engineer innovative solutions that combine safety,
+          accessibility, and real-world impact. From developing mine safety systems to creating assistive mobility devices, we focus on
+          taking ideas from concept to prototype and into practical application.
+        </p>
+        <p>
+          This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building
+          technology that serves society with responsibility and creativity.
+        </p>
         <div class="actions">
           <a class="button" href="research.html">Explore Research</a>
-        
         </div>
       </div>
-      <div class="hero-art"></div>
+      <div class="hero-art" aria-hidden="true"></div>
     </div>
   </section>
 
+  <!-- Quick links -->
   <section class="section">
     <div class="container">
       <h2 class="section-title">Quick Links</h2>
       <div class="grid quicklinks">
         <a class="tile" href="biography.html">Biography</a>
         <a class="tile" href="project-funding.html">Project Funding</a>
-      
-        
       </div>
     </div>
   </section>
@@ -109,11 +103,11 @@ This platform showcases our achievements, research projects, and collaborations,
         </a>
         <a class="tile project" href="smart-helmet.html">
           <h3>Smart Safety Helmet</h3>
-          <p>Safety-enhancing helmet.</p>
+          <p>Safety‑enhancing helmet.</p>
         </a>
         <a class="tile project" href="emg-wheelchair.html">
-          <h3>EMG-Controlled Wheelchair</h3>
-          <p>EMG-based mobility aid.</p>
+          <h3>EMG‑Controlled Wheelchair</h3>
+          <p>EMG‑based mobility aid.</p>
         </a>
         <a class="tile project" href="ardui-no.html">
           <h3>Tetris on Arduino</h3>
@@ -123,37 +117,49 @@ This platform showcases our achievements, research projects, and collaborations,
           <h3>Achievements</h3>
           <p>Selected awards and recognitions.</p>
         </a>
-        
-        </a>
       </div>
     </div>
   </section>
 
+  <!-- Updates / News -->
   <section class="section alt">
     <div class="container two-col">
       <div>
-        
+        <h3>News</h3>
         <ul class="list">
-          <li><a href="chetak.html">Chetak project recognized in safety innovation drive.</a><time>Aug 2025</time></li>
-          <li><a href="emg-wheelchair.html">EMG Wheelchair Recognized By NIF.</a><time>Jun 2025</time></li>
+          <li>
+            <a href="chetak.html">Chetak project recognized in safety innovation drive.</a>
+            <time datetime="2025-08">Aug 2025</time>
+          </li>
+          <li>
+            <a href="emg-wheelchair.html">EMG Wheelchair Recognized By NIF.</a>
+            <time datetime="2025-06">Jun 2025</time>
+          </li>
         </ul>
       </div>
       <div>
-        
+        <h3>Research Updates</h3>
         <ul class="list">
-         
-          <li><a href="research.html">Research</a><time>Oct 2025</time></li>
+          <li>
+            <a href="research.html">Research</a>
+            <time datetime="2025-10">Oct 2025</time>
+          </li>
         </ul>
       </div>
     </div>
   </section>
 
+  <!-- At a glance -->
   <section class="section">
     <div class="container glance">
-      <div class="stat"><span class="num" data-target="2">0</span><span class="label">Active Projects</span></div>
+      <div class="stat">
+        <span class="num" data-target="2">0</span>
+        <span class="label">Active Projects</span>
+      </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
@@ -164,40 +170,37 @@ This platform showcases our achievements, research projects, and collaborations,
         <h3>Explore</h3>
         <ul class="linklist">
           <li><a href="research.html">Research</a></li>
-          
-    
+          <li><a href="achievements.html">Highlights</a></li>
+          <li><a href="photo-gallery.html">Gallery</a></li>
         </ul>
       </div>
       <div>
-       
-     
-          
-        </ul>
-      </div>
-      <div>
-        
-       
-          
+        <h3>Contact</h3>
+        <ul class="linklist">
+          <li><a href="mailto:saswata7928@gmail.com">saswata7928@gmail.com</a></li>
         </ul>
       </div>
     </div>
   </footer>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    var toggle = document.querySelector('.nav-toggle');
-    var nav = document.getElementById('primary-nav');
-    toggle.addEventListener('click', function() { nav.classList.toggle('open'); });
-
-    document.querySelectorAll('.nav-parent').forEach(function(btn){
-      btn.addEventListener('click', function(){ btn.nextElementSibling.classList.toggle('open'); });
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
-    document.querySelectorAll('.num').forEach(function(el){
-      var target = +el.dataset.target; var count = 0;
-      var step = Math.ceil(target / 100);
-      var int = setInterval(function(){
+    // Number counter
+    document.querySelectorAll('.num').forEach((el) => {
+      const target = +el.dataset.target;
+      let count = 0;
+      const step = Math.max(1, Math.ceil(target / 100));
+      const int = setInterval(() => {
         count += step;
         if (count >= target) { count = target; clearInterval(int); }
         el.textContent = count;
