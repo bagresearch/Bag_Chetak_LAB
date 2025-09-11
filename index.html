@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Blinking red button (optional utility) */
     .blink-red {
       background: red;
       color: #fff !important;
@@ -18,6 +17,8 @@
       border-radius: 6px;
       font-weight: 600;
       animation: blink 1s infinite;
+      display: inline-block;
+      margin-top: 8px;
     }
     @keyframes blink { 0%,50%,100%{opacity:1} 25%,75%{opacity:.4} }
   </style>
@@ -117,6 +118,27 @@
           <h3>Achievements</h3>
           <p>Selected awards and recognitions.</p>
         </a>
+        <!-- New Project Placeholders -->
+        <div class="tile project">
+          <h3>Project Alpha</h3>
+          <p>Currently upgrading.</p>
+          <span class="blink-red">New Projects Coming Soon</span>
+        </div>
+        <div class="tile project">
+          <h3>Project Beta</h3>
+          <p>Currently upgrading.</p>
+          <span class="blink-red">New Projects Coming Soon</span>
+        </div>
+        <div class="tile project">
+          <h3>Project Gamma</h3>
+          <p>Currently upgrading.</p>
+          <span class="blink-red">New Projects Coming Soon</span>
+        </div>
+        <div class="tile project">
+          <h3>Project Delta</h3>
+          <p>Currently upgrading.</p>
+          <span class="blink-red">New Projects Coming Soon</span>
+        </div>
       </div>
     </div>
   </section>
@@ -153,7 +175,7 @@
   <section class="section">
     <div class="container glance">
       <div class="stat">
-        <span class="num" data-target="2">0</span>
+        <span class="num" data-target="6">0</span>
         <span class="label">Active Projects</span>
       </div>
     </div>
@@ -174,20 +196,12 @@
           <li><a href="photo-gallery.html">Gallery</a></li>
         </ul>
       </div>
-      <div>
-        <h3>Contact</h3>
-        <ul class="linklist">
-          <li><a href="mailto:saswata7928@gmail.com">saswata7928@gmail.com</a></li>
-        </ul>
-      </div>
     </div>
   </footer>
 
   <script>
-    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Mobile nav toggle
     const toggle = document.querySelector('.nav-toggle');
     const nav = document.getElementById('primary-nav');
     toggle.addEventListener('click', () => {
@@ -195,7 +209,6 @@
       toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // Number counter
     document.querySelectorAll('.num').forEach((el) => {
       const target = +el.dataset.target;
       let count = 0;
