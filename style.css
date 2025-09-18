@@ -128,3 +128,17 @@ section{scroll-margin-top:72px}
   *{scroll-behavior:auto}
   .button, .tile, .card{transition:none}
 }
+
+.hero-art {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-art img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px; /* optional for rounded corners */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3); /* optional shadow */
+}
