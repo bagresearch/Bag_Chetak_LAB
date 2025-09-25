@@ -2,126 +2,187 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>Saswata Bag — Home</title>
-  <meta name="description" content="Official website of Saswata Bag — research, academics, news, and events." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saswata Bag | Official Website</title>
   <style>
-    .blink-red {
-      background: red;
-      color: #fff !important;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      animation: blink 1s infinite;
-      display: inline-block;
-      margin-top: 8px;
+    /* Default Theme (Teal-Light) */
+    :root {
+      --bg: #ffffff;
+      --ink: #222;
+      --brand: #00695c;   /* Teal */
+      --accent: #f0fafa;  
+      --card: #ffffff;
+      --muted: #555;
     }
-    @keyframes blink { 0%,50%,100%{opacity:1} 25%,75%{opacity:.4} }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin:0; background:var(--bg); color:var(--ink);
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      display:flex; justify-content:space-between; align-items:center;
+      background: var(--accent);
+      padding:1rem 2rem; position:sticky; top:0; z-index:100;
+      border-bottom:1px solid #ddd;
+    }
+    header h1 { margin:0; font-size:1.2rem; color:var(--brand); }
+    nav a {
+      margin-left:1.2rem; text-decoration:none;
+      color:var(--ink); font-weight:600;
+      transition:0.2s;
+    }
+    nav a:hover { color:var(--brand); }
+    select {
+      margin-left:1rem; padding:0.3rem;
+      border-radius:6px; border:1px solid #ccc;
+      background:white;
+    }
+    .hero {
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      max-width:1100px; margin:auto; padding:3rem 1.5rem;
+    }
+    .hero-text { flex:1 1 450px; }
+    .hero-text h2 { font-size:2rem; margin:0; color:var(--brand); }
+    .hero-text h3 { margin-top:0.5rem; }
+    .hero-text p { margin-top:1rem; line-height:1.6; }
+    .hero img {
+      flex:1 1 320px; max-width:350px; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
+    .btn {
+      display:inline-block; margin-top:1rem;
+      background:var(--brand); color:white;
+      padding:0.6rem 1.2rem; border-radius:6px;
+      text-decoration:none; font-weight:600;
+    }
+    .section { max-width:1100px; margin:auto; padding:2.5rem 1.5rem; }
+    .section h2 { color:var(--brand); margin-bottom:1rem; }
+    .quick-links {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:1rem;
+    }
+    .card {
+      background:var(--card); padding:1.2rem;
+      border-radius:10px; border:1px solid #eee;
+      box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    }
+    .projects {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1rem;
+    }
+    .project-card {
+      display:block;
+      background:var(--accent); border-left:4px solid var(--brand);
+      padding:1rem; border-radius:8px;
+      text-decoration:none; color:var(--ink);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align:center; background:var(--accent);
+      padding:1rem; color:var(--muted); margin-top:2rem;
+      border-top:1px solid #ddd;
+    }
   </style>
 </head>
 <body>
-  <!-- Top utility bar -->
-  <div class="util-bar">
-    <div class="container util-inner">
-      <div class="util-left">
-        <a href="biography.html">About</a>
-        <a href="research.html">Research</a>
-        <a href="photo-gallery.html">Gallery</a>
-      </div>
-      <div class="util-right">
-        <a href="project-funding.html">Funding</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header / Primary nav -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <img src="index.jpg" alt="Lab logo" onerror="this.style.display='none'">
-        <div class="brand-text">
-          <span class="brand-title">Saswata Bag</span>
-          <span class="brand-sub"></span>
-        </div>
-      </a>
-
-      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">☰</button>
-
-      <nav id="primary-nav" class="primary-nav" aria-label="Main">
-        <a href="index.html" class="active">Home</a>
-        <a href="research.html">Research</a>
-        <a href="achievements.html">Highlights</a>
-      </nav>
-    </div>
+  <header>
+    <h1>Saswata Bag</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#funding">Funding</a>
+      <a href="#achievements">Highlights</a>
+      <select id="themeSelector" onchange="changeTheme(this.value)">
+        <option value="teal">🌿 Teal-Light</option>
+        <option value="green">🌱 Green-Gray</option>
+        <option value="blue">🔵 Blue-Silver</option>
+        <option value="violet">🎨 Violet-Pastel</option>
+      </select>
+    </nav>
   </header>
 
   <!-- Hero -->
   <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <div class="kicker">WELCOME SPEECH . . . . . . . . . . . . . . . . .</div>
-        <h1>Creating with rigor and imagination.</h1>
-        <p>
-          Welcome to the official website of Saswata Bag. Our mission is to design and engineer innovative solutions that combine safety,
-          accessibility, and real-world impact. From developing mine safety systems to creating assistive mobility devices, we focus on
-          taking ideas from concept to prototype and into practical application.
-        </p>
-        <p>
-          This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building
-          technology that serves society with responsibility and creativity.
-        </p>
-        <div class="actions">
-          <a class="button" href="research.html">Explore Research</a>
-        </div>
-      </div>
-      <div class="hero-art" aria-hidden="true">   <img src="lab-photo.JPG" alt="Lab Photo"> </div>
+    <div class="hero-text">
+      <h2>WELCOME SPEECH . . . . . . . . . . . . . . . .</h2>
+      <h3>Creating with rigor and imagination.</h3>
+      <p>
+        Welcome to the official website of <b>Saswata Bag</b>.  
+        Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing mine safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application.
+      </p>
+      <p>
+        This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.
+      </p>
+      <a class="btn" href="#research">Explore Research</a>
     </div>
+    <img src="your-photo.jpg" alt="Saswata Bag">
   </section>
 
-  <!-- Quick links -->
+  <!-- Quick Links -->
   <section class="section">
-    <div class="container">
-      <h2 class="section-title">Quick Links</h2>
-      <div class="grid quicklinks">
-        <a class="tile" href="biography.html">Biography</a>
-        <a class="tile" href="project-funding.html">Project Funding</a>
-      </div>
+    <h2>Quick Links</h2>
+    <div class="quick-links">
+      <div class="card">📘 Biography</div>
+      <div class="card">💰 Project Funding</div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section class="section" id="projects">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="grid projects">
-        <a class="tile project" href="chetak.html">
-          <h3>Chetak</h3>
-          <p>Invention for coal mines.</p>
-        </a>
-        <a class="tile project" href="smart-helmet.html">
-          <h3>Smart Safety Helmet</h3>
-          <p>Safety‑enhancing helmet.</p>
-        </a>
+  <section id="research" class="section">
+    <h2>Projects</h2>
+    <div class="projects">
+      <a href="chetak.html" class="project-card"><b>Chetak</b><br>Invention for coal mines.</a>
+      <a href="smart-helmet.html" class="project-card"><b>Smart Safety Helmet</b><br>Safety-enhancing helmet.</a>
+      <a href="wheelchair.html" class="project-card"><b>EMG Controlled Wheelchair</b><br>Assistive mobility solution.</a>
+      <a href="tetris.html" class="project-card"><b>Tetris on Arduino</b><br>LED strip game implementation.</a>
+      <a href="achievements.html" class="project-card"><b>Achievements</b><br>Selected awards and recognitions.</a>
+    </div>
+  </section>
 
-        <a class="tile project" href="emg-wheelchair.html">
-          <h3>EMG CONTROLLED WHEELCHAIR</h3>
-          <p></p>
-        </a>
-        
-        </a>
-        <a class="tile project" href="ardui-no.html">
-          <h3>Tetris on Arduino</h3>
-          <p>LED strip game implementation.</p>
-        </a>
-        <a class="tile project" href="achievements.html">
-          <h3>Achievements</h3>
-          <p>Selected awards and recognitions.</p>
+  <footer>
+    © 2025 Saswata Bag. All rights reserved.
+  </footer>
 
-    
+  <script>
+    function changeTheme(theme) {
+      if(theme === "teal"){
+        document.documentElement.style.setProperty("--bg", "#ffffff");
+        document.documentElement.style.setProperty("--ink", "#222");
+        document.documentElement.style.setProperty("--brand", "#00695c");
+        document.documentElement.style.setProperty("--accent", "#f0fafa");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#555");
+      }
+      else if(theme === "green"){
+        document.documentElement.style.setProperty("--bg", "#f7fdf9");
+        document.documentElement.style.setProperty("--ink", "#1b1b1b");
+        document.documentElement.style.setProperty("--brand", "#2e7d32");
+        document.documentElement.style.setProperty("--accent", "#eaf6ec");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#555");
+      }
+      else if(theme === "blue"){
+        document.documentElement.style.setProperty("--bg", "#f9fbff");
+        document.documentElement.style.setProperty("--ink", "#202633");
+        document.documentElement.style.setProperty("--brand", "#0056d6");
+        document.documentElement.style.setProperty("--accent", "#e7f0ff");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#666");
+      }
+      else if(theme === "violet"){
+        document.documentElement.style.setProperty("--bg", "#fcfbff");
+        document.documentElement.style.setProperty("--ink", "#2b2233");
+        document.documentElement.style.setProperty("--brand", "#8e44ad");
+        document.documentElement.style.setProperty("--accent", "#f4e9fb");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#555");
+      }
+    }
   </script>
 </body>
 </html>
