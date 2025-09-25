@@ -25,7 +25,19 @@
       padding:1rem 2rem; position:sticky; top:0; z-index:100;
       border-bottom:1px solid #ddd;
     }
-    header h1 { margin:0; font-size:1.2rem; color:var(--brand); }
+    header a.logo-link {
+      display:flex; align-items:center; text-decoration:none;
+    }
+    header a.logo-link img {
+      height:40px; margin-right:10px;
+    }
+    header a.logo-link span {
+      font-size:1.4rem; font-weight:700; color:var(--brand);
+      transition:color 0.2s;
+    }
+    header a.logo-link:hover span {
+      color:#004d40; /* darker teal on hover */
+    }
     nav a {
       margin-left:1.2rem; text-decoration:none;
       color:var(--ink); font-weight:600;
@@ -102,7 +114,10 @@
 </head>
 <body>
   <header>
-    <h1>CHETAK INNOVATIONS</h1>
+    <a href="index.html" class="logo-link">
+      <img src="chetak123.jpg" alt="SB.Chetak Lab Logo">
+      <span>SB.Chetak Lab</span>
+    </a>
     <nav>
       <a href="biography.html">About</a>
       <a href="research.html">Research</a>
@@ -157,7 +172,14 @@
     </div>
   </section>
 
- 
+  <!-- Gallery -->
+  <section id="gallery" class="section">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <a href="#img1"><img src="lab1.jpg" alt="Lab Photo 1"></a>
+      <a href="#img2"><img src="lab2.jpg" alt="Lab Photo 2"></a>
+      <a href="#img3"><img src="lab3.jpg" alt="Lab Photo 3"></a>
+      <a href="#img4"><img src="lab4.jpg" alt="Lab Photo 4"></a>
     </div>
 
     <!-- Lightbox -->
