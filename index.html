@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Force desktop mode on mobile -->
+  <meta name="viewport" content="width=1100, initial-scale=1.0"/>
   <title>Saswata Bag | Official Website</title>
   <style>
     /* Default Theme (Teal-Light) */
@@ -17,7 +18,6 @@
     body {
       font-family: "Segoe UI", Arial, sans-serif;
       margin:0; background:var(--bg); color:var(--ink);
-      transition: background 0.3s, color 0.3s;
     }
     header {
       display:flex; justify-content:space-between; align-items:center;
@@ -38,15 +38,15 @@
       background:white;
     }
     .hero {
-      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       max-width:1100px; margin:auto; padding:3rem 1.5rem;
     }
-    .hero-text { flex:1 1 450px; }
+    .hero-text { width:55%; }
     .hero-text h2 { font-size:2rem; margin:0; color:var(--brand); }
     .hero-text h3 { margin-top:0.5rem; }
     .hero-text p { margin-top:1rem; line-height:1.6; }
     .hero img {
-      flex:1 1 320px; max-width:350px; border-radius:12px;
+      width:40%; max-width:400px; border-radius:12px;
       box-shadow:0 4px 12px rgba(0,0,0,0.1);
     }
     .btn {
@@ -57,29 +57,41 @@
     }
     .section { max-width:1100px; margin:auto; padding:2.5rem 1.5rem; }
     .section h2 { color:var(--brand); margin-bottom:1rem; }
-    .quick-links {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    .quick-links, .projects, .gallery {
+      display:grid; grid-template-columns:repeat(3, 1fr);
       gap:1rem;
     }
-    .card {
-      background:var(--card); padding:1.2rem;
-      border-radius:10px; border:1px solid #eee;
-      box-shadow:0 2px 6px rgba(0,0,0,0.05);
-    }
-    .projects {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:1rem;
-    }
-    .project-card {
+    .link-card, .project-card {
       display:block;
       background:var(--accent); border-left:4px solid var(--brand);
       padding:1rem; border-radius:8px;
       text-decoration:none; color:var(--ink);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .project-card:hover {
+    .link-card:hover, .project-card:hover {
       transform: translateY(-3px);
       box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    .gallery img {
+      width:100%; border-radius:8px;
+      cursor:pointer; transition: transform 0.2s;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    /* Lightbox */
+    .lightbox {
+      display:none; position:fixed; z-index:2000;
+      left:0; top:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.8);
+      align-items:center; justify-content:center;
+    }
+    .lightbox img {
+      max-width:90%; max-height:80%; border-radius:10px;
+    }
+    .lightbox:target { display:flex; }
+    .close {
+      position:absolute; top:20px; right:40px;
+      color:white; font-size:2rem; text-decoration:none;
     }
     footer {
       text-align:center; background:var(--accent);
@@ -127,8 +139,8 @@
   <section class="section">
     <h2>Quick Links</h2>
     <div class="quick-links">
-      <div class="card">📘 Biography</div>
-      <div class="card">💰 Project Funding</div>
+      <a href="biography.html" class="link-card">📘 Biography</a>
+      <a href="funding.html" class="link-card">💰 Project Funding</a>
     </div>
   </section>
 
@@ -142,6 +154,23 @@
       <a href="ardui-no.html" class="project-card"><b>Tetris on Arduino</b><br>LED strip game implementation.</a>
       <a href="achievements.html" class="project-card"><b>Achievements</b><br>Selected awards and recognitions.</a>
     </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="section">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <a href="#img1"><img src="lab1.jpg" alt="Lab Photo 1"></a>
+      <a href="#img2"><img src="lab2.jpg" alt="Lab Photo 2"></a>
+      <a href="#img3"><img src="lab3.jpg" alt="Lab Photo 3"></a>
+      <a href="#img4"><img src="lab4.jpg" alt="Lab Photo 4"></a>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="img1" class="lightbox"><a href="#" class="close">&times;</a><img src="lab1.jpg"></div>
+    <div id="img2" class="lightbox"><a href="#" class="close">&times;</a><img src="lab2.jpg"></div>
+    <div id="img3" class="lightbox"><a href="#" class="close">&times;</a><img src="lab3.jpg"></div>
+    <div id="img4" class="lightbox"><a href="#" class="close">&times;</a><img src="lab4.jpg"></div>
   </section>
 
   <footer>
