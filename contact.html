@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Contact — Saswata Bag</title>
+
+  <style>
+    :root {
+      --teal: #009688;       /* Teal brand color */
+      --white: #ffffff;      /* White background */
+      --text: #0b3d3d;       /* Dark teal text */
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    /* NAVBAR */
+    nav {
+      background: var(--teal);
+      padding: 1em 2em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      margin-left: 1em;
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+    }
+    nav .logo {
+      font-weight: bold;
+      color: var(--white);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 600px;
+      margin: 4em auto;
+      background: var(--white);
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: var(--text);
+    }
+
+    /* FORM */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    form label {
+      margin: 0.5em 0 0.2em;
+      font-weight: 500;
+    }
+    form input, form textarea {
+      padding: 0.8em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      resize: vertical;
+    }
+    form textarea {
+      min-height: 120px;
+    }
+    form button {
+      margin-top: 1em;
+      padding: 0.8em;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    form button:hover {
+      background: #00796b;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      margin: 4em 0 2em;
+      color: var(--text);
+    }
+    footer a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .container {
+        margin: 2em 1em;
+        padding: 1.5em;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav a {
+        margin-left: 0;
+        margin-top: 0.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">Saswata Bag</div>
+    <div class="menu">
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="research.html">Research</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- CONTACT FORM -->
+  <div class="container">
+    <h1>Get in touch with me</h1>
+
+    <form action="https://formsubmit.co/saswata7928@gmail.com" method="POST">
+      <!-- Disable CAPTCHA -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <!-- Redirect after submit -->
+      <input type="hidden" name="_next" value="https://yourwebsite.com/thanks.html">
+
+      <!-- Email subject -->
+      <input type="hidden" name="_subject" value="New Contact Form Submission!">
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="What do you want to say?" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Saswata Bag — <a href="#top">Back to top</a>
+  </footer>
+
+</body>
+</html>
