@@ -18,9 +18,30 @@
     background: var(--bg);
     color: var(--ink);
   }
+
+  /* HEADER */
+  .topbar {
+    background: var(--brand);
+    padding: 12px 20px;
+    text-align: right;
+  }
+  .topbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 16px;
+    border-radius: 999px;
+    transition: background 0.3s ease;
+  }
+  .topbar a:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* MAIN CONTENT */
   .team-wrap {
     max-width: 1100px;
-    margin: 60px auto;
+    margin: 50px auto;
     padding: 0 20px;
   }
   header {
@@ -102,9 +123,30 @@
       margin: 0 auto 20px;
     }
   }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 20px 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+  footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
 </style>
 </head>
 <body>
+
+  <!-- Top Navigation -->
+  <div class="topbar">
+    <a href="index.html">← Back to Home</a>
+  </div>
+
+  <!-- Main -->
   <main class="team-wrap">
     <header>
       <h1>Our Team</h1>
@@ -119,7 +161,7 @@
         <h2>Saswata Bag</h2>
         <div class="role">Chief Executive Officer</div>
         <p>
-          Saswata Bag leads Bag Research & Chetak Innovation with a vision for innovation in advanced composites,
+          Saswata Bag leads Bag Research with a vision for innovation in advanced composites,
           structural health monitoring, and assistive robotics. His work bridges engineering,
           design, and sustainability with a mission to transform next-generation technology.
         </p>
@@ -131,5 +173,12 @@
       </div>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2023 - 2025  Saswata Bag  <a href="https://bagresearch.co.in" target="_blank">The Bag Laboratory | Bagresearch @ SB.Chetak Innovation  </a>. All rights reserved.
+  </footer>
+
 </body>
 </html>
+
