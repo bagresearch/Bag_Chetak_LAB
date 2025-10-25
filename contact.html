@@ -155,14 +155,65 @@
       <button type="submit">Send Message</button>
     </form>
   </div>
-
-  <!-- FOOTER -->
-  <footer>
-    &copy;  2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation. <a href="index.html">Back to Home</a>
+ <footer>
+    © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
+    All Rights Reserved <br>
+    <small id="lastUpdated" style="color:gray;"></small>
   </footer>
 
-</body>
-</html>
+  <script>
+    // Theme Changer
+    function changeTheme(theme) {
+      if(theme === "teal"){
+        document.documentElement.style.setProperty("--bg", "#ffffff");
+        document.documentElement.style.setProperty("--ink", "#222");
+        document.documentElement.style.setProperty("--brand", "#00695c");
+        document.documentElement.style.setProperty("--accent", "#f0fafa");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#555");
+      }
+      else if(theme === "green"){
+        document.documentElement.style.setProperty("--bg", "#f7fdf9");
+        document.documentElement.style.setProperty("--ink", "#1b1b1b");
+        document.documentElement.style.setProperty("--brand", "#2e7d32");
+        document.documentElement.style.setProperty("--accent", "#eaf6ec");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#555");
+      }
+      else if(theme === "blue"){
+        document.documentElement.style.setProperty("--bg", "#f9fbff");
+        document.documentElement.style.setProperty("--ink", "#202633");
+        document.documentElement.style.setProperty("--brand", "#0056d6");
+        document.documentElement.style.setProperty("--accent", "#e7f0ff");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#666");
+      }
+      else if(theme === "violet"){
+        document.documentElement.style.setProperty("--bg", "#fcfbff");
+        document.documentElement.style.setProperty("--ink", "#2b2233");
+        document.documentElement.style.setProperty("--brand", "#8e44ad");
+        document.documentElement.style.setProperty("--accent", "#f4e9fb");
+        document.documentElement.style.setProperty("--card", "#ffffff");
+        document.documentElement.style.setProperty("--muted", "#555");
+      }
+    }
 
+    // Auto "Last Updated" Date
+    const now = new Date();
+    const formatted = now.toLocaleDateString("en-IN", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+    document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
+  </script>
+
+    <!-- Back to Home Button -->
+    <div class="back-button">
+        <a href="index.html">Back to Home</a>
+    </div>
+  </div>
+
+</body>
+
+</html>
 
 
