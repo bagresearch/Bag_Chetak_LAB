@@ -116,9 +116,7 @@
   <header>
     <a href="index.html" class="logo-link">
       <img src="chetak123.jpg" alt="SB.Chetak Lab Logo">
-      <span>SB.Chetak Innovation </span>
-      
-      <span> </span>
+      <span>SB.Chetak Innovation</span>
     </a>
     <nav>
       <a href="biography.html">About</a>
@@ -127,7 +125,7 @@
       <a href="project-funding.html">Funding</a>
       <a href="achievements.html">Highlights</a>
       <a href="contact.html">Contact Us</a>
-      <a href="ourteam.html">Our Team </a>
+      <a href="ourteam.html">Our Team</a>
       <select id="themeSelector" onchange="changeTheme(this.value)">
         <option value="teal">🌿 Teal-Light</option>
         <option value="green">🌱 Green-Gray</option>
@@ -151,7 +149,7 @@
       </p>
       <a class="btn" href="research.html">Explore Research</a>
     </div>
-    <img src="Ceo_Bagresearch.instute.of.technollogy.2025.png" alt="Saswata Bag">
+    <img src="lab-photo.JPG" alt="Saswata Bag">
   </section>
 
   <!-- Quick Links -->
@@ -176,13 +174,15 @@
     </div>
   </section>
 
-
-
+  <!-- Footer -->
   <footer>
-    © 2025 Saswata Bag - The Bag Laboratory | Indian Institute of Technology Guwahati . All Rights Reserved 
+    © 2025 Saswata Bag - The Bag Laboratory | Indian Institute of Technology Guwahati.  
+    All Rights Reserved <br>
+    <small id="lastUpdated" style="color:gray;"></small>
   </footer>
 
   <script>
+    // Theme Changer
     function changeTheme(theme) {
       if(theme === "teal"){
         document.documentElement.style.setProperty("--bg", "#ffffff");
@@ -217,6 +217,13 @@
         document.documentElement.style.setProperty("--muted", "#555");
       }
     }
+
+    // Auto "Last Updated" Date
+    const now = new Date();
+    const formatted = now.toLocaleDateString("en-IN", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+    document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
   </script>
 </body>
 </html>
