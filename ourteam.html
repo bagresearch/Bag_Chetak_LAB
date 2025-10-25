@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>team</title>
+<title>Team</title>
 <style>
   :root {
     --bg:#f8fafc;
@@ -132,6 +132,7 @@
     color: var(--muted);
     font-size: 0.9rem;
     border-top: 1px solid var(--line);
+    background: #fff;
   }
   footer a {
     color: var(--brand);
@@ -149,7 +150,7 @@
   <!-- Main -->
   <main class="team-wrap">
     <header>
-      <h1>My Team</h1>
+      <h1>Team</h1>
       <p>Led by innovation and guided by excellence — meet our leadership.</p>
     </header>
 
@@ -158,77 +159,35 @@
         <img src="Ceo_Bagresearch.instute.of.technollogy.2025.png" alt="Saswata Bag">
       </div>
       <div class="ceo-info">
-        <h2>Saswata Bag</h2>
+        <h2></h2>
         <div class="role"></div>
         <p>
- 
-        </p>
         
+        </p>
+        <div class="">
           <a href="contact.html">Email</a>
           <a href="https://bagresearch.co.in" target="_blank">Website</a>
- <footer>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
     © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
     All Rights Reserved <br>
     <small id="lastUpdated" style="color:gray;"></small>
   </footer>
 
   <script>
-    // Theme Changer
-    function changeTheme(theme) {
-      if(theme === "teal"){
-        document.documentElement.style.setProperty("--bg", "#ffffff");
-        document.documentElement.style.setProperty("--ink", "#222");
-        document.documentElement.style.setProperty("--brand", "#00695c");
-        document.documentElement.style.setProperty("--accent", "#f0fafa");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "green"){
-        document.documentElement.style.setProperty("--bg", "#f7fdf9");
-        document.documentElement.style.setProperty("--ink", "#1b1b1b");
-        document.documentElement.style.setProperty("--brand", "#2e7d32");
-        document.documentElement.style.setProperty("--accent", "#eaf6ec");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "blue"){
-        document.documentElement.style.setProperty("--bg", "#f9fbff");
-        document.documentElement.style.setProperty("--ink", "#202633");
-        document.documentElement.style.setProperty("--brand", "#0056d6");
-        document.documentElement.style.setProperty("--accent", "#e7f0ff");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#666");
-      }
-      else if(theme === "violet"){
-        document.documentElement.style.setProperty("--bg", "#fcfbff");
-        document.documentElement.style.setProperty("--ink", "#2b2233");
-        document.documentElement.style.setProperty("--brand", "#8e44ad");
-        document.documentElement.style.setProperty("--accent", "#f4e9fb");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-    }
-
     // Auto "Last Updated" Date
     const now = new Date();
     const formatted = now.toLocaleDateString("en-IN", {
       day: "numeric", month: "long", year: "numeric"
     });
-    document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
+    document.getElementById("lastUpdated").innerHTML =
+      "Last updated on: <b>" + formatted + "</b>";
   </script>
 
-    <!-- Back to Home Button -->
-    <div class="back-button">
-        <a href="index.html">Back to Home</a>
-    </div>
-  </div>
-
 </body>
-
 </html>
-
-
-
-
-
-
