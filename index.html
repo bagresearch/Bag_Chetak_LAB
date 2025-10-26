@@ -2,129 +2,226 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Force desktop mode on mobile -->
-  <meta name="viewport" content="width=1100, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Saswata Bag | Official Website</title>
   <style>
-    /* Default Theme (Teal-Light) */
     :root {
       --bg: #ffffff;
       --ink: #222;
-      --brand: #00695c;   /* Teal */
-      --accent: #f0fafa;  
+      --brand: #00695c;
+      --accent: #f0fafa;
       --card: #ffffff;
       --muted: #555;
     }
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      margin:0; background:var(--bg); color:var(--ink);
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
     }
+
     header {
-      display:flex; justify-content:space-between; align-items:center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       background: var(--accent);
-      padding:1rem 2rem; position:sticky; top:0; z-index:100;
-      border-bottom:1px solid #ddd;
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #ddd;
     }
+
     header a.logo-link {
-      display:flex; align-items:center; text-decoration:none;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
     }
+
     header a.logo-link img {
-      height:40px; margin-right:10px;
+      height: 36px;
+      margin-right: 10px;
+      border-radius: 6px;
     }
+
     header a.logo-link span {
-      font-size:1.4rem; font-weight:700; color:var(--brand);
-      transition:color 0.2s;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--brand);
     }
-    header a.logo-link:hover span {
-      color:#004d40; /* darker teal on hover */
+
+    nav {
+      display: flex;
+      align-items: center;
     }
+
     nav a {
-      margin-left:1.2rem; text-decoration:none;
-      color:var(--ink); font-weight:600;
-      transition:0.2s;
+      margin-left: 1rem;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
     }
-    nav a:hover { color:var(--brand); }
+
+    nav a:hover { color: var(--brand); }
+
+    /* Mobile Menu Button */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     select {
-      margin-left:1rem; padding:0.3rem;
-      border-radius:6px; border:1px solid #ccc;
-      background:white;
+      margin-left: 1rem;
+      padding: 0.3rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: white;
     }
+
+    /* HERO */
     .hero {
-      display:flex; align-items:center; justify-content:space-between;
-      max-width:1100px; margin:auto; padding:3rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem 1rem;
     }
-    .hero-text { width:55%; }
-    .hero-text h2 { font-size:2rem; margin:0; color:var(--brand); }
-    .hero-text h3 { margin-top:0.5rem; }
-    .hero-text p { margin-top:1rem; line-height:1.6; }
+
+    .hero-text {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .hero-text h2 {
+      font-size: 1.8rem;
+      color: var(--brand);
+    }
+
+    .hero-text h3 {
+      margin-top: 0.5rem;
+    }
+
+    .hero-text p {
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
     .hero img {
-      width:40%; max-width:400px; border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 1.5rem;
     }
+
     .btn {
-      display:inline-block; margin-top:1rem;
-      background:var(--brand); color:white;
-      padding:0.6rem 1.2rem; border-radius:6px;
-      text-decoration:none; font-weight:600;
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--brand);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
     }
-    .section { max-width:1100px; margin:auto; padding:2.5rem 1.5rem; }
-    .section h2 { color:var(--brand); margin-bottom:1rem; }
-    .quick-links, .projects, .gallery {
-      display:grid; grid-template-columns:repeat(3, 1fr);
-      gap:1rem;
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem 1rem;
     }
+
+    .section h2 {
+      color: var(--brand);
+      margin-bottom: 1rem;
+    }
+
+    .quick-links, .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
     .link-card, .project-card {
-      display:block;
-      background:var(--accent); border-left:4px solid var(--brand);
-      padding:1rem; border-radius:8px;
-      text-decoration:none; color:var(--ink);
+      background: var(--accent);
+      border-left: 4px solid var(--brand);
+      padding: 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--ink);
       transition: transform 0.2s, box-shadow 0.2s;
     }
+
     .link-card:hover, .project-card:hover {
       transform: translateY(-3px);
-      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .gallery img {
-      width:100%; border-radius:8px;
-      cursor:pointer; transition: transform 0.2s;
-    }
-    .gallery img:hover { transform: scale(1.05); }
 
-    /* Lightbox */
-    .lightbox {
-      display:none; position:fixed; z-index:2000;
-      left:0; top:0; width:100%; height:100%;
-      background:rgba(0,0,0,0.8);
-      align-items:center; justify-content:center;
-    }
-    .lightbox img {
-      max-width:90%; max-height:80%; border-radius:10px;
-    }
-    .lightbox:target { display:flex; }
-    .close {
-      position:absolute; top:20px; right:40px;
-      color:white; font-size:2rem; text-decoration:none;
-    }
     footer {
-      text-align:center; background:var(--accent);
-      padding:1rem; color:var(--muted); margin-top:2rem;
-      border-top:1px solid #ddd;
+      text-align: center;
+      background: var(--accent);
+      padding: 1rem;
+      color: var(--muted);
+      border-top: 1px solid #ddd;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: var(--accent);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        border-top: 1px solid #ddd;
+      }
+      nav.active {
+        display: flex;
+      }
+      nav a {
+        margin: 0.8rem 0;
+        text-align: center;
+      }
+      .menu-toggle {
+        display: block;
+        color: var(--brand);
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero img {
+        margin-top: 1rem;
+      }
     }
   </style>
 </head>
 <body>
+
   <header>
     <a href="index.html" class="logo-link">
       <img src="chetak123.jpg" alt="SB.Chetak Lab Logo">
       <span>SB.Chetak Innovation</span>
     </a>
-    <nav>
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+    <nav id="navbar">
       <a href="biography.html">About</a>
       <a href="research.html">Research</a>
       <a href="photo-gallery.html">Gallery</a>
       <a href="project-funding.html">Funding</a>
       <a href="achievements.html">Highlights</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="contact.html">Contact</a>
       <a href="ourteam.html">Our Team</a>
       <select id="themeSelector" onchange="changeTheme(this.value)">
         <option value="teal">🌿 Teal-Light</option>
@@ -135,14 +232,13 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="hero-text">
-      <h2>WELCOME SPEECH . . . . . . . . . . . . . . . .</h2>
+      <h2>WELCOME SPEECH</h2>
       <h3>Creating with rigor and imagination.</h3>
       <p>
         Welcome to the official website of <b>Saswata Bag</b>.  
-        Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing mine safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application.
+        Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact.
       </p>
       <p>
         This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.
@@ -152,7 +248,6 @@
     <img src="lab-photo.JPG" alt="Saswata Bag">
   </section>
 
-  <!-- Quick Links -->
   <section class="section">
     <h2>Quick Links</h2>
     <div class="quick-links">
@@ -161,8 +256,7 @@
     </div>
   </section>
 
-  <!-- Projects -->
-  <section id="research" class="section">
+  <section class="section">
     <h2>Projects</h2>
     <div class="projects">
       <a href="chetak.html" class="project-card"><b>Chetak</b><br>Invention for coal mines.</a>
@@ -174,7 +268,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
     All Rights Reserved <br>
@@ -182,48 +275,29 @@
   </footer>
 
   <script>
-    // Theme Changer
+    function toggleMenu() {
+      document.getElementById('navbar').classList.toggle('active');
+    }
+
     function changeTheme(theme) {
+      const r = document.documentElement.style;
       if(theme === "teal"){
-        document.documentElement.style.setProperty("--bg", "#ffffff");
-        document.documentElement.style.setProperty("--ink", "#222");
-        document.documentElement.style.setProperty("--brand", "#00695c");
-        document.documentElement.style.setProperty("--accent", "#f0fafa");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "green"){
-        document.documentElement.style.setProperty("--bg", "#f7fdf9");
-        document.documentElement.style.setProperty("--ink", "#1b1b1b");
-        document.documentElement.style.setProperty("--brand", "#2e7d32");
-        document.documentElement.style.setProperty("--accent", "#eaf6ec");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "blue"){
-        document.documentElement.style.setProperty("--bg", "#f9fbff");
-        document.documentElement.style.setProperty("--ink", "#202633");
-        document.documentElement.style.setProperty("--brand", "#0056d6");
-        document.documentElement.style.setProperty("--accent", "#e7f0ff");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#666");
-      }
-      else if(theme === "violet"){
-        document.documentElement.style.setProperty("--bg", "#fcfbff");
-        document.documentElement.style.setProperty("--ink", "#2b2233");
-        document.documentElement.style.setProperty("--brand", "#8e44ad");
-        document.documentElement.style.setProperty("--accent", "#f4e9fb");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
+        r.setProperty("--bg","#ffffff"); r.setProperty("--brand","#00695c"); r.setProperty("--accent","#f0fafa");
+      } else if(theme === "green"){
+        r.setProperty("--bg","#f7fdf9"); r.setProperty("--brand","#2e7d32"); r.setProperty("--accent","#eaf6ec");
+      } else if(theme === "blue"){
+        r.setProperty("--bg","#f9fbff"); r.setProperty("--brand","#0056d6"); r.setProperty("--accent","#e7f0ff");
+      } else if(theme === "violet"){
+        r.setProperty("--bg","#fcfbff"); r.setProperty("--brand","#8e44ad"); r.setProperty("--accent","#f4e9fb");
       }
     }
 
-    // Auto "Last Updated" Date
+    // Last Updated Date
     const now = new Date();
-    const formatted = now.toLocaleDateString("en-IN", {
-      day: "numeric", month: "long", year: "numeric"
-    });
-    document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
+    document.getElementById("lastUpdated").innerHTML = 
+      "Last updated on: <b>" + now.toLocaleDateString("en-IN", {
+        day:"numeric", month:"long", year:"numeric"
+      }) + "</b>";
   </script>
 </body>
 </html>
