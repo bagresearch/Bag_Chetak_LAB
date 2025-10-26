@@ -7,176 +7,207 @@
   <style>
     :root {
       --bg: #ffffff;
-      --ink: #222;
-      --brand: #00695c;
-      --accent: #f0fafa;
-      --card: #ffffff;
-      --muted: #555;
+      --ink: #1e293b;
+      --brand: #0d9488;
+      --accent: #f0fdfa;
+      --muted: #64748b;
+      --shadow: rgba(0,0,0,0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
     }
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
       margin: 0;
       background: var(--bg);
       color: var(--ink);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      transition: var(--transition);
     }
 
+    /* HEADER */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: var(--accent);
-      padding: 0.8rem 1rem;
+      padding: 0.8rem 1.2rem;
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 5px var(--shadow);
     }
-
-    header a.logo-link {
+    .logo-link {
       display: flex;
       align-items: center;
       text-decoration: none;
     }
-
-    header a.logo-link img {
-      height: 36px;
+    .logo-link img {
+      height: 40px;
+      border-radius: 8px;
       margin-right: 10px;
-      border-radius: 6px;
     }
-
-    header a.logo-link span {
-      font-size: 1.2rem;
+    .logo-link span {
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--brand);
+      letter-spacing: 0.5px;
     }
 
+    /* NAVIGATION */
     nav {
       display: flex;
       align-items: center;
+      gap: 1rem;
     }
-
     nav a {
-      margin-left: 1rem;
       text-decoration: none;
       color: var(--ink);
       font-weight: 600;
+      position: relative;
     }
-
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: -3px;
+      background: var(--brand);
+      transition: width 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
     nav a:hover { color: var(--brand); }
 
-    /* Mobile Menu Button */
+    select, button.theme-btn {
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
     .menu-toggle {
       display: none;
       font-size: 1.8rem;
+      color: var(--brand);
       cursor: pointer;
-    }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    select {
-      margin-left: 1rem;
-      padding: 0.3rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background: white;
     }
 
     /* HERO */
     .hero {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: auto;
-      padding: 2rem 1rem;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, #e0f2f1 100%);
+      border-bottom: 1px solid #ddd;
     }
-
     .hero-text {
-      width: 100%;
-      max-width: 600px;
+      flex: 1 1 400px;
+      padding-right: 1.5rem;
     }
-
     .hero-text h2 {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       color: var(--brand);
+      margin-bottom: 0.3rem;
     }
-
     .hero-text h3 {
-      margin-top: 0.5rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 0;
     }
-
     .hero-text p {
       margin-top: 1rem;
-      line-height: 1.6;
+      font-size: 1rem;
     }
-
     .hero img {
-      width: 100%;
+      flex: 1 1 320px;
       max-width: 400px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 1.5rem;
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     .btn {
       display: inline-block;
-      margin-top: 1rem;
       background: var(--brand);
       color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
+      padding: 0.7rem 1.3rem;
+      border-radius: var(--radius);
       text-decoration: none;
       font-weight: 600;
+      margin-top: 1rem;
+      transition: var(--transition);
     }
+    .btn:hover { background: #0f766e; }
 
+    /* SECTIONS */
     .section {
       max-width: 1100px;
       margin: auto;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1.5rem;
     }
-
     .section h2 {
       color: var(--brand);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
     }
 
     .quick-links, .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
     }
-
     .link-card, .project-card {
-      background: var(--accent);
-      border-left: 4px solid var(--brand);
-      padding: 1rem;
-      border-radius: 8px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 1.2rem;
       text-decoration: none;
       color: var(--ink);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: var(--transition);
+      border-left: 5px solid var(--brand);
     }
-
     .link-card:hover, .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
 
     footer {
       text-align: center;
       background: var(--accent);
-      padding: 1rem;
+      padding: 1.5rem;
       color: var(--muted);
-      border-top: 1px solid #ddd;
+      font-size: 0.9rem;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 2rem;
     }
 
-    /* Responsive Adjustments */
+    /* DARK MODE */
+    body.dark {
+      --bg: #0f172a;
+      --ink: #e2e8f0;
+      --brand: #14b8a6;
+      --accent: #1e293b;
+      --muted: #94a3b8;
+      --shadow: rgba(255,255,255,0.05);
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav {
+      nav { 
         display: none;
         flex-direction: column;
         width: 100%;
@@ -184,31 +215,18 @@
         position: absolute;
         top: 60px;
         left: 0;
-        border-top: 1px solid #ddd;
-      }
-      nav.active {
-        display: flex;
-      }
-      nav a {
-        margin: 0.8rem 0;
+        padding: 1rem 0;
         text-align: center;
       }
-      .menu-toggle {
-        display: block;
-        color: var(--brand);
-      }
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero img {
-        margin-top: 1rem;
-      }
+      nav.active { display: flex; }
+      nav a { padding: 0.5rem 0; }
+      .menu-toggle { display: block; }
+      .hero { text-align: center; }
+      .hero-text { padding-right: 0; }
     }
   </style>
 </head>
 <body>
-
   <header>
     <a href="index.html" class="logo-link">
       <img src="chetak123.jpg" alt="SB.Chetak Lab Logo">
@@ -224,11 +242,12 @@
       <a href="contact.html">Contact</a>
       <a href="ourteam.html">Our Team</a>
       <select id="themeSelector" onchange="changeTheme(this.value)">
-        <option value="teal">🌿 Teal-Light</option>
-        <option value="green">🌱 Green-Gray</option>
-        <option value="blue">🔵 Blue-Silver</option>
-        <option value="violet">🎨 Violet-Pastel</option>
+        <option value="teal">🌿 Teal</option>
+        <option value="green">🌱 Green</option>
+        <option value="blue">🔵 Blue</option>
+        <option value="violet">🎨 Violet</option>
       </select>
+      <button class="theme-btn" onclick="toggleDark()">🌙</button>
     </nav>
   </header>
 
@@ -241,7 +260,7 @@
         Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact.
       </p>
       <p>
-        This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.
+        This platform showcases our achievements, research projects, and collaborations — highlighting our vision of building technology that serves society with responsibility and creativity.
       </p>
       <a class="btn" href="research.html">Explore Research</a>
     </div>
@@ -271,32 +290,31 @@
   <footer>
     © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
     All Rights Reserved <br>
-    <small id="lastUpdated" style="color:gray;"></small>
+    <small id="lastUpdated"></small>
   </footer>
 
   <script>
     function toggleMenu() {
-      document.getElementById('navbar').classList.toggle('active');
+      document.getElementById("navbar").classList.toggle("active");
     }
 
     function changeTheme(theme) {
       const r = document.documentElement.style;
-      if(theme === "teal"){
-        r.setProperty("--bg","#ffffff"); r.setProperty("--brand","#00695c"); r.setProperty("--accent","#f0fafa");
-      } else if(theme === "green"){
-        r.setProperty("--bg","#f7fdf9"); r.setProperty("--brand","#2e7d32"); r.setProperty("--accent","#eaf6ec");
-      } else if(theme === "blue"){
-        r.setProperty("--bg","#f9fbff"); r.setProperty("--brand","#0056d6"); r.setProperty("--accent","#e7f0ff");
-      } else if(theme === "violet"){
-        r.setProperty("--bg","#fcfbff"); r.setProperty("--brand","#8e44ad"); r.setProperty("--accent","#f4e9fb");
-      }
+      if(theme === "teal"){ r.setProperty("--brand","#0d9488"); r.setProperty("--accent","#f0fdfa"); }
+      else if(theme === "green"){ r.setProperty("--brand","#16a34a"); r.setProperty("--accent","#f0fdf4"); }
+      else if(theme === "blue"){ r.setProperty("--brand","#2563eb"); r.setProperty("--accent","#eef2ff"); }
+      else if(theme === "violet"){ r.setProperty("--brand","#8b5cf6"); r.setProperty("--accent","#f5f3ff"); }
+    }
+
+    function toggleDark() {
+      document.body.classList.toggle("dark");
     }
 
     // Last Updated Date
     const now = new Date();
-    document.getElementById("lastUpdated").innerHTML = 
+    document.getElementById("lastUpdated").innerHTML =
       "Last updated on: <b>" + now.toLocaleDateString("en-IN", {
-        day:"numeric", month:"long", year:"numeric"
+        day: "numeric", month: "long", year: "numeric"
       }) + "</b>";
   </script>
 </body>
