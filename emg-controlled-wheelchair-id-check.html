@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMG-Wheelchair-Portal</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #003366, #0066cc);
+      color: white;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .login-box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 320px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      background-color: #00bfff;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0099cc;
+    }
+
+    #progress-container {
+      display: none;
+      width: 80%;
+      margin-top: 20px;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 10px;
+      background: #00ffcc;
+      border-radius: 5px;
+      transition: width 0.05s;
+    }
+
+    #status-text {
+      margin-top: 15px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>EMG-Controlled-Wheelchair</h2>
+    <form id="loginForm">
+      <input type="text" id="userid" placeholder="Enter Id To Access Page " required /><br />
+      <input type="password" id="password" placeholder="Password" required /><br />
+      <input type="submit" value="Access" />
+    </form>
+    <div id="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+      <p id="status-text"></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const progressContainer = document.getElementById("progress-container");
+    const progressBar = document.getElementById("progress-bar");
+    const statusText = document.getElementById("status-text");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const user = document.getElementById("userid").value.trim();
+      const pass = document.getElementById("password").value.trim();
+
+      // demo credentials
+      const validCredentials = {
+        "admin": "6020517",
+        "nitiaayog": "7928"
+      };
+
+      if (validCredentials[user] === pass) {
+        form.style.display = "none";
+        progressContainer.style.display = "block";
+        let percent = 0;
+        const interval = setInterval(() => {
+          percent++;
+          progressBar.style.width = percent + "%";
+          statusText.innerText = `Connecting to EMG Controlled Wheelchair Page... ${percent}%`;
+
+          if (percent === 100) {
+            clearInterval(interval);
+            statusText.innerText = "Redirecting you to EMG Controlled Wheelchair Page...";
+            setTimeout(() => {
+              window.location.href = "emg-wheelchair.html";
+            }, 1500);
+          }
+        }, 50);
+      } else {
+        alert("Invalid credentials. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
