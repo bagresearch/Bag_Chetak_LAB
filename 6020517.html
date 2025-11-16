@@ -3,324 +3,394 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Lightweight 3D Wheelchair (Self-contained)</title>
+<title>EMG Wheelchair — Wheels driven by EMG</title>
 <style>
-  :root{--bg:#071427}
-  html,body{height:100%;margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:#e6eef8}
-  #ui{position:absolute;left:12px;top:12px;z-index:30;background:rgba(0,0,0,0.45);padding:10px;border-radius:8px}
-  #canvas{display:block;width:100vw;height:100vh}
-  button{background:#38bdf8;border:0;padding:6px 10px;border-radius:6px;cursor:pointer}
-  label{font-size:13px;color:#cfeffd;margin-right:8px}
-  input[type=range]{width:160px}
-  .small{font-size:12px;color:#9fb6c9}
+  :root{--bg:#071427;--panel:rgba(0,0,0,0.45);--accent:#38bdf8;--muted:#9fb6c9}
+  html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,Arial,sans-serif;color:#e6eef8}
+  #ui{position:absolute;left:14px;top:14px;z-index:40;background:var(--panel);padding:12px;border-radius:10px;max-width:360px}
+  #ui h2{margin:0 0 6px 0;font-size:15px}
+  .row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  button{background:var(--accent);border:0;padding:8px 10px;border-radius:8px;color:#022;font-weight:700;cursor:pointer}
+  button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  label{font-size:13px;color:var(--muted);min-width:80px}
+  input[type=range]{width:180px}
+  .small{font-size:12px;color:var(--muted)}
+  #canvasWrap{position:absolute;inset:0}
+  canvas{display:block;width:100%;height:100%}
+  footer{position:absolute;left:14px;bottom:14px;color:var(--muted);font-size:12px}
 </style>
 </head>
 <body>
+
 <div id="ui">
-  <div style="margin-bottom:8px"><button id="reset">Reset View</button> <button id="toggleAnim">Toggle Anim</button></div>
-  <div style="display:flex;align-items:center;gap:8px"><label>Zoom</label><input id="zoom" type="range" min="30" max="220" value="120"></div>
-  <div style="margin-top:6px" class="small">Drag to orbit. Mouse wheel or Zoom slider to zoom. This is a lightweight WebGL 3D rendering — no external libraries.</div>
+  <h2>EMG Wheelchair — Wheels driven by EMG</h2>
+  <div class="row">
+    <button id="foldBtn">Fold / Unfold</button>
+    <button id="playBtn" class="ghost">Pause Anim</button>
+    <button id="resetBtn" class="ghost">Reset View</button>
+  </div>
+
+  <div class="small">Move the EMG sliders. A > B spins wheels forward. B > A spins backward. Hold sliders to simulate muscle activation.</div>
+
+  <div class="row">
+    <label>EMG A</label>
+    <input id="emgA" type="range" min="0" max="1023" value="0">
+    <div id="vA" class="small">0</div>
+  </div>
+  <div class="row">
+    <label>EMG B</label>
+    <input id="emgB" type="range" min="0" max="1023" value="0">
+    <div id="vB" class="small">0</div>
+  </div>
+
+  <div class="row">
+    <label>Zoom</label>
+    <input id="zoom" type="range" min="0.6" max="1.4" step="0.01" value="1">
+    <div id="zv" class="small">1.00x</div>
+  </div>
+
+  <div style="margin-top:6px" class="small">Tip: increase EMG A to move forward, EMG B to reverse. The wheel speed and small forward motion simulate the control mapping.</div>
 </div>
-<canvas id="canvas"></canvas>
+
+<div id="canvasWrap"><canvas id="c"></canvas></div>
+<footer>EMG-driven wheels — Canvas2D simulation (no WebGL).</footer>
 
 <script>
-/*
- Lightweight self-contained WebGL 3D wheelchair.
- No external libraries. Simple phong shading, primitive meshes (boxes + cylinder approximations).
- Designed to be small and guaranteed to render on pages that block CDNs.
-*/
+// --------- Setup ----------
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d', { alpha:false });
 
-// ---- Helpers: matrix and vector (minimal) ----
-function mat4Identity(){ return [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]; }
-function mat4Multiply(a,b){
-  const out = new Array(16);
-  for(let i=0;i<4;i++){
-    for(let j=0;j<4;j++){
-      let s=0;
-      for(let k=0;k<4;k++) s += a[k*4 + j] * b[i*4 + k];
-      out[i*4 + j] = s;
-    }
+function resize(){ canvas.width = canvas.clientWidth = window.innerWidth; canvas.height = canvas.clientHeight = window.innerHeight; updateCenter(); }
+window.addEventListener('resize', resize);
+resize();
+
+// UI elements
+const foldBtn = document.getElementById('foldBtn');
+const playBtn = document.getElementById('playBtn');
+const resetBtn = document.getElementById('resetBtn');
+const emgA = document.getElementById('emgA'), emgB = document.getElementById('emgB');
+const vA = document.getElementById('vA'), vB = document.getElementById('vB');
+const zoom = document.getElementById('zoom'), zv = document.getElementById('zv');
+
+let animRunning = true;
+playBtn.addEventListener('click', ()=>{ animRunning = !animRunning; playBtn.textContent = animRunning ? 'Pause Anim' : 'Resume Anim'; });
+foldBtn.addEventListener('click', ()=>{ folding = !folding; });
+resetBtn.addEventListener('click', ()=>{ camX=0; camY=0; zoomVal=1; zv.textContent='1.00x'; });
+
+// pan / zoom
+let camX = 0, camY = 0, isPanning=false, lastPX=0, lastPY=0;
+canvas.addEventListener('mousedown', (e)=>{ isPanning=true; lastPX=e.clientX; lastPY=e.clientY; });
+window.addEventListener('mouseup', ()=> isPanning=false);
+window.addEventListener('mousemove', (e)=>{ if(isPanning){ camX += (e.clientX - lastPX); camY += (e.clientY - lastPY); lastPX = e.clientX; lastPY = e.clientY; }});
+canvas.addEventListener('wheel', (e)=>{ e.preventDefault(); zoomVal *= (1 + e.deltaY * -0.0015); zoomVal = Math.max(0.4, Math.min(2.0, zoomVal)); zoom.value = zoomVal; zv.textContent = zoomVal.toFixed(2)+'x'; }, {passive:false});
+zoom.addEventListener('input', ()=>{ zoomVal = Number(zoom.value); zv.textContent = zoomVal.toFixed(2)+'x'; });
+
+// EMG display
+emgA.addEventListener('input', ()=> vA.textContent = emgA.value );
+emgB.addEventListener('input', ()=> vB.textContent = emgB.value );
+
+// initial camera / scene state
+let zoomVal = 1;
+let folding = false;
+let foldProgress = 0; // 0: open, 1: folded
+let wheelSpinL = 0; // left wheel angle
+let wheelSpinR = 0; // right wheel angle
+let casterAngle = 0;
+let tLast = performance.now();
+let vehicleX = 0; // small forward/back translation for simulation
+
+// ---------- 3D-ish helpers (simple isometric projection) ----------
+function project3(x,y,z){
+  const scale = 1.0 * zoomVal;
+  const sx = x * scale - z * 0.8 * scale;
+  const sy = y * scale - z * 0.4 * scale;
+  return { x: cx + sx + camX, y: cy + sy + camY };
+}
+
+function updateCenter(){ cx = canvas.width/2; cy = canvas.height/2 + 40; }
+let cx = canvas.width/2, cy = canvas.height/2 + 40;
+updateCenter();
+
+// draw helpers (rounded rect, circle, etc.)
+function roundRectPath(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function roundRect(x,y,w,h,r,fill){
+  roundRectPath(x,y,w,h,r);
+  if(fill){ ctx.fillStyle = fill; ctx.fill(); }
+  ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1; ctx.stroke();
+}
+function shadeColor(hex, percent){
+  const c = hex.replace('#','');
+  const num = parseInt(c,16);
+  let r = (num >> 16) + percent, g = ((num >> 8) & 0xFF) + percent, b = (num & 0xFF) + percent;
+  r = Math.max(0, Math.min(255, r)); g = Math.max(0, Math.min(255, g)); b = Math.max(0, Math.min(255, b));
+  return '#' + ( (1<<24) + (r<<16) + (g<<8) + b ).toString(16).slice(1);
+}
+
+// ---------- Model definitions ----------
+const model = {
+  seat: {x:0,y:20,z:0, w:160,h:12,d:70},
+  backrest: {x:0,y:60,z:-28, w:140,h:64,d:12},
+  rearWheelL: {x:-80,y:20,z:-46, r:46},
+  rearWheelR: {x:-80,y:20,z:46, r:46},
+  casterL: {x:70,y:18,z:-22, r:14},
+  casterR: {x:70,y:18,z:22, r:14},
+  motorL: {x:-80,y:20,z:-46, w:22,h:18,d:18},
+  motorR: {x:-80,y:20,z:46, w:22,h:18,d:18},
+  joystick: {x:34,y:60,z:50},
+  battery: {x:-12,y:8,z:0,w:84,h:28,d:36},
+  pcb: {x:18,y:36,z:14,w:36,h:4,d:24},
+  electrodes: [{x:36,y:70,z:-40},{x:44,y:70,z:-40}]
+};
+
+// ---------- Drawing primitives ----------
+function drawBoxModel(x,y,z,w,h,d, fill){
+  const slices = 6;
+  for(let s=slices-1;s>=0;s--){
+    const dz = (s / slices) * d - d*0.5;
+    const p = project3(x, y - (s * 0.5), z + dz);
+    const ww = w * (1 - s*0.02) * zoomVal;
+    const hh = h * (1 - s*0.02) * zoomVal;
+    const left = p.x - ww/2, top = p.y - hh/2;
+    const shade = shadeColor(fill, -s*3);
+    roundRect(left, top, ww, hh, Math.max(3,6 - s), shade);
   }
-  return out;
 }
-function mat4Translate(tx,ty,tz){
-  const m = mat4Identity(); m[12]=tx; m[13]=ty; m[14]=tz; return m;
+function drawBoxModelRotated(x,y,z,w,h,d, fill, rotX){
+  const pFront = project3(x, y - Math.sin(rotX)*h*0.5, z - Math.cos(rotX)*d*0.5);
+  const pBack  = project3(x, y + Math.sin(rotX)*h*0.5, z + Math.cos(rotX)*d*0.5);
+  const ww = w*zoomVal, hh = h*zoomVal;
+  roundRect(pBack.x - ww/2, pBack.y - hh/2, ww, hh, 6, shadeColor(fill, -8));
+  roundRect(pFront.x - ww/2, pFront.y - hh/2, ww, hh, 6, fill);
 }
-function mat4Scale(sx,sy,sz){ const m=mat4Identity(); m[0]=sx; m[5]=sy; m[10]=sz; return m; }
-function mat4RotateY(rad){
-  const c=Math.cos(rad), s=Math.sin(rad);
-  return [ c,0,s,0,  0,1,0,0,  -s,0,c,0, 0,0,0,1];
-}
-function mat4RotateX(rad){
-  const c=Math.cos(rad), s=Math.sin(rad);
-  return [1,0,0,0,  0,c,-s,0,  0,s,c,0, 0,0,0,1];
-}
-function perspective(fovy, aspect, near, far){
-  const f = 1/Math.tan(fovy/2); const nf=1/(near-far);
-  const out = new Array(16).fill(0);
-  out[0]=f/aspect; out[5]=f; out[10]=(far+near)*nf; out[11]=-1; out[14]=2*far*near*nf;
-  return out;
-}
-function lookAt(eye, center, up){
-  const zx = eye[0]-center[0], zy=eye[1]-center[1], zz=eye[2]-center[2];
-  let zlen = Math.hypot(zx,zy,zz); if(zlen===0) zlen=1;
-  const zx0=zx/zlen, zy0=zy/zlen, zz0=zz/zlen;
-  let xx = up[1]*zz0 - up[2]*zy0, xy = up[2]*zx0 - up[0]*zz0, xz = up[0]*zy0 - up[1]*zx0;
-  let xlen = Math.hypot(xx,xy,xz); if(xlen===0) xlen=1;
-  xx/=xlen; xy/=xlen; xz/=xlen;
-  const yx = zy0*xz - zz0*xy, yy = zz0*xx - zx0*xz, yz = zx0*xy - zy0*xx;
-  return [
-    xx, yx, zx0,0,
-    xy, yy, zy0,0,
-    xz, yz, zz0,0,
-    0, 0, 0, 1
-  ];
+function drawCircleModel(x,y,z,r, color){
+  const p = project3(x,y,z);
+  ctx.beginPath();
+  ctx.fillStyle = color;
+  ctx.arc(p.x, p.y, Math.max(3, r*zoomVal), 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = shadeColor(color, -25); ctx.lineWidth = 1; ctx.stroke();
 }
 
-// ---- GL setup ----
-const canvas = document.getElementById('canvas');
-const gl = canvas.getContext('webgl', {antialias:true}) || canvas.getContext('experimental-webgl');
-if(!gl){ alert('WebGL not supported'); throw new Error('WebGL not supported'); }
-function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; gl.viewport(0,0,gl.drawingBufferWidth, gl.drawingBufferHeight); }
-window.addEventListener('resize', resize); resize();
-
-// simple shader sources (Lambert + ambient)
-const vs = `
-attribute vec3 aPos;
-attribute vec3 aNor;
-uniform mat4 uMVP;
-uniform mat4 uModel;
-varying vec3 vPos;
-varying vec3 vNor;
-void main(){
-  vPos = (uModel * vec4(aPos,1.0)).xyz;
-  vNor = (uModel * vec4(aNor,0.0)).xyz;
-  gl_Position = uMVP * vec4(aPos,1.0);
-}
-`;
-const fs = `
-precision mediump float;
-varying vec3 vPos;
-varying vec3 vNor;
-uniform vec3 uLightDir;
-uniform vec3 uColor;
-uniform float uAmbient;
-void main(){
-  vec3 N = normalize(vNor);
-  float lam = max(dot(N, normalize(uLightDir)), 0.0);
-  vec3 col = uColor * (uAmbient + (1.0 - uAmbient) * lam);
-  gl_FragColor = vec4(col,1.0);
-}
-`;
-function compile(src, type){ const sh = gl.createShader(type); gl.shaderSource(sh, src); gl.compileShader(sh); if(!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh)); return sh;}
-const prog = gl.createProgram();
-gl.attachShader(prog, compile(vs, gl.VERTEX_SHADER));
-gl.attachShader(prog, compile(fs, gl.FRAGMENT_SHADER));
-gl.linkProgram(prog);
-if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
-gl.useProgram(prog);
-
-// attributes/uniforms
-const aPosLoc = gl.getAttribLocation(prog, 'aPos');
-const aNorLoc = gl.getAttribLocation(prog, 'aNor');
-const uMVPLoc = gl.getUniformLocation(prog, 'uMVP');
-const uModelLoc = gl.getUniformLocation(prog, 'uModel');
-const uLightLoc = gl.getUniformLocation(prog, 'uLightDir');
-const uColorLoc = gl.getUniformLocation(prog, 'uColor');
-const uAmbientLoc = gl.getUniformLocation(prog, 'uAmbient');
-
-// ---- geometry builder ----
-function createBox(w,h,d){
-  const hw=w/2, hh=h/2, hd=d/2;
-  // positions
-  const pos = [
-    // front
-    -hw,-hh, hd,  hw,-hh, hd,  hw,hh, hd, -hw,hh, hd,
-    // back
-    hw,-hh,-hd, -hw,-hh,-hd, -hw,hh,-hd, hw,hh,-hd,
-    // left
-    -hw,-hh,-hd, -hw,-hh, hd, -hw,hh, hd, -hw,hh,-hd,
-    // right
-    hw,-hh, hd, hw,-hh,-hd, hw,hh,-hd, hw,hh, hd,
-    // top
-    -hw, hh, hd,  hw, hh, hd,  hw, hh,-hd, -hw, hh,-hd,
-    // bottom
-    -hw,-hh,-hd,  hw,-hh,-hd,  hw,-hh, hd, -hw,-hh, hd
-  ];
-  // normals per face
-  const n = [
-    0,0,1, 0,0,1, 0,0,1, 0,0,1,
-    0,0,-1,0,0,-1,0,0,-1,0,0,-1,
-    -1,0,0,-1,0,0,-1,0,0,-1,0,0,
-    1,0,0,1,0,0,1,0,0,1,0,0,
-    0,1,0,0,1,0,0,1,0,0,1,0,
-    0,-1,0,0,-1,0,0,-1,0,0,-1,0
-  ];
-  // indices
-  const idx = [];
-  for(let f=0;f<6;f++){
-    const o=f*4;
-    idx.push(o, o+1, o+2, o, o+2, o+3);
+function drawWheel(x,y,z,r, tireColor, rimColor, spin){
+  const p = project3(x,y,z);
+  // tire
+  ctx.beginPath(); ctx.fillStyle = tireColor; ctx.arc(p.x,p.y, Math.max(6, r*zoomVal), 0, Math.PI*2); ctx.fill();
+  // rim
+  ctx.beginPath(); ctx.fillStyle = rimColor; ctx.arc(p.x,p.y, Math.max(3, r*0.45*zoomVal), 0, Math.PI*2); ctx.fill();
+  // spokes
+  ctx.strokeStyle = shadeColor(rimColor, -30);
+  ctx.lineWidth = Math.max(1, Math.round(1 * zoomVal));
+  const spokes = 12;
+  for(let i=0;i<spokes;i++){
+    const ang = spin + (i/spokes)*Math.PI*2;
+    const sx = Math.cos(ang) * r*0.6 * zoomVal;
+    const sy = Math.sin(ang) * r*0.6 * zoomVal;
+    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+sx,p.y+sy); ctx.stroke();
   }
-  return {pos:new Float32Array(pos), nor:new Float32Array(n), idx:new Uint16Array(idx)};
 }
-function createCylinder(radius, length, segments){
-  const positions = [], normals = [], indices = [];
-  for(let s=0;s<=segments;s++){
-    const theta = (s / segments) * Math.PI * 2;
-    const x = Math.cos(theta) * radius;
-    const z = Math.sin(theta) * radius;
-    positions.push(x, -length/2, z); normals.push(x,0,z);
-    positions.push(x, length/2, z); normals.push(x,0,z);
+function drawWheelShadow(x,y,z,r){
+  const p = project3(x,y-6,z+60);
+  const grad = ctx.createRadialGradient(p.x,p.y,2,p.x,p.y,r*zoomVal*1.4);
+  grad.addColorStop(0,'rgba(0,0,0,0.35)'); grad.addColorStop(1,'rgba(0,0,0,0.0)');
+  ctx.fillStyle = grad; ctx.beginPath(); ctx.ellipse(p.x,p.y, r*zoomVal*1.3, r*zoomVal*0.65, 0, 0, Math.PI*2); ctx.fill();
+}
+
+// ---------- EMG → drive mapping ----------
+// mapping constants
+const MAX_RAD_PER_SEC = 16.0; // wheel angular velocity scale (radians/sec)
+const WHEEL_RADIUS_MM = 460; // not used for physics, just for feel
+
+// simple low-pass filter for smooth input
+let filteredA = 0, filteredB = 0;
+const filterTau = 0.08;
+
+// ---------- Main render loop ----------
+let lastTime = performance.now();
+function renderFrame(now){
+  now = performance.now();
+  const dt = Math.min(0.05, (now - lastTime)/1000);
+  lastTime = now;
+
+  // read EMG inputs and low-pass filter
+  const a = Number(emgA.value);
+  const b = Number(emgB.value);
+  filteredA += (a - filteredA) * Math.min(1, dt / filterTau);
+  filteredB += (b - filteredB) * Math.min(1, dt / filterTau);
+
+  // compute normalized [-1..1] motor command
+  const normA = (filteredA / 1023);
+  const normB = (filteredB / 1023);
+  const drive = Math.max(-1, Math.min(1, (normA - normB))); // A-B
+  // map to angular speed
+  const wheelAngularSpeed = drive * MAX_RAD_PER_SEC; // rad/s
+
+  // update wheel spin angles
+  wheelSpinL += wheelAngularSpeed * dt;
+  wheelSpinR += wheelAngularSpeed * dt;
+
+  // vehicle small forward/back translation proportional to drive (pure visual)
+  vehicleX += drive * 12 * dt; // model units
+
+  // caster swivel gentle animation
+  casterAngle = Math.sin(now/600) * 0.25;
+
+  // fold smoothing
+  const targetFold = folding ? 1 : 0;
+  foldProgress += (targetFold - foldProgress) * Math.min(1, dt * 6);
+
+  // update center/clear
+  ctx.fillStyle = '#071427'; ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // ground shadow
+  ctx.fillStyle = '#03121a'; ctx.fillRect(0, cy + 160, canvas.width, canvas.height - (cy + 160));
+
+  // compute small forward offset from vehicleX
+  const forward = vehicleX;
+
+  // frame base
+  drawBoxModel(model.seat.x + forward, model.seat.y - 10, model.seat.z, model.seat.w, 8, model.seat.d, '#22313b');
+  // seat cushion
+  drawBoxModel(model.seat.x + forward, model.seat.y, model.seat.z, model.seat.w, model.seat.h, model.seat.d, '#182935');
+
+  // backrest tilt + fold mixing
+  const tilt = (normA - normB) * 0.25; // small tilt
+  const backTilt = -tilt - foldProgress * Math.PI * 0.5; // folded rotates downward
+  drawBoxModelRotated(model.backrest.x + forward, model.backrest.y, model.backrest.z, model.backrest.w, model.backrest.h, model.backrest.d, '#182935', backTilt);
+
+  // armrests
+  drawBoxModel(model.seat.x + forward - 20, model.seat.y + 10, - (model.seat.d/2 + 6), 48, 6, 12, '#22313b');
+  drawBoxModel(model.seat.x + forward - 20, model.seat.y + 10, (model.seat.d/2 + 6), 48, 6, 12, '#22313b');
+  drawBoxModel(model.seat.x + forward - 20, model.seat.y + 14, - (model.seat.d/2 + 6), 48, 4, 14, '#182935');
+  drawBoxModel(model.seat.x + forward - 20, model.seat.y + 14, (model.seat.d/2 + 6), 48, 4, 14, '#182935');
+
+  // joystick & base
+  drawBoxModel(model.joystick.x + forward, model.joystick.y - 10, model.joystick.z, 8, 60, 6, '#9fb6c9');
+  drawCircleModel(model.joystick.x + forward, model.joystick.y + 20, model.joystick.z, 7, '#0ea5a4');
+
+  // battery & PCB
+  drawBoxModel(model.battery.x + forward, model.battery.y, model.battery.z, model.battery.w, model.battery.h, model.battery.d, '#0b6b63');
+  drawBoxModel(model.pcb.x + forward, model.pcb.y, model.pcb.z, model.pcb.w, model.pcb.h, model.pcb.d, '#113b2f');
+
+  // electrodes
+  for(const e of model.electrodes) drawCircleModel(e.x + forward, e.y, e.z, 3.5, '#cbd5e1');
+
+  // rear wheels & motors (use wheelSpinL / wheelSpinR)
+  drawWheel(model.rearWheelL.x + forward, model.rearWheelL.y, model.rearWheelL.z, model.rearWheelL.r, '#0a0a0c', '#444', wheelSpinL);
+  drawBoxModel(model.motorL.x + forward, model.motorL.y, model.motorL.z, model.motorL.w, model.motorL.h, model.motorL.d, '#21a3c8');
+
+  drawWheel(model.rearWheelR.x + forward, model.rearWheelR.y, model.rearWheelR.z, model.rearWheelR.r, '#0a0a0c', '#444', wheelSpinR);
+  drawBoxModel(model.motorR.x + forward, model.motorR.y, model.motorR.z, model.motorR.w, model.motorR.h, model.motorR.d, '#21a3c8');
+
+  // front casters with swivel (use casterAngle)
+  drawWheel(model.casterL.x + forward, model.casterL.y, model.casterL.z, model.casterL.r, '#0a0a0c', '#555', casterAngle * 8);
+  drawBoxModel(model.casterL.x + forward, model.casterL.y - 14, model.casterL.z, 6, 24, 6, '#22313b');
+
+  drawWheel(model.casterR.x + forward, model.casterR.y, model.casterR.z, model.casterR.r, '#0a0a0c', '#555', -casterAngle * 8);
+  drawBoxModel(model.casterR.x + forward, model.casterR.y - 14, model.casterR.z, 6, 24, 6, '#22313b');
+
+  // wheel shadows
+  drawWheelShadow(model.rearWheelL.x + forward, model.rearWheelL.y, model.rearWheelL.z, model.rearWheelL.r);
+  drawWheelShadow(model.rearWheelR.x + forward, model.rearWheelR.y, model.rearWheelR.z, model.rearWheelR.r);
+  drawWheelShadow(model.casterL.x + forward, model.casterL.y, model.casterL.z, model.casterL.r);
+  drawWheelShadow(model.casterR.x + forward, model.casterR.y, model.casterR.z, model.casterR.r);
+
+  // labels & HUD
+  ctx.fillStyle = '#9fb6c9'; ctx.font = '14px Inter, Arial';
+  const seatP = project3(model.seat.x + forward, model.seat.y + model.seat.h/2 + 2, model.seat.z - model.seat.d/2);
+  ctx.fillText('Seat', seatP.x - 20, seatP.y - 6);
+  const backP = project3(model.backrest.x + forward, model.backrest.y + 6, model.backrest.z - model.backrest.d/2);
+  ctx.fillText('Backrest', backP.x - 28, backP.y - 6);
+
+  ctx.fillStyle = '#89cfff'; ctx.font = '12px Inter, Arial';
+  ctx.fillText(`EMG A: ${Math.round(filteredA)}  EMG B: ${Math.round(filteredB)}  Drive: ${drive.toFixed(2)}  Wheel ω: ${(wheelAngularSpeed).toFixed(2)} rad/s`, 18, canvas.height - 18);
+
+  // update UI numeric readouts
+  vA.textContent = Math.round(filteredA);
+  vB.textContent = Math.round(filteredB);
+
+  requestAnimationFrame(renderFrame);
+}
+
+// start loop
+lastTime = performance.now();
+renderFrame();
+
+// small helpers re-used (copied from previous code)
+function project3(x,y,z){
+  const scale = 1.0 * zoomVal;
+  const sx = x * scale - z * 0.8 * scale;
+  const sy = y * scale - z * 0.4 * scale;
+  return { x: cx + sx + camX, y: cy + sy + camY };
+}
+function drawBoxModel(x,y,z,w,h,d, fill){
+  const slices = 6;
+  for(let s=slices-1;s>=0;s--){
+    const dz = (s / slices) * d - d*0.5;
+    const p = project3(x, y - (s * 0.5), z + dz);
+    const ww = w * (1 - s*0.02) * zoomVal;
+    const hh = h * (1 - s*0.02) * zoomVal;
+    const left = p.x - ww/2, top = p.y - hh/2;
+    const shade = shadeColor(fill, -s*3);
+    roundRect(left, top, ww, hh, Math.max(3,6 - s), shade);
   }
-  // side indices
-  for(let s=0; s<segments; s++){
-    const i = s*2;
-    indices.push(i, i+1, i+3, i, i+3, i+2);
+}
+function drawBoxModelRotated(x,y,z,w,h,d, fill, rotX){
+  const pFront = project3(x, y - Math.sin(rotX)*h*0.5, z - Math.cos(rotX)*d*0.5);
+  const pBack  = project3(x, y + Math.sin(rotX)*h*0.5, z + Math.cos(rotX)*d*0.5);
+  const ww = w*zoomVal, hh = h*zoomVal;
+  roundRect(pBack.x - ww/2, pBack.y - hh/2, ww, hh, 6, shadeColor(fill, -8));
+  roundRect(pFront.x - ww/2, pFront.y - hh/2, ww, hh, 6, fill);
+}
+function drawCircleModel(x,y,z,r, color){
+  const p = project3(x,y,z);
+  ctx.beginPath(); ctx.fillStyle = color; ctx.arc(p.x, p.y, Math.max(3, r*zoomVal), 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = shadeColor(color, -25); ctx.lineWidth = 1; ctx.stroke();
+}
+function drawWheel(x,y,z,r, tireColor, rimColor, spin){
+  const p = project3(x,y,z);
+  ctx.beginPath(); ctx.fillStyle = tireColor; ctx.arc(p.x,p.y, Math.max(6, r*zoomVal), 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.fillStyle = rimColor; ctx.arc(p.x,p.y, Math.max(3, r*0.45*zoomVal), 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = shadeColor(rimColor, -30); ctx.lineWidth = Math.max(1, Math.round(1 * zoomVal));
+  const spokes = 12;
+  for(let i=0;i<spokes;i++){
+    const ang = spin + (i/spokes)*Math.PI*2;
+    const sx = Math.cos(ang) * r*0.6 * zoomVal;
+    const sy = Math.sin(ang) * r*0.6 * zoomVal;
+    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+sx,p.y+sy); ctx.stroke();
   }
-  return {pos:new Float32Array(positions), nor:new Float32Array(normals), idx:new Uint16Array(indices)};
 }
-
-// ---- create VAO-like buffers (manual) ----
-function createMesh(geom){
-  const vbo = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-  // interleave pos & nor
-  const nVerts = geom.pos.length/3;
-  const inter = new Float32Array(nVerts*6);
-  for(let i=0;i<nVerts;i++){
-    inter[i*6+0] = geom.pos[i*3+0];
-    inter[i*6+1] = geom.pos[i*3+1];
-    inter[i*6+2] = geom.pos[i*3+2];
-    inter[i*6+3] = geom.nor[i*3+0] || 0;
-    inter[i*6+4] = geom.nor[i*3+1] || 0;
-    inter[i*6+5] = geom.nor[i*3+2] || 0;
-  }
-  gl.bufferData(gl.ARRAY_BUFFER, inter, gl.STATIC_DRAW);
-  const ibo = gl.createBuffer();
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
-  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geom.idx, gl.STATIC_DRAW);
-  return {vbo, ibo, count:geom.idx.length, stride:6*4};
+function drawWheelShadow(x,y,z,r){
+  const p = project3(x,y-6,z+60);
+  const grad = ctx.createRadialGradient(p.x,p.y,2,p.x,p.y,r*zoomVal*1.4);
+  grad.addColorStop(0,'rgba(0,0,0,0.35)'); grad.addColorStop(1,'rgba(0,0,0,0.0)');
+  ctx.fillStyle = grad; ctx.beginPath(); ctx.ellipse(p.x,p.y, r*zoomVal*1.3, r*zoomVal*0.65, 0, 0, Math.PI*2); ctx.fill();
 }
-
-// ---- Build primitives for wheelchair ----
-const baseBox = createMesh(createBox(160, 10, 60));
-const seatBox = createMesh(createBox(160, 10, 60));
-const backBox = createMesh(createBox(160, 80, 10));
-const smallBox = createMesh(createBox(40,8,12));
-const wheelCyl = createMesh(createCylinder(40, 16, 28));
-const casterCyl = createMesh(createCylinder(14, 8, 20));
-
-// helper to draw a mesh with model matrix and color
-function setAttribs(mesh){
-  gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vbo);
-  gl.enableVertexAttribArray(aPosLoc);
-  gl.vertexAttribPointer(aPosLoc, 3, gl.FLOAT, false, mesh.stride, 0);
-  gl.enableVertexAttribArray(aNorLoc);
-  gl.vertexAttribPointer(aNorLoc, 3, gl.FLOAT, false, mesh.stride, 3*4);
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.ibo);
+function roundRect(x,y,w,h,r,fill){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  if(fill){ ctx.fillStyle = fill; ctx.fill(); }
+  ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1; ctx.stroke();
 }
-function drawMesh(mesh, modelMat, color){
-  setAttribs(mesh);
-  // compute MVP = proj * view * model
-  const aspect = gl.drawingBufferWidth / gl.drawingBufferHeight;
-  const proj = perspective(45 * Math.PI/180, aspect, 0.1, 2000);
-  const eye = [camRadius * Math.sin(camRotY) * Math.cos(camRotX), camY, camRadius * Math.cos(camRotY) * Math.cos(camRotX)];
-  const view = lookAt(eye, [0,40,0], [0,1,0]);
-  // multiply matrices: proj * view * model
-  let mv = mat4Multiply(view, modelMat);
-  let mvp = mat4Multiply(proj, mv);
-  gl.uniformMatrix4fv(uMVPLoc, false, new Float32Array(mvp));
-  gl.uniformMatrix4fv(uModelLoc, false, new Float32Array(modelMat));
-  gl.uniform3fv(uLightLoc, new Float32Array([0.5,0.8,0.6]));
-  gl.uniform3fv(uColorLoc, new Float32Array(color));
-  gl.uniform1f(uAmbientLoc, 0.25);
-  gl.drawElements(gl.TRIANGLES, mesh.count, gl.UNSIGNED_SHORT, 0);
+function shadeColor(hex, percent){
+  const c = hex.replace('#','');
+  const num = parseInt(c,16);
+  let r = (num >> 16) + percent, g = ((num >> 8) & 0xFF) + percent, b = (num & 0xFF) + percent;
+  r = Math.max(0, Math.min(255, r)); g = Math.max(0, Math.min(255, g)); b = Math.max(0, Math.min(255, b));
+  return '#' + ( (1<<24) + (r<<16) + (g<<8) + b ).toString(16).slice(1);
 }
-
-// cache uniforms/attrs
-const uMVPLoc = uMVPLoc = gl.getUniformLocation(prog, 'uMVP');
-const uModel = uModelLoc;
-const uLight = uLightLoc;
-const uColor = uColorLoc;
-const uAmbient = uAmbientLoc;
-// (aPosLoc & aNorLoc already defined)
-
-// camera state (orbit)
-let camRotX = 0.3; // tilt
-let camRotY = -1.2; // azimuth
-let camRadius = 120;
-let camY = 80;
-let dragging = false;
-let lastX=0,lastY=0;
-
-canvas.addEventListener('mousedown', (e)=>{
-  dragging = true; lastX=e.clientX; lastY=e.clientY;
-});
-window.addEventListener('mouseup', ()=> dragging=false);
-window.addEventListener('mousemove', (e)=>{
-  if(!dragging) return;
-  const dx = (e.clientX - lastX) * 0.01;
-  const dy = (e.clientY - lastY) * 0.01;
-  camRotY += dx;
-  camRotX += dy;
-  camRotX = Math.min(Math.max(camRotX, -1.4), 1.4);
-  lastX = e.clientX; lastY = e.clientY;
-});
-window.addEventListener('wheel', (e)=>{
-  camRadius += e.deltaY * 0.05;
-  camRadius = Math.max(40, Math.min(400, camRadius));
-});
-
-// UI controls
-document.getElementById('zoom').addEventListener('input', (e)=>{ camRadius = Number(e.target.value); });
-document.getElementById('reset').addEventListener('click', ()=>{ camRotX=0.3; camRotY=-1.2; camRadius=120; });
-let animOn = true;
-document.getElementById('toggleAnim').addEventListener('click', ()=> animOn = !animOn);
-
-// ---- scene draw loop ----
-let angle = 0;
-function identityMatrix(){ return mat4Identity(); }
-function translateMatrix(x,y,z){ return mat4Translate(x,y,z); }
-function scaleMatrix(sx,sy,sz){ return mat4Scale(sx,sy,sz); }
-function rotateYMatrix(r){ return mat4RotateY(r); }
-function rotateXMatrix(r){ return mat4RotateX(r); }
-
-function render(){
-  gl.enable(gl.DEPTH_TEST);
-  gl.clearColor(0.04, 0.07, 0.12, 1.0);
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  // update animation
-  if(animOn) angle += 0.01;
-  // Draw base (model coords center at 0,0,0)
-  // base
-  let model = mat4Multiply(mat4Translate(0,20,0), mat4Scale(1,1,1));
-  drawMesh(baseBox, model, [0.16,0.23,0.31]); // frame color
-  // seat
-  model = mat4Multiply(mat4Translate(0,50,0), mat4Scale(1,1,1));
-  drawMesh(seatBox, model, [0.12,0.16,0.22]);
-  // backrest
-  model = mat4Multiply(mat4Translate(0,90,-30), mat4Scale(1,1,1));
-  drawMesh(backBox, model, [0.12,0.16,0.22]);
-  // rear left wheel group (rotate slowly)
-  const spin = angle * 1.8;
-  let wheelModel = mat4Multiply(mat4Translate(-70,40,-45), rotateXMatrix(spin));
-  drawMesh(wheelCyl, wheelModel, [0.03,0.04,0.05]);
-  // rear right
-  wheelModel = mat4Multiply(mat4Translate(-70,40,45), rotateXMatrix(spin));
-  drawMesh(wheelCyl, wheelModel, [0.03,0.04,0.05]);
-  // motors (as small cylinder)
-  drawMesh(smallBox, mat4Multiply(mat4Translate(-70,40,-45), mat4Scale(0.6,0.6,0.6)), [0.22,0.74,0.83]);
-  drawMesh(smallBox, mat4Multiply(mat4Translate(-70,40,45), mat4Scale(0.6,0.6,0.6)), [0.22,0.74,0.83]);
-  // casters
-  drawMesh(casterCyl, mat4Multiply(mat4Translate(70,30,-20), rotateXMatrix(spin*1.3)), [0.03,0.04,0.05]);
-  drawMesh(casterCyl, mat4Multiply(mat4Translate(70,30,20), rotateXMatrix(spin*1.3)), [0.03,0.04,0.05]);
-  // joystick box (small)
-  drawMesh(smallBox, mat4Multiply(mat4Translate(30,60,50), mat4Scale(0.7,0.7,0.7)), [0.22,0.74,0.83]);
-  requestAnimationFrame(render);
-}
-requestAnimationFrame(render);
-
 </script>
 </body>
 </html>
