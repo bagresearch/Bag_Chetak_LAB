@@ -68,7 +68,7 @@
 </head>
 <body>
   <div class="login-box">
-    <h2>EMG-Controlled-Wheelchair</h2>
+    <h2> EMG - Controlled - Wheelchair </h2>
     <form id="loginForm">
       <input type="text" id="userid" placeholder="Enter Id To Access Page " required /><br />
       <input type="password" id="password" placeholder="Password" required /><br />
@@ -104,18 +104,18 @@
         const interval = setInterval(() => {
           percent++;
           progressBar.style.width = percent + "%";
-          statusText.innerText = `Connecting to EMG Controlled Wheelchair Page... ${percent}%`;
+          statusText.innerText = `taking permissions from web server  ${percent}%`;
 
           if (percent === 100) {
             clearInterval(interval);
-            statusText.innerText = "Redirecting you to EMG Controlled Wheelchair Page...";
+            statusText.innerText = "transfering you to EMG Controlled Wheelchair site";
             setTimeout(() => {
               window.location.href = "emg-wheelchair.html";
             }, 1500);
           }
         }, 50);
       } else {
-        alert("Invalid credentials. Please try again.");
+        alert("Invalid ID Or Password ");
       }
     });
   </script>
