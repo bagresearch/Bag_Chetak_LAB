@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EMG Wheelchair — Troubleshoot / Minimal 3D Test</title>
+  <style>
+    :root{--bg:#071427;--panel:#061b2b;--accent:#38bdf8}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#e6eef8}
+    #wrap{display:flex;height:100vh;gap:12px;padding:12px;box-sizing:border-box}
+    #ui{width:340px;background:linear-gradient(180deg,#041425,#061827);padding:12px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+    h1{font-size:18px;margin:0 0 8px}
+    .hint{font-size:13px;color:#9fb6c9;margin-bottom:8px}
+    button{background:var(--accent);border:none;padding:8px 10px;border-radius:8px;color:#042029;cursor:pointer}
+    #view{flex:1;position:relative;background:linear-gradient(180deg,#051426,#041020);border-radius:10px;overflow:hidden;display:flex;align-items:stretch}
+    #canvas{width:100%;height:100%}
+    #overlay{position:absolute;left:12px;top:12px;z-index:40;background:rgba(0,0,0,0.6);padding:8px;border-radius:8px;color:#ffd;max-width:420px}
+    #errorBox{position:absolute;left:12px;bottom:12px;right:12px;background:rgba(120,10,10,0.92);color:#fff;padding:10px;border-radius:8px;display:none;z-index:50;max-height:38vh;overflow:auto}
+    pre{white-space:pre-wrap;margin:0;font-size:13px}
+    a.link{color:#9be8ff}
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="ui">
+      <h1>3D Test & Debug</h1>
+      <div class="hint">This page will create a minimal Three.js scene (rotating cube) so you can confirm rendering works on GitHub Pages. If it shows, we can safely re-insert the full wheelchair model.</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <button id="runBtn">Run / Re-run Scene</button>
+        <button id="showConsole">Open Console</button>
+      </div>
+
+      <div style="font-size:13px;color:#9fb6c9;margin-bottom:8px">
+        Steps:
+        <ol>
+          <li>Upload this file as <b>index.html</b> to the repo root.</li>
+          <li>Enable Pages (branch = main / root).</li>
+          <li>Open the site; if nothing appears, click <b>Run / Re-run Scene</b>.</li>
+        </ol>
+      </div>
+      <div style="font-size:13px;color:#9fb6c9">If there's an error, you'll see it in the red box at the bottom. Copy that text (or screenshot) and send it to me.</div>
+    </div>
+
+    <div id="view">
+      <div id="overlay">Status: <span id="status">Idle — waiting to run</span></div>
+      <div id="view-inner" style="flex:1;position:relative">
+        <div id="canvas"></div>
+        <div id="errorBox" role="alert"><strong>Error / Console:</strong><pre id="errText"></pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js (non-module) and OrbitControls + CSS2DRenderer (examples) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/renderers/CSS2DRenderer.js"></script>
+
+  <script>
+    // Small safe wrapper to init or re-init the scene.
+    (function(){
+      const statusEl = document.getElementById('status');
+      const runBtn = document.getElementById('runBtn');
+      const showConsole = document.getElementById('showConsole');
+      const errorBox = document.getElementById('errorBox');
+      const errText = document.getElementById('errText');
+      let renderer, scene, camera, controls, labelRenderer, animId;
+
+      // show errors visibly
+      function showError(msg){
+        console.error(msg);
+        errText.textContent = typeof msg === 'string' ? msg : JSON.stringify(msg, null, 2);
+        errorBox.style.display = 'block';
+      }
+
+      // clear old scene (if any)
+      function clearScene(){
+        errorBox.style.display = 'none';
+        errText.textContent = '';
+        statusEl.textContent = 'Clearing previous scene';
+        if(animId) cancelAnimationFrame(animId);
+        // dispose renderer if exists
+        const canvasWrap = document.getElementById('canvas');
+        canvasWrap.innerHTML = '';
+        renderer = null; scene = null; camera = null; controls = null; labelRenderer = null;
+      }
+
+      function initScene(){
+        try{
+          clearScene();
+          statusEl.textContent = 'Initializing Three.js';
+          const mount = document.getElementById('canvas');
+
+          // create renderer only after DOM ready and with correct size
+          renderer = new THREE.WebGLRenderer({antialias:true});
+          renderer.setPixelRatio(window.devicePixelRatio || 1);
+          // ensure the container has size - use clientWidth/Height or fallback
+          const w = Math.max(300, mount.clientWidth || window.innerWidth * 0.6);
+          const h = Math.max(200, mount.clientHeight || window.innerHeight * 0.7);
+          renderer.setSize(w, h);
+          renderer.domElement.style.width = '100%';
+          renderer.domElement.style.height = '100%';
+          mount.appendChild(renderer.domElement);
+
+          // label renderer (safe fallback)
+          labelRenderer = new THREE.CSS2DRenderer();
+          labelRenderer.setSize(w,h);
+          labelRenderer.domElement.style.position = 'absolute';
+          labelRenderer.domElement.style.top = '0px';
+          mount.appendChild(labelRenderer.domElement);
+
+          scene = new THREE.Scene();
+          scene.background = new THREE.Color(0x071427);
+
+          camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 2000);
+          camera.position.set(120,80,160);
+
+          // controls
+          controls = new THREE.OrbitControls(camera, labelRenderer.domElement);
+          controls.target.set(0,20,0);
+          controls.update();
+
+          // lights
+          const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8); scene.add(hemi);
+          const dir = new THREE.DirectionalLight(0xffffff, 0.8); dir.position.set(100,200,100); scene.add(dir);
+
+          // floor
+          const floor = new THREE.Mesh(new THREE.PlaneGeometry(1000,1000), new THREE.MeshStandardMaterial({color:0x041220,roughness:1}));
+          floor.rotation.x = -Math.PI/2; floor.position.y = -2; scene.add(floor);
+
+          // Test object (rotating cube) - guaranteed to show if WebGL works
+          const geom = new THREE.BoxGeometry(40,40,40);
+          const mat = new THREE.MeshStandardMaterial({color:0x0ea5a4,metalness:0.4,roughness:0.3});
+          const cube = new THREE.Mesh(geom, mat); cube.position.y = 20; scene.add(cube);
+
+          // small label for cube
+          const div = document.createElement('div'); div.textContent = 'Test Cube'; div.style.padding = '4px 8px'; div.style.background='rgba(0,0,0,0.5)'; div.style.color='#cfeffd';
+          const label = new THREE.CSS2DObject(div); label.position.set(0,30,0); cube.add(label);
+
+          // animate
+          statusEl.textContent = 'Running scene (rotating cube)';
+          let last = performance.now();
+          function animate(now){
+            animId = requestAnimationFrame(animate);
+            const dt = (now - last) / 1000; last = now;
+            cube.rotation.x += dt * 0.8;
+            cube.rotation.y += dt * 1.1;
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+          }
+          animId = requestAnimationFrame(animate);
+
+          // responsive resize handling
+          function onResize(){
+            try{
+              const rect = mount.getBoundingClientRect();
+              const ww = Math.max(300, rect.width);
+              const hh = Math.max(200, rect.height);
+              renderer.setSize(ww, hh);
+              labelRenderer.setSize(ww, hh);
+              camera.aspect = ww / hh;
+              camera.updateProjectionMatrix();
+            }catch(e){ showError('Resize error: ' + e.message); }
+          }
+          window.addEventListener('resize', onResize);
+
+          statusEl.textContent = 'Scene ready — if you see a rotating cube, rendering works';
+        }catch(e){
+          // visible error
+          showError('Initialization failed: ' + (e && e.message ? e.message : e));
+        }
+      }
+
+      // wire up buttons
+      runBtn.addEventListener('click', ()=>{ initScene(); });
+      showConsole.addEventListener('click', ()=>{ alert('Open developer console (F12) in your browser to see logs and errors.'); });
+
+      // auto-run on load
+      window.addEventListener('DOMContentLoaded', ()=>{ try{ initScene(); } catch(e){ showError(e.message || e); } });
+
+      // global error catcher (also prints to the overlay)
+      window.addEventListener('error', function(ev){ showError('Uncaught error: ' + ev.message + '\\n' + (ev.filename || '') + ':' + (ev.lineno||'') ); });
+      window.addEventListener('unhandledrejection', function(ev){ showError('Unhandled rejection: ' + (ev.reason && ev.reason.message ? ev.reason.message : JSON.stringify(ev.reason))); });
+
+    })();
+  </script>
+</body>
+</html>
