@@ -1,147 +1,326 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>EMG Wheelchair Model</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lightweight 3D Wheelchair (Self-contained)</title>
 <style>
-  html,body { margin:0; height:100%; overflow:hidden; background:#0a0f1a; }
-  #c { width:100%; height:100%; display:block; }
+  :root{--bg:#071427}
+  html,body{height:100%;margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:#e6eef8}
+  #ui{position:absolute;left:12px;top:12px;z-index:30;background:rgba(0,0,0,0.45);padding:10px;border-radius:8px}
+  #canvas{display:block;width:100vw;height:100vh}
+  button{background:#38bdf8;border:0;padding:6px 10px;border-radius:6px;cursor:pointer}
+  label{font-size:13px;color:#cfeffd;margin-right:8px}
+  input[type=range]{width:160px}
+  .small{font-size:12px;color:#9fb6c9}
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-
-<!-- Three.js + OrbitControls -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.0/examples/js/controls/OrbitControls.js"></script>
+<div id="ui">
+  <div style="margin-bottom:8px"><button id="reset">Reset View</button> <button id="toggleAnim">Toggle Anim</button></div>
+  <div style="display:flex;align-items:center;gap:8px"><label>Zoom</label><input id="zoom" type="range" min="30" max="220" value="120"></div>
+  <div style="margin-top:6px" class="small">Drag to orbit. Mouse wheel or Zoom slider to zoom. This is a lightweight WebGL 3D rendering — no external libraries.</div>
+</div>
+<canvas id="canvas"></canvas>
 
 <script>
-// canvas
-const canvas = document.getElementById("c");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+/*
+ Lightweight self-contained WebGL 3D wheelchair.
+ No external libraries. Simple phong shading, primitive meshes (boxes + cylinder approximations).
+ Designed to be small and guaranteed to render on pages that block CDNs.
+*/
 
-// scene
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0a0f1a);
-
-// camera
-const camera = new THREE.PerspectiveCamera(
-  55,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  2000
-);
-camera.position.set(200, 120, 200);
-
-// controls
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 40, 0);
-controls.update();
-
-// lighting
-const light1 = new THREE.DirectionalLight(0xffffff, 1);
-light1.position.set(200, 200, 200);
-scene.add(light1);
-
-scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-
-// materials
-const frameMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, metalness: 0.9, roughness: 0.3 });
-const seatMat  = new THREE.MeshStandardMaterial({ color: 0x1e293b });
-const wheelMat = new THREE.MeshStandardMaterial({ color: 0x0b0f12 });
-const motorMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8 });
-
-// FRAME
-const frame = new THREE.Group();
-scene.add(frame);
-
-// base
-const base = new THREE.Mesh(new THREE.BoxGeometry(160, 10, 60), frameMat);
-base.position.set(0, 20, 0);
-frame.add(base);
-
-// seat & backrest
-const seat = new THREE.Mesh(new THREE.BoxGeometry(160, 10, 60), seatMat);
-seat.position.set(0, 50, 0);
-frame.add(seat);
-
-const backrest = new THREE.Mesh(new THREE.BoxGeometry(160, 80, 10), seatMat);
-backrest.position.set(0, 90, -30);
-frame.add(backrest);
-
-// WHEELS
-function createWheel(){
-  const group = new THREE.Group();
-  const tire = new THREE.Mesh(new THREE.TorusGeometry(40, 8, 16, 60), wheelMat);
-  tire.rotation.x = Math.PI / 2;
-  group.add(tire);
-  return group;
+// ---- Helpers: matrix and vector (minimal) ----
+function mat4Identity(){ return [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]; }
+function mat4Multiply(a,b){
+  const out = new Array(16);
+  for(let i=0;i<4;i++){
+    for(let j=0;j<4;j++){
+      let s=0;
+      for(let k=0;k<4;k++) s += a[k*4 + j] * b[i*4 + k];
+      out[i*4 + j] = s;
+    }
+  }
+  return out;
+}
+function mat4Translate(tx,ty,tz){
+  const m = mat4Identity(); m[12]=tx; m[13]=ty; m[14]=tz; return m;
+}
+function mat4Scale(sx,sy,sz){ const m=mat4Identity(); m[0]=sx; m[5]=sy; m[10]=sz; return m; }
+function mat4RotateY(rad){
+  const c=Math.cos(rad), s=Math.sin(rad);
+  return [ c,0,s,0,  0,1,0,0,  -s,0,c,0, 0,0,0,1];
+}
+function mat4RotateX(rad){
+  const c=Math.cos(rad), s=Math.sin(rad);
+  return [1,0,0,0,  0,c,-s,0,  0,s,c,0, 0,0,0,1];
+}
+function perspective(fovy, aspect, near, far){
+  const f = 1/Math.tan(fovy/2); const nf=1/(near-far);
+  const out = new Array(16).fill(0);
+  out[0]=f/aspect; out[5]=f; out[10]=(far+near)*nf; out[11]=-1; out[14]=2*far*near*nf;
+  return out;
+}
+function lookAt(eye, center, up){
+  const zx = eye[0]-center[0], zy=eye[1]-center[1], zz=eye[2]-center[2];
+  let zlen = Math.hypot(zx,zy,zz); if(zlen===0) zlen=1;
+  const zx0=zx/zlen, zy0=zy/zlen, zz0=zz/zlen;
+  let xx = up[1]*zz0 - up[2]*zy0, xy = up[2]*zx0 - up[0]*zz0, xz = up[0]*zy0 - up[1]*zx0;
+  let xlen = Math.hypot(xx,xy,xz); if(xlen===0) xlen=1;
+  xx/=xlen; xy/=xlen; xz/=xlen;
+  const yx = zy0*xz - zz0*xy, yy = zz0*xx - zx0*xz, yz = zx0*xy - zy0*xx;
+  return [
+    xx, yx, zx0,0,
+    xy, yy, zy0,0,
+    xz, yz, zz0,0,
+    0, 0, 0, 1
+  ];
 }
 
-const wheelL = createWheel();
-wheelL.position.set(-70, 40, -45);
-scene.add(wheelL);
+// ---- GL setup ----
+const canvas = document.getElementById('canvas');
+const gl = canvas.getContext('webgl', {antialias:true}) || canvas.getContext('experimental-webgl');
+if(!gl){ alert('WebGL not supported'); throw new Error('WebGL not supported'); }
+function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; gl.viewport(0,0,gl.drawingBufferWidth, gl.drawingBufferHeight); }
+window.addEventListener('resize', resize); resize();
 
-const wheelR = createWheel();
-wheelR.position.set(-70, 40, 45);
-scene.add(wheelR);
+// simple shader sources (Lambert + ambient)
+const vs = `
+attribute vec3 aPos;
+attribute vec3 aNor;
+uniform mat4 uMVP;
+uniform mat4 uModel;
+varying vec3 vPos;
+varying vec3 vNor;
+void main(){
+  vPos = (uModel * vec4(aPos,1.0)).xyz;
+  vNor = (uModel * vec4(aNor,0.0)).xyz;
+  gl_Position = uMVP * vec4(aPos,1.0);
+}
+`;
+const fs = `
+precision mediump float;
+varying vec3 vPos;
+varying vec3 vNor;
+uniform vec3 uLightDir;
+uniform vec3 uColor;
+uniform float uAmbient;
+void main(){
+  vec3 N = normalize(vNor);
+  float lam = max(dot(N, normalize(uLightDir)), 0.0);
+  vec3 col = uColor * (uAmbient + (1.0 - uAmbient) * lam);
+  gl_FragColor = vec4(col,1.0);
+}
+`;
+function compile(src, type){ const sh = gl.createShader(type); gl.shaderSource(sh, src); gl.compileShader(sh); if(!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh)); return sh;}
+const prog = gl.createProgram();
+gl.attachShader(prog, compile(vs, gl.VERTEX_SHADER));
+gl.attachShader(prog, compile(fs, gl.FRAGMENT_SHADER));
+gl.linkProgram(prog);
+if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+gl.useProgram(prog);
 
-// Motors
-const motorL = new THREE.Mesh(new THREE.CylinderGeometry(12, 12, 20, 20), motorMat);
-motorL.rotation.x = Math.PI / 2;
-motorL.position.set(-70, 40, -45);
-scene.add(motorL);
+// attributes/uniforms
+const aPosLoc = gl.getAttribLocation(prog, 'aPos');
+const aNorLoc = gl.getAttribLocation(prog, 'aNor');
+const uMVPLoc = gl.getUniformLocation(prog, 'uMVP');
+const uModelLoc = gl.getUniformLocation(prog, 'uModel');
+const uLightLoc = gl.getUniformLocation(prog, 'uLightDir');
+const uColorLoc = gl.getUniformLocation(prog, 'uColor');
+const uAmbientLoc = gl.getUniformLocation(prog, 'uAmbient');
 
-const motorR = motorL.clone();
-motorR.position.set(-70, 40, 45);
-scene.add(motorR);
-
-// Caster wheels
-function createCaster(){
-  const g = new THREE.Group();
-  const wheel = new THREE.Mesh(new THREE.TorusGeometry(14, 5, 12, 50), wheelMat);
-  wheel.rotation.x = Math.PI/2;
-  g.add(wheel);
-
-  const fork = new THREE.Mesh(new THREE.BoxGeometry(8, 20, 8), frameMat);
-  fork.position.y = -10;
-  g.add(fork);
-
-  return g;
+// ---- geometry builder ----
+function createBox(w,h,d){
+  const hw=w/2, hh=h/2, hd=d/2;
+  // positions
+  const pos = [
+    // front
+    -hw,-hh, hd,  hw,-hh, hd,  hw,hh, hd, -hw,hh, hd,
+    // back
+    hw,-hh,-hd, -hw,-hh,-hd, -hw,hh,-hd, hw,hh,-hd,
+    // left
+    -hw,-hh,-hd, -hw,-hh, hd, -hw,hh, hd, -hw,hh,-hd,
+    // right
+    hw,-hh, hd, hw,-hh,-hd, hw,hh,-hd, hw,hh, hd,
+    // top
+    -hw, hh, hd,  hw, hh, hd,  hw, hh,-hd, -hw, hh,-hd,
+    // bottom
+    -hw,-hh,-hd,  hw,-hh,-hd,  hw,-hh, hd, -hw,-hh, hd
+  ];
+  // normals per face
+  const n = [
+    0,0,1, 0,0,1, 0,0,1, 0,0,1,
+    0,0,-1,0,0,-1,0,0,-1,0,0,-1,
+    -1,0,0,-1,0,0,-1,0,0,-1,0,0,
+    1,0,0,1,0,0,1,0,0,1,0,0,
+    0,1,0,0,1,0,0,1,0,0,1,0,
+    0,-1,0,0,-1,0,0,-1,0,0,-1,0
+  ];
+  // indices
+  const idx = [];
+  for(let f=0;f<6;f++){
+    const o=f*4;
+    idx.push(o, o+1, o+2, o, o+2, o+3);
+  }
+  return {pos:new Float32Array(pos), nor:new Float32Array(n), idx:new Uint16Array(idx)};
+}
+function createCylinder(radius, length, segments){
+  const positions = [], normals = [], indices = [];
+  for(let s=0;s<=segments;s++){
+    const theta = (s / segments) * Math.PI * 2;
+    const x = Math.cos(theta) * radius;
+    const z = Math.sin(theta) * radius;
+    positions.push(x, -length/2, z); normals.push(x,0,z);
+    positions.push(x, length/2, z); normals.push(x,0,z);
+  }
+  // side indices
+  for(let s=0; s<segments; s++){
+    const i = s*2;
+    indices.push(i, i+1, i+3, i, i+3, i+2);
+  }
+  return {pos:new Float32Array(positions), nor:new Float32Array(normals), idx:new Uint16Array(indices)};
 }
 
-const casterL = createCaster();
-casterL.position.set(70, 30, -20);
-scene.add(casterL);
-
-const casterR = createCaster();
-casterR.position.set(70, 30, 20);
-scene.add(casterR);
-
-// Floor plane
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(2000, 2000),
-  new THREE.MeshStandardMaterial({ color: 0x0a0f1a, roughness:1 })
-);
-floor.rotation.x = -Math.PI/2;
-floor.position.y = 0;
-scene.add(floor);
-
-// Animation loop
-function animate(){
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
+// ---- create VAO-like buffers (manual) ----
+function createMesh(geom){
+  const vbo = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+  // interleave pos & nor
+  const nVerts = geom.pos.length/3;
+  const inter = new Float32Array(nVerts*6);
+  for(let i=0;i<nVerts;i++){
+    inter[i*6+0] = geom.pos[i*3+0];
+    inter[i*6+1] = geom.pos[i*3+1];
+    inter[i*6+2] = geom.pos[i*3+2];
+    inter[i*6+3] = geom.nor[i*3+0] || 0;
+    inter[i*6+4] = geom.nor[i*3+1] || 0;
+    inter[i*6+5] = geom.nor[i*3+2] || 0;
+  }
+  gl.bufferData(gl.ARRAY_BUFFER, inter, gl.STATIC_DRAW);
+  const ibo = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geom.idx, gl.STATIC_DRAW);
+  return {vbo, ibo, count:geom.idx.length, stride:6*4};
 }
-animate();
 
-// Handle resize
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+// ---- Build primitives for wheelchair ----
+const baseBox = createMesh(createBox(160, 10, 60));
+const seatBox = createMesh(createBox(160, 10, 60));
+const backBox = createMesh(createBox(160, 80, 10));
+const smallBox = createMesh(createBox(40,8,12));
+const wheelCyl = createMesh(createCylinder(40, 16, 28));
+const casterCyl = createMesh(createCylinder(14, 8, 20));
+
+// helper to draw a mesh with model matrix and color
+function setAttribs(mesh){
+  gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vbo);
+  gl.enableVertexAttribArray(aPosLoc);
+  gl.vertexAttribPointer(aPosLoc, 3, gl.FLOAT, false, mesh.stride, 0);
+  gl.enableVertexAttribArray(aNorLoc);
+  gl.vertexAttribPointer(aNorLoc, 3, gl.FLOAT, false, mesh.stride, 3*4);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.ibo);
+}
+function drawMesh(mesh, modelMat, color){
+  setAttribs(mesh);
+  // compute MVP = proj * view * model
+  const aspect = gl.drawingBufferWidth / gl.drawingBufferHeight;
+  const proj = perspective(45 * Math.PI/180, aspect, 0.1, 2000);
+  const eye = [camRadius * Math.sin(camRotY) * Math.cos(camRotX), camY, camRadius * Math.cos(camRotY) * Math.cos(camRotX)];
+  const view = lookAt(eye, [0,40,0], [0,1,0]);
+  // multiply matrices: proj * view * model
+  let mv = mat4Multiply(view, modelMat);
+  let mvp = mat4Multiply(proj, mv);
+  gl.uniformMatrix4fv(uMVPLoc, false, new Float32Array(mvp));
+  gl.uniformMatrix4fv(uModelLoc, false, new Float32Array(modelMat));
+  gl.uniform3fv(uLightLoc, new Float32Array([0.5,0.8,0.6]));
+  gl.uniform3fv(uColorLoc, new Float32Array(color));
+  gl.uniform1f(uAmbientLoc, 0.25);
+  gl.drawElements(gl.TRIANGLES, mesh.count, gl.UNSIGNED_SHORT, 0);
+}
+
+// cache uniforms/attrs
+const uMVPLoc = uMVPLoc = gl.getUniformLocation(prog, 'uMVP');
+const uModel = uModelLoc;
+const uLight = uLightLoc;
+const uColor = uColorLoc;
+const uAmbient = uAmbientLoc;
+// (aPosLoc & aNorLoc already defined)
+
+// camera state (orbit)
+let camRotX = 0.3; // tilt
+let camRotY = -1.2; // azimuth
+let camRadius = 120;
+let camY = 80;
+let dragging = false;
+let lastX=0,lastY=0;
+
+canvas.addEventListener('mousedown', (e)=>{
+  dragging = true; lastX=e.clientX; lastY=e.clientY;
 });
-</script>
+window.addEventListener('mouseup', ()=> dragging=false);
+window.addEventListener('mousemove', (e)=>{
+  if(!dragging) return;
+  const dx = (e.clientX - lastX) * 0.01;
+  const dy = (e.clientY - lastY) * 0.01;
+  camRotY += dx;
+  camRotX += dy;
+  camRotX = Math.min(Math.max(camRotX, -1.4), 1.4);
+  lastX = e.clientX; lastY = e.clientY;
+});
+window.addEventListener('wheel', (e)=>{
+  camRadius += e.deltaY * 0.05;
+  camRadius = Math.max(40, Math.min(400, camRadius));
+});
 
+// UI controls
+document.getElementById('zoom').addEventListener('input', (e)=>{ camRadius = Number(e.target.value); });
+document.getElementById('reset').addEventListener('click', ()=>{ camRotX=0.3; camRotY=-1.2; camRadius=120; });
+let animOn = true;
+document.getElementById('toggleAnim').addEventListener('click', ()=> animOn = !animOn);
+
+// ---- scene draw loop ----
+let angle = 0;
+function identityMatrix(){ return mat4Identity(); }
+function translateMatrix(x,y,z){ return mat4Translate(x,y,z); }
+function scaleMatrix(sx,sy,sz){ return mat4Scale(sx,sy,sz); }
+function rotateYMatrix(r){ return mat4RotateY(r); }
+function rotateXMatrix(r){ return mat4RotateX(r); }
+
+function render(){
+  gl.enable(gl.DEPTH_TEST);
+  gl.clearColor(0.04, 0.07, 0.12, 1.0);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  // update animation
+  if(animOn) angle += 0.01;
+  // Draw base (model coords center at 0,0,0)
+  // base
+  let model = mat4Multiply(mat4Translate(0,20,0), mat4Scale(1,1,1));
+  drawMesh(baseBox, model, [0.16,0.23,0.31]); // frame color
+  // seat
+  model = mat4Multiply(mat4Translate(0,50,0), mat4Scale(1,1,1));
+  drawMesh(seatBox, model, [0.12,0.16,0.22]);
+  // backrest
+  model = mat4Multiply(mat4Translate(0,90,-30), mat4Scale(1,1,1));
+  drawMesh(backBox, model, [0.12,0.16,0.22]);
+  // rear left wheel group (rotate slowly)
+  const spin = angle * 1.8;
+  let wheelModel = mat4Multiply(mat4Translate(-70,40,-45), rotateXMatrix(spin));
+  drawMesh(wheelCyl, wheelModel, [0.03,0.04,0.05]);
+  // rear right
+  wheelModel = mat4Multiply(mat4Translate(-70,40,45), rotateXMatrix(spin));
+  drawMesh(wheelCyl, wheelModel, [0.03,0.04,0.05]);
+  // motors (as small cylinder)
+  drawMesh(smallBox, mat4Multiply(mat4Translate(-70,40,-45), mat4Scale(0.6,0.6,0.6)), [0.22,0.74,0.83]);
+  drawMesh(smallBox, mat4Multiply(mat4Translate(-70,40,45), mat4Scale(0.6,0.6,0.6)), [0.22,0.74,0.83]);
+  // casters
+  drawMesh(casterCyl, mat4Multiply(mat4Translate(70,30,-20), rotateXMatrix(spin*1.3)), [0.03,0.04,0.05]);
+  drawMesh(casterCyl, mat4Multiply(mat4Translate(70,30,20), rotateXMatrix(spin*1.3)), [0.03,0.04,0.05]);
+  // joystick box (small)
+  drawMesh(smallBox, mat4Multiply(mat4Translate(30,60,50), mat4Scale(0.7,0.7,0.7)), [0.22,0.74,0.83]);
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+
+</script>
 </body>
 </html>
