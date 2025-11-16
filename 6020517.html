@@ -3,88 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EMG Wheelchair — 3D Design (GitHub Pages safe)</title>
+  <title>EMG Wheelchair — Detailed Electric Model (Foldable)</title>
   <style>
-    :root{
-      --bg:#071427; --panel:#041425; --accent:#38bdf8; --muted:#9fb6c9;
-    }
+    :root{--bg:#071427;--panel:#041425;--accent:#38bdf8;--muted:#9fb6c9}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#e6eef8}
-    #app{display:flex;height:100vh;gap:12px;padding:12px;box-sizing:border-box}
+    #app{display:flex;gap:12px;height:100vh;padding:12px;box-sizing:border-box}
     #left{width:360px;background:linear-gradient(180deg,#041425,#061827);padding:14px;border-radius:10px;overflow:auto}
-    h1{font-size:18px;margin:0 0 8px}
+    h1{font-size:18px;margin:0 0 10px}
     .panel{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin-bottom:12px}
     label{font-size:13px;color:var(--muted)}
+    .row{display:flex;gap:8px;align-items:center}
     button{background:var(--accent);border:none;padding:8px 10px;border-radius:8px;color:#042029;cursor:pointer;font-weight:700}
     button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
-    .row{display:flex;gap:8px;align-items:center}
-    input[type=number]{width:70px;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#cfeffd}
+    input[type=range]{width:100%}
+    input[type=number]{width:72px;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#cfeffd}
     #right{flex:1;position:relative;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#051426,#041020)}
     #three-container{position:absolute;inset:0}
     #labelsOverlay{position:absolute;left:0;top:0;pointer-events:none}
     .labelDOM{position:absolute;padding:4px 8px;background:rgba(0,0,0,0.6);border-radius:6px;border:1px solid rgba(255,255,255,0.04);font-size:12px;color:#cfeffd;white-space:nowrap;transform:translate(-50%,-100%)}
     #telemetry{position:absolute;right:12px;top:12px;background:rgba(0,0,0,0.45);padding:8px;border-radius:8px;color:#cfeffd;font-size:13px}
-    #emgCanvas{width:100%;height:64px;border-radius:6px}
     .hint{font-size:13px;color:var(--muted)}
+    footer{font-size:12px;color:var(--muted);margin-top:8px}
   </style>
 </head>
 <body>
   <div id="app">
     <div id="left">
-      <h1>EMG Wheelchair — 3D Design</h1>
+      <h1>Electric Wheelchair — Foldable, Rear-Hub Motors</h1>
+
       <div class="panel">
-        <div class="hint">Interactive 3D model with export (GLB/STL), EMG waveform simulator, and simple HTML labels. Use mouse to orbit and scroll to zoom.</div>
+        <div class="hint">Model approximates a medical electric wheelchair: foldable frame, rear hub motors, joystick mount, battery pack under seat, motor controller (PCB) and EMG electrode mounts. Use orbit controls to inspect.</div>
       </div>
 
       <div class="panel">
-        <label>Controls</label>
+        <label>View & Model</label>
         <div style="margin-top:8px" class="row">
           <button id="resetView">Reset View</button>
           <button id="explodeBtn" class="ghost">Exploded</button>
         </div>
         <div style="margin-top:8px" class="row">
-          <button id="foldBtn">Fold/Unfold</button>
-          <button id="animBtn" class="ghost">Toggle Idle Anim</button>
+          <button id="foldBtn">Fold / Unfold</button>
+          <button id="animBtn" class="ghost">Toggle Anim</button>
         </div>
       </div>
 
       <div class="panel">
-        <label>Visibility</label>
-        <div style="margin-top:8px;display:grid;gap:8px">
-          <div><input type="checkbox" id="vChassis" checked/> <label for="vChassis">Chassis / Frame</label></div>
-          <div><input type="checkbox" id="vSeat" checked/> <label for="vSeat">Seat & Armrests</label></div>
-          <div><input type="checkbox" id="vWheels" checked/> <label for="vWheels">Wheels</label></div>
-          <div><input type="checkbox" id="vMotors" checked/> <label for="vMotors">Motors</label></div>
-          <div><input type="checkbox" id="vBattery" checked/> <label for="vBattery">Battery Pack</label></div>
-          <div><input type="checkbox" id="vElectrodes" checked/> <label for="vElectrodes">EMG Electrodes</label></div>
+        <label>Model Options</label>
+        <div style="margin-top:10px">
+          <div class="row"><input type="checkbox" id="vFrame" checked/> <label for="vFrame">Frame / Chassis</label></div>
+          <div class="row"><input type="checkbox" id="vSeat" checked/> <label for="vSeat">Seat & Cushions</label></div>
+          <div class="row"><input type="checkbox" id="vWheels" checked/> <label for="vWheels">Wheels</label></div>
+          <div class="row"><input type="checkbox" id="vMotors" checked/> <label for="vMotors">Motors (hub)</label></div>
+          <div class="row"><input type="checkbox" id="vBattery" checked/> <label for="vBattery">Battery & PCB</label></div>
+          <div class="row"><input type="checkbox" id="vElect" checked/> <label for="vElect">EMG Electrodes</label></div>
         </div>
       </div>
 
       <div class="panel">
         <label>Export & Scale</label>
         <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-          <input id="scale" type="number" value="1" min="0.1" step="0.1"/> <div class="hint">scale (1 = model units)</div>
+          <input id="scale" type="number" value="1" min="0.1" step="0.1"/><div class="hint">scale (1 = model units)</div>
         </div>
         <div style="margin-top:8px" class="row">
           <button id="exportGLB">Export GLB</button>
           <button id="exportSTL" class="ghost">Export STL</button>
         </div>
-        <div style="margin-top:8px" class="hint">GLB recommended for assemblies. STL for 3D printing (single mesh).</div>
+        <div style="margin-top:8px" class="hint">GLB recommended for assemblies; STL for single-mesh checks.</div>
       </div>
 
       <div class="panel">
-        <label>EMG waveform (simulated)</label>
-        <div style="margin-top:8px" class="row">
-          <button id="pauseEmg">Pause</button>
-          <button id="resetEmg" class="ghost">Reset</button>
+        <label>EMG Simulation (optional)</label>
+        <div style="margin-top:8px">
+          <label>EMG Channel A</label>
+          <input id="emgA" type="range" min="0" max="1023" value="0"/>
+          <label>EMG Channel B</label>
+          <input id="emgB" type="range" min="0" max="1023" value="0"/>
+          <div style="margin-top:8px" class="hint">Use these sliders to emulate EMG signals. The model will tilt slightly with virtual commands (demo).</div>
         </div>
-        <canvas id="emgCanvas" width="320" height="64"></canvas>
-        <div style="margin-top:8px" class="hint">This simulates EMG for demo — you can map signals to motion later.</div>
       </div>
 
-      <div class="panel">
-        <label>Notes</label>
-        <div style="margin-top:6px" class="hint">If you want STEP/IGES or drilled fastener patterns, tell me the exact dimensions and I will prepare CAD-ready files.</div>
-      </div>
+      <footer>Deliverable: single-file HTML (Three.js). If you want STEP/IGES, I can convert GLTF into CAD-ready parts.</footer>
     </div>
 
     <div id="right">
@@ -94,14 +92,14 @@
     </div>
   </div>
 
-  <!-- Three.js + OrbitControls + Exporters (version chosen to be GitHub Pages–safe) -->
+  <!-- Three.js + OrbitControls + Exporters (GitHub Pages–safe versions) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/examples/js/exporters/GLTFExporter.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/examples/js/exporters/STLExporter.js"></script>
 
   <script>
-  // --- Scene setup ---
+  // ---------- Basic scene ---------- //
   const mount = document.getElementById('three-container');
   const labelsOverlay = document.getElementById('labelsOverlay');
   const txEl = document.getElementById('tx'), tyEl = document.getElementById('ty'), tangEl = document.getElementById('tang');
@@ -110,7 +108,7 @@
   scene.background = new THREE.Color(0x071427);
 
   const camera = new THREE.PerspectiveCamera(45, mount.clientWidth / mount.clientHeight, 0.1, 5000);
-  camera.position.set(300, 180, 300);
+  camera.position.set(350, 200, 350);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio || 1);
@@ -120,20 +118,20 @@
   mount.appendChild(renderer.domElement);
 
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 40, 0);
+  controls.target.set(0,40,0);
   controls.update();
 
   // lights
-  const hemi = new THREE.HemisphereLight(0xffffff, 0x222222, 0.8); scene.add(hemi);
-  const dir = new THREE.DirectionalLight(0xffffff, 0.8); dir.position.set(100, 200, 100); scene.add(dir);
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x222222, 0.9); scene.add(hemi);
+  const dir = new THREE.DirectionalLight(0xffffff, 1.0); dir.position.set(120,240,120); scene.add(dir);
 
   // floor
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(2000, 2000), new THREE.MeshStandardMaterial({ color: 0x041220, roughness: 1 }));
-  floor.rotation.x = -Math.PI / 2; floor.position.y = -1; scene.add(floor);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(2000,2000), new THREE.MeshStandardMaterial({ color: 0x041220, roughness: 1 }));
+  ground.rotation.x = -Math.PI/2; ground.position.y = -4; scene.add(ground);
 
-  // groups
+  // ---------- Groups for parts ---------- //
   const assembly = new THREE.Group(); scene.add(assembly);
-  const chassis = new THREE.Group(); assembly.add(chassis);
+  const frame = new THREE.Group(); assembly.add(frame);
   const seat = new THREE.Group(); assembly.add(seat);
   const wheels = new THREE.Group(); assembly.add(wheels);
   const motors = new THREE.Group(); assembly.add(motors);
@@ -141,297 +139,253 @@
   const pcb = new THREE.Group(); assembly.add(pcb);
   const electrodes = new THREE.Group(); assembly.add(electrodes);
 
-  // materials
-  const metalMat = new THREE.MeshStandardMaterial({ color: 0x25313a, metalness: 0.85, roughness: 0.25 });
-  const paintMat = new THREE.MeshStandardMaterial({ color: 0x0ea5a4, metalness: 0.5, roughness: 0.25 });
-  const rubberMat = new THREE.MeshStandardMaterial({ color: 0x08101a, metalness: 0.05, roughness: 0.9 });
-  const fabricMat = new THREE.MeshStandardMaterial({ color: 0x18303a, metalness: 0.02, roughness: 0.7 });
-  const battMat = new THREE.MeshStandardMaterial({ color: 0x07585a, metalness: 0.05, roughness: 0.45 });
-  const pcbMat = new THREE.MeshStandardMaterial({ color: 0x113b2f, metalness: 0.03, roughness: 0.6 });
+  // ---------- Materials ---------- //
+  const metal = new THREE.MeshStandardMaterial({ color: 0x2c3e50, metalness: 0.9, roughness: 0.25 });
+  const paint = new THREE.MeshStandardMaterial({ color: 0x0ea5a4, metalness: 0.6, roughness: 0.22 });
+  const rubber = new THREE.MeshStandardMaterial({ color: 0x0b0f12, metalness: 0.05, roughness: 0.95 });
+  const fabric = new THREE.MeshStandardMaterial({ color: 0x13343d, metalness: 0.05, roughness: 0.72 });
+  const battMat = new THREE.MeshStandardMaterial({ color: 0x0b6b63, metalness: 0.05, roughness: 0.4 });
+  const pcbMat = new THREE.MeshStandardMaterial({ color: 0x123b2f, metalness: 0.03, roughness: 0.6 });
   const chrome = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, metalness: 1, roughness: 0.18 });
 
-  // helper — DOM label creation and 3D->2D projection
-  const domLabels = [];
-  function createDOMLabel(name, obj3d, offsetY = 10) {
-    const el = document.createElement('div');
-    el.className = 'labelDOM';
-    el.textContent = name;
-    el.style.display = 'none'; // will position and enable when scene renders
-    labelsOverlay.appendChild(el);
-    domLabels.push({el, obj3d, offsetY});
-    return el;
-  }
+  // ---------- Frame (foldable X-frame + rear support) ---------- //
+  // main base plate
+  const base = new THREE.Mesh(new THREE.BoxGeometry(220, 8, 100), metal); base.position.y = 10; frame.add(base);
 
-  // --- Build wheelchair model (primitives approximating components) ---
+  // X-fold tubes: two crossed bars (simulate fold)
+  function tube(len, rad=4){ const g = new THREE.CylinderGeometry(rad, rad, len, 18); const m = new THREE.Mesh(g, metal); m.rotation.z = Math.PI/2; return m; }
+  const xLeft = tube(160); xLeft.position.set(-10, 24, -18); frame.add(xLeft);
+  const xRight = tube(160); xRight.position.set(-10, 24, 18); frame.add(xRight);
 
-  // chassis base
-  const frameBase = new THREE.Mesh(new THREE.BoxGeometry(220, 10, 100), metalMat);
-  frameBase.position.y = 12; chassis.add(frameBase);
+  // rear vertical support
+  const rearU = new THREE.Mesh(new THREE.BoxGeometry(16, 120, 10), metal); rearU.position.set(-80, 70, 0); frame.add(rearU);
+  const rearCross = new THREE.Mesh(new THREE.BoxGeometry(24, 8, 60), metal); rearCross.position.set(-96, 40, 0); frame.add(rearCross);
 
-  // tubular rails
-  function makeTube(len) { const g = new THREE.CylinderGeometry(5, 5, len, 24); const m = new THREE.Mesh(g, metalMat); m.rotation.z = Math.PI/2; return m; }
-  const railL = makeTube(180); railL.position.set(0, 22, -36); chassis.add(railL);
-  const railR = makeTube(180); railR.position.set(0, 22, 36); chassis.add(railR);
+  // ---------- Seat / Backrest (folds onto base) ---------- //
+  const seatCushion = new THREE.Mesh(new THREE.BoxGeometry(82, 10, 70), fabric); seatCushion.position.set(-2, 44, 0); seat.add(seatCushion);
+  const back = new THREE.Mesh(new THREE.BoxGeometry(82, 48, 12), fabric); back.position.set(-42, 74, -26); seat.add(back);
 
-  // seat & backrest
-  const seatBase = new THREE.Mesh(new THREE.BoxGeometry(80, 8, 68), fabricMat); seatBase.position.set(10, 40, 0); seat.add(seatBase);
-  const backrest = new THREE.Mesh(new THREE.BoxGeometry(78, 46, 12), fabricMat); backrest.position.set(-22, 68, -28); seat.add(backrest);
+  // armrests (foldable hinges simplified)
+  const armLeft = new THREE.Mesh(new THREE.BoxGeometry(48, 6, 12), metal); armLeft.position.set(-6, 56, -46); seat.add(armLeft);
+  const armPadLeft = new THREE.Mesh(new THREE.BoxGeometry(48, 4, 14), fabric); armPadLeft.position.set(-6, 60, -46); seat.add(armPadLeft);
+  const armRight = armLeft.clone(); armRight.position.set(-6, 56, 46); seat.add(armRight);
+  const armPadRight = armPadLeft.clone(); armPadRight.position.set(-6, 60, 46); seat.add(armPadRight);
 
-  // armrests
-  const armL = new THREE.Mesh(new THREE.BoxGeometry(48, 6, 12), metalMat); armL.position.set(-6, 54, -46); seat.add(armL);
-  const armPadL = new THREE.Mesh(new THREE.BoxGeometry(48, 6, 14), fabricMat); armPadL.position.set(-6, 58, -46); seat.add(armPadL);
-  const armR = armL.clone(); armR.position.set(-6, 54, 46); seat.add(armR);
-  const armPadR = armPadL.clone(); armPadR.position.set(-6, 58, 46); seat.add(armPadR);
+  // joystick mount (right side)
+  const joyPole = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.5, 72, 12), chrome); joyPole.position.set(30, 60, 50); seat.add(joyPole);
+  const joyBase = new THREE.Mesh(new THREE.BoxGeometry(12, 6, 10), metal); joyBase.position.set(30, 36, 50); seat.add(joyBase);
+  const joy = new THREE.Mesh(new THREE.SphereGeometry(6, 16, 12), paint); joy.position.set(30, 94, 50); seat.add(joy);
 
-  // footrest
-  const foot = new THREE.Mesh(new THREE.BoxGeometry(120, 6, 30), metalMat); foot.position.set(60, 6, 0); chassis.add(foot);
-
-  // joystick mount
-  const joyPole = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 80, 12), chrome); joyPole.position.set(25, 50, -50); seat.add(joyPole);
-  const joyPad = new THREE.Mesh(new THREE.SphereGeometry(6, 16, 12), paintMat); joyPad.position.set(25, 90, -50); seat.add(joyPad);
-
-  // wheels (detailed-ish)
-  function makeWheel(radius, width) {
+  // ---------- Wheels: Rear hub motors (electric) & front casters ---------- //
+  function makeWheel(radius, width){
     const g = new THREE.Group();
-    const tire = new THREE.Mesh(new THREE.TorusGeometry(radius, width/2, 16, 60), rubberMat);
+    const tire = new THREE.Mesh(new THREE.TorusGeometry(radius, width/2, 16, 80), rubber);
     tire.rotation.x = Math.PI/2; g.add(tire);
     const rim = new THREE.Mesh(new THREE.CylinderGeometry(radius-6, radius-6, width-6, 20), chrome);
     rim.rotation.x = Math.PI/2; g.add(rim);
     return g;
   }
-  const rearL = makeWheel(36, 14); rearL.position.set(-60, 12, -42); wheels.add(rearL);
-  const rearR = makeWheel(36, 14); rearR.position.set(-60, 12, 42); wheels.add(rearR);
-  const casterL = makeWheel(14, 8); casterL.position.set(82, 12, -22); wheels.add(casterL);
-  const casterR = makeWheel(14, 8); casterR.position.set(82, 12, 22); wheels.add(casterR);
+  const rearWheelL = makeWheel(40, 16); rearWheelL.position.set(-78, 18, -46); wheels.add(rearWheelL);
+  const rearWheelR = makeWheel(40, 16); rearWheelR.position.set(-78, 18, 46); wheels.add(rearWheelR);
 
-  // motors & gearbox
-  function makeMotorUnit() {
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 28, 24), paintMat); body.rotation.x = Math.PI/2; g.add(body);
-    const gearbox = new THREE.Mesh(new THREE.BoxGeometry(18, 12, 12), metalMat); gearbox.position.set(0, -12, 0); g.add(gearbox);
-    return g;
+  // hub motor housings (rear)
+  const hubL = new THREE.Mesh(new THREE.CylinderGeometry(14,14,28,24), paint); hubL.rotation.x = Math.PI/2; hubL.position.set(-78, 18, -46); motors.add(hubL);
+  const hubR = hubL.clone(); hubR.position.set(-78, 18, 46); motors.add(hubR);
+
+  // front caster wheels
+  const casterL = makeWheel(14, 8); casterL.position.set(88, 14, -22); wheels.add(casterL);
+  const casterR = makeWheel(14, 8); casterR.position.set(88, 14, 22); wheels.add(casterR);
+
+  // caster forks
+  const forkL = new THREE.Mesh(new THREE.BoxGeometry(6, 14, 6), metal); forkL.position.set(88, 6, -22); wheels.add(forkL);
+  const forkR = forkL.clone(); forkR.position.set(88, 6, 22); wheels.add(forkR);
+
+  // ---------- Battery pack + controller (under seat) ---------- //
+  const battGroup = new THREE.Group();
+  // battery enclosure
+  const battBox = new THREE.Mesh(new THREE.BoxGeometry(80, 24, 48), battMat); battBox.position.set(-24, 18, 0); battGroup.add(battBox);
+  // PCB mounted near rear
+  const ctl = new THREE.Mesh(new THREE.BoxGeometry(36, 4, 28), pcbMat); ctl.position.set(-6, 34, 12); pcb.add(ctl);
+
+  battery.add(battGroup);
+
+  // ---------- Electrodes (mounted on small arm) ---------- //
+  const electrodeArm = new THREE.Mesh(new THREE.BoxGeometry(2, 40, 2), metal); electrodeArm.position.set(36, 50, -40); electrodes.add(electrodeArm);
+  const electrodePad1 = new THREE.Mesh(new THREE.SphereGeometry(2.6,12,8), chrome); electrodePad1.position.set(36,72,-44); electrodes.add(electrodePad1);
+  const electrodePad2 = electrodePad1.clone(); electrodePad2.position.set(44,72,-44); electrodes.add(electrodePad2);
+
+  // ---------- Add parts to assembly (positions already set) ---------- //
+  assembly.add(frame, seat, wheels, motors, battery, pcb, electrodes);
+
+  // ---------- Labels (DOM overlay projected) ---------- //
+  const domLabels = [];
+  function makeLabel(name, obj, offsetY=12){
+    const el = document.createElement('div'); el.className='labelDOM'; el.textContent = name; el.style.display='none';
+    labelsOverlay.appendChild(el); domLabels.push({el,obj,offsetY}); return el;
   }
-  const motorL = makeMotorUnit(); motorL.position.set(-40, 18, -42); motors.add(motorL);
-  const motorR = makeMotorUnit(); motorR.position.set(-40, 18, 42); motors.add(motorR);
+  makeLabel('Frame / Chassis', base, 18);
+  makeLabel('Seat & Backrest', seatCushion, 20);
+  makeLabel('Rear Hub Motor', hubL, 30);
+  makeLabel('Battery Pack', battBox, 18);
+  makeLabel('Controller PCB', ctl, 12);
+  makeLabel('EMG Electrodes', electrodePad1, 8);
+  makeLabel('Joystick', joy, 18);
 
-  // battery pack (cells)
-  const cells = new THREE.Group();
-  for (let i=0;i<6;i++){
-    const c = new THREE.Mesh(new THREE.BoxGeometry(16, 40, 8), battMat);
-    c.position.set(-18 + i*18, 10, 0);
-    cells.add(c);
+  // ---------- Simple dimension helpers (visual) ---------- //
+  function drawLine(start, end, color=0x88cfe8){
+    const mat = new THREE.LineBasicMaterial({color});
+    const geom = new THREE.BufferGeometry().setFromPoints([start,end]);
+    const line = new THREE.Line(geom, mat); scene.add(line);
   }
-  battery.add(cells); battery.position.set(-10, 6, 0);
+  drawLine(new THREE.Vector3(-120,0,-60), new THREE.Vector3(120,0,-60));
+  drawLine(new THREE.Vector3(-100,0,80), new THREE.Vector3(140,0,80));
 
-  // PCB + components
-  const board = new THREE.Mesh(new THREE.BoxGeometry(46,2,28), pcbMat); board.position.set(20, 30, 0); pcb.add(board);
-  const ic = new THREE.Mesh(new THREE.BoxGeometry(14,3,8), chrome); ic.position.set(8,4,2); board.add(ic);
-  const cap = new THREE.Mesh(new THREE.CylinderGeometry(2,2,6,12), chrome); cap.position.set(-6,4,-6); cap.rotation.x = Math.PI/2; board.add(cap);
-
-  // electrodes + wire
-  const e1 = new THREE.Mesh(new THREE.SphereGeometry(2.4,12,8), chrome); e1.position.set(32,52,-12); electrodes.add(e1);
-  const e2 = e1.clone(); e2.position.set(44,52,-12); electrodes.add(e2);
-  const wireMat = new THREE.LineBasicMaterial({ color: 0xffcc77 });
-  const wirePts = new THREE.BufferGeometry().setFromPoints([ new THREE.Vector3(32,52,-12), new THREE.Vector3(26,36,-4), new THREE.Vector3(22,32,0), new THREE.Vector3(20,30,0) ]);
-  const wire = new THREE.Line(wirePts, wireMat); electrodes.add(wire);
-
-  // add groups into assembly
-  assembly.add(chassis, seat, wheels, motors, battery, pcb, electrodes);
-
-  // create DOM labels for a few parts
-  createDOMLabel('Chassis / Frame', frameBase, 24);
-  createDOMLabel('Seat & Cushion', seatBase, 20);
-  createDOMLabel('Drive Wheel', rearL, 38);
-  createDOMLabel('Motor Unit', motorL, 18);
-  createDOMLabel('Battery Pack', battery, 22);
-  createDOMLabel('Controller PCB', board, 12);
-  createDOMLabel('EMG Electrode', e1, 8);
-
-  // telemetry state (for demonstration)
-  let pos = {x: 0, y: 0}, angle = 0;
-  function updateTelemetry() {
-    txEl.textContent = Math.round(pos.x);
-    tyEl.textContent = Math.round(pos.y);
-    tangEl.textContent = Math.round(angle % 360);
-  }
-
-  // dimension lines (simple visual guides)
-  function drawDimension(start, end) {
-    const mat = new THREE.LineBasicMaterial({ color: 0x88cfe8 });
-    const geom = new THREE.BufferGeometry().setFromPoints([ start, end ]);
-    const line = new THREE.Line(geom, mat);
-    scene.add(line);
-  }
-  drawDimension(new THREE.Vector3(-110,0,-50), new THREE.Vector3(110,0,-50));
-  drawDimension(new THREE.Vector3(-90,0,60), new THREE.Vector3(130,0,60));
-
-  // labels overlay updater: project 3D positions to 2D screen space
-  function updateDOMLabels() {
-    const rect = mount.getBoundingClientRect();
-    const width = rect.width, height = rect.height;
-    domLabels.forEach(item => {
-      const pos3 = new THREE.Vector3();
-      item.obj3d.getWorldPosition(pos3);
-      pos3.y += item.offsetY / 10; // small offset
-      pos3.project(camera);
-      const x = (pos3.x * 0.5 + 0.5) * width;
-      const y = (-pos3.y * 0.5 + 0.5) * height;
-      item.el.style.transform = `translate(-50%,-100%) translate(${x}px, ${y}px)`;
-      item.el.style.display = 'block';
-    });
-    // size overlay
-    labelsOverlay.style.width = width + 'px';
-    labelsOverlay.style.height = height + 'px';
-  }
-
-  // UI interactions
+  // ---------- UI controls ---------- //
   document.getElementById('resetView').addEventListener('click', ()=>{
-    controls.reset();
-    camera.position.set(300,180,300);
-    controls.update();
+    controls.reset(); camera.position.set(350,200,350); controls.update();
   });
 
-  let exploded = false;
+  let exploded=false;
   document.getElementById('explodeBtn').addEventListener('click', ()=>{
     exploded = !exploded;
-    if (exploded) {
-      chassis.position.set(-40,0,0);
-      seat.position.set(40,0,0);
-      wheels.position.set(0,0,-90);
-      motors.position.set(0,0,90);
-      battery.position.set(0,40,0);
-      pcb.position.set(90,20,0);
-      electrodes.position.set(90,50,10);
+    if(exploded){
+      frame.position.set(-40,0,0); seat.position.set(40,0,0); wheels.position.set(0,0,-120); motors.position.set(0,0,120); battery.position.set(0,40,0); pcb.position.set(120,20,0); electrodes.position.set(120,40,10);
     } else {
-      chassis.position.set(0,0,0);
-      seat.position.set(0,0,0);
-      wheels.position.set(0,0,0);
-      motors.position.set(0,0,0);
-      battery.position.set(0,0,0);
-      pcb.position.set(0,0,0);
-      electrodes.position.set(0,0,0);
+      frame.position.set(0,0,0); seat.position.set(0,0,0); wheels.position.set(0,0,0); motors.position.set(0,0,0); battery.position.set(0,0,0); pcb.position.set(0,0,0); electrodes.position.set(0,0,0);
     }
   });
 
-  let folded = false;
+  let folded=false;
   document.getElementById('foldBtn').addEventListener('click', ()=>{
     folded = !folded;
-    if (folded) {
-      seat.rotation.z = Math.PI/6; seat.position.set(0,10,0); assembly.scale.set(0.85,0.85,0.85);
+    // Folding sequence: lower backrest, collapse X frame (simulate)
+    if(folded){
+      back.rotation.x = Math.PI/2; back.position.set(-2,48,-10);
+      xLeft.rotation.z = Math.PI/2; xRight.rotation.z = Math.PI/2;
+      assembly.scale.set(0.78,0.78,0.78);
     } else {
-      seat.rotation.z = 0; seat.position.set(0,0,0); assembly.scale.set(1,1,1);
+      back.rotation.x = 0; back.position.set(-42,74,-26);
+      xLeft.rotation.z = 0; xRight.rotation.z = 0;
+      assembly.scale.set(1,1,1);
     }
   });
 
   let idleAnim = true;
   document.getElementById('animBtn').addEventListener('click', ()=>{ idleAnim = !idleAnim; });
 
-  // visibility checkboxes
-  document.getElementById('vChassis').addEventListener('change', e=> chassis.visible = e.target.checked);
+  // visibility toggles
+  document.getElementById('vFrame').addEventListener('change', e=> frame.visible = e.target.checked);
   document.getElementById('vSeat').addEventListener('change', e=> seat.visible = e.target.checked);
   document.getElementById('vWheels').addEventListener('change', e=> wheels.visible = e.target.checked);
   document.getElementById('vMotors').addEventListener('change', e=> motors.visible = e.target.checked);
   document.getElementById('vBattery').addEventListener('change', e=> battery.visible = e.target.checked);
-  document.getElementById('vElectrodes').addEventListener('change', e=> electrodes.visible = e.target.checked);
+  document.getElementById('vElect').addEventListener('change', e=> electrodes.visible = e.target.checked);
 
-  // idle animation & render loop
+  // ---------- Telemetry simulation & EMG mapping ---------- //
+  let pos = {x:0,y:0}, angle = 0;
+  function updateTelemetry(){ txEl.textContent = pos.x.toFixed(0); tyEl.textContent = pos.y.toFixed(0); tangEl.textContent = ((angle%360)+360)%360 | 0; }
+
+  // Basic mapping: EMG sliders tilt seat slightly and nudge assembly
+  const emgA = document.getElementById('emgA'), emgB = document.getElementById('emgB');
+  function applyEmgToModel(){
+    const a = Number(emgA.value)/1023;
+    const b = Number(emgB.value)/1023;
+    // differential: forward/back tilt and slight rotation
+    const diff = (a - b);
+    // tilt backrest
+    back.rotation.x = THREE.MathUtils.lerp(back.rotation.x, THREE.MathUtils.degToRad(-10 * diff), 0.1);
+    // small translation to simulate motion intent
+    assembly.position.x = THREE.MathUtils.lerp(assembly.position.x, diff*12, 0.06);
+  }
+  emgA.addEventListener('input', ()=>applyEmgToModel());
+  emgB.addEventListener('input', ()=>applyEmgToModel());
+
+  // ---------- Label projection (3D->2D) ---------- //
+  function updateLabels(){
+    const rect = mount.getBoundingClientRect();
+    const w = rect.width, h = rect.height;
+    domLabels.forEach(item=>{
+      const pos3 = new THREE.Vector3();
+      item.obj.getWorldPosition(pos3);
+      pos3.y += item.offsetY;
+      pos3.project(camera);
+      const x = (pos3.x * 0.5 + 0.5) * w;
+      const y = (-pos3.y * 0.5 + 0.5) * h;
+      item.el.style.transform = `translate(-50%,-100%) translate(${x}px, ${y}px)`;
+      item.el.style.display = 'block';
+    });
+    labelsOverlay.style.width = w + 'px';
+    labelsOverlay.style.height = h + 'px';
+  }
+
+  // ---------- Exporters ---------- //
+  const gltfExporter = new THREE.GLTFExporter();
+  const stlExporter = new THREE.STLExporter();
+
+  document.getElementById('exportGLB').addEventListener('click', ()=>{
+    const s = Number(document.getElementById('scale').value) || 1;
+    const exportGroup = assembly.clone(true);
+    exportGroup.scale.setScalar(s);
+    gltfExporter.parse(exportGroup, (result)=>{
+      if (result instanceof ArrayBuffer){
+        const blob = new Blob([result], {type: 'application/octet-stream'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'wheelchair.glb'; a.click();
+      } else {
+        const output = JSON.stringify(result, null, 2);
+        const blob = new Blob([output], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'wheelchair.gltf'; a.click();
+      }
+    }, {binary:true});
+  });
+
+  document.getElementById('exportSTL').addEventListener('click', ()=>{
+    const s = Number(document.getElementById('scale').value) || 1;
+    const exportGroup = assembly.clone(true); exportGroup.scale.setScalar(s);
+    try{
+      const stl = stlExporter.parse(exportGroup);
+      const blob = new Blob([stl], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'wheelchair.stl'; a.click();
+    }catch(e){ alert('STL export failed: ' + e.message); }
+  });
+
+  // ---------- Animation loop ---------- //
   let last = performance.now();
-  function animate(now) {
+  function animate(now){
     const dt = (now - last) / 1000; last = now;
-    if (idleAnim) {
-      rearL.rotation.y += dt * 3.2;
-      rearR.rotation.y += dt * 3.2;
-      casterL.rotation.y += dt * 4.2;
-      casterR.rotation.y += dt * 4.2;
-      assembly.position.y = Math.sin(now / 1000) * 1.2;
+    if(idleAnim){
+      // spin wheels a bit for liveliness
+      rearWheelL.rotation.y += dt * 2.6;
+      rearWheelR.rotation.y += dt * 2.6;
+      casterL.rotation.y += dt * 3.6;
+      casterR.rotation.y += dt * 3.6;
+      assembly.position.y = Math.sin(now/1000) * 0.6;
     }
-    // update telemetry demo (dummy)
-    pos.x = Math.sin(now/1000) * 10;
-    pos.y = Math.cos(now/1400) * 5;
-    angle += dt * 2;
+    // pseudo-telemetry motion
+    pos.x = Math.sin(now/1400) * 6;
+    pos.y = Math.cos(now/1800) * 3;
+    angle += dt * 1.2;
     updateTelemetry();
-    // update labels overlay
-    updateDOMLabels();
+
+    applyEmgToModel();
+    updateLabels();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
 
-  // responsive
-  window.addEventListener('resize', ()=> {
+  // ---------- Responsive ---------- //
+  window.addEventListener('resize', ()=>{
     const rect = mount.getBoundingClientRect();
     camera.aspect = rect.width / rect.height;
     camera.updateProjectionMatrix();
     renderer.setSize(rect.width, rect.height);
   });
 
-  // ---- EMG waveform simulation ----
-  const emgCanvas = document.getElementById('emgCanvas');
-  const emgCtx = emgCanvas.getContext('2d');
-  let emgPhase = 0, emgRun = true;
-  document.getElementById('pauseEmg').addEventListener('click', ()=>{ emgRun = !emgRun; document.getElementById('pauseEmg').textContent = emgRun ? 'Pause' : 'Resume';});
-  document.getElementById('resetEmg').addEventListener('click', ()=>{ emgPhase = 0; });
-
-  function drawEMG() {
-    const w = emgCanvas.width, h = emgCanvas.height;
-    emgCtx.clearRect(0,0,w,h);
-    emgCtx.fillStyle = '#011826';
-    emgCtx.fillRect(0,0,w,h);
-    emgCtx.strokeStyle = '#8be6ff';
-    emgCtx.lineWidth = 1.5;
-    emgCtx.beginPath();
-    for (let x=0; x<w; x++){
-      const t = emgPhase + x/24;
-      const noise = (Math.random()-0.5) * 0.6;
-      const y = h/2 + (Math.sin(t*4) * 12 + Math.sin(t*9) * 4 + noise * 6);
-      if (x===0) emgCtx.moveTo(x,y); else emgCtx.lineTo(x,y);
-    }
-    emgCtx.stroke();
-    if (emgRun) emgPhase += 0.12;
-    requestAnimationFrame(drawEMG);
-  }
-  requestAnimationFrame(drawEMG);
-
-  // ---- Exporters: GLB and STL ----
-  const gltfExporter = new THREE.GLTFExporter();
-  const stlExporter = new THREE.STLExporter();
-
-  document.getElementById('exportGLB').addEventListener('click', ()=> {
-    const s = Number(document.getElementById('scale').value) || 1;
-    // clone and scale assembly for export so on-screen doesn't change
-    const exportGroup = assembly.clone(true);
-    exportGroup.scale.setScalar(s);
-    // glb binary
-    gltfExporter.parse(exportGroup, function(result) {
-      if (result instanceof ArrayBuffer) {
-        const blob = new Blob([result], {type: 'application/octet-stream'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'emg_wheelchair.glb'; a.click();
-      } else {
-        const output = JSON.stringify(result, null, 2);
-        const blob = new Blob([output], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'emg_wheelchair.gltf'; a.click();
-      }
-    }, {binary: true});
-  });
-
-  document.getElementById('exportSTL').addEventListener('click', ()=> {
-    const s = Number(document.getElementById('scale').value) || 1;
-    const exportGroup = assembly.clone(true); exportGroup.scale.setScalar(s);
-    // STL exporter returns string
-    try {
-      const stlString = stlExporter.parse(exportGroup);
-      const blob = new Blob([stlString], {type: 'text/plain'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'emg_wheelchair.stl'; a.click();
-    } catch (e) {
-      alert('STL export failed: ' + e.message);
-    }
-  });
-
-  // final console note
-  console.log('3D wheelchair model loaded. Use the left panel to toggle visibility, explode, fold, or export.');
+  // ---------- Final notes in console ---------- //
+  console.log('Detailed electric wheelchair model loaded (foldable, rear-hub motors). Use the left panel. For STEP export, I can convert this GLB into CAD parts on request.');
   </script>
 </body>
 </html>
