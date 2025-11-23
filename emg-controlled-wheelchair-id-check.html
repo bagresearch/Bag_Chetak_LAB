@@ -94,7 +94,7 @@
       // demo credentials
       const validCredentials = {
         "saswata7928": "Neohumanism@2020",
-        "vk.singh": "nitiaayog@2025"
+        "nitiaayog": "nitiaayog@2025"
       };
 
       if (validCredentials[user] === pass) {
@@ -106,9 +106,14 @@
           progressBar.style.width = percent + "%";
           statusText.innerText = `taking permissions from web server  ${percent}%`;
 
-          if (percent === 100) {
+          if (percent === 90) {
             clearInterval(interval);
             statusText.innerText = "transfering you to EMG Controlled Wheelchair site";
+            setTimeout(() => {
+
+              if (percent === 100) {
+            clearInterval(interval);
+            statusText.innerText = "Welcome Niti Aayog ";
             setTimeout(() => {
               window.location.href = "emg-wheelchair.html";
             }, 1500);
