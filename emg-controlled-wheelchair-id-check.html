@@ -74,6 +74,7 @@
       <input type="password" id="password" placeholder="Password" required /><br />
       <input type="submit" value="Access" />
     </form>
+
     <div id="progress-container">
       <div class="progress-bar" id="progress-bar"></div>
       <p id="status-text"></p>
@@ -91,7 +92,6 @@
       const user = document.getElementById("userid").value.trim();
       const pass = document.getElementById("password").value.trim();
 
-      // demo credentials
       const validCredentials = {
         "saswata7928": "Neohumanism@2020",
         "nitiaayog": "nitiaayog@2025"
@@ -100,27 +100,25 @@
       if (validCredentials[user] === pass) {
         form.style.display = "none";
         progressContainer.style.display = "block";
+
         let percent = 0;
         const interval = setInterval(() => {
           percent++;
           progressBar.style.width = percent + "%";
-          statusText.innerText = `taking permissions from web server  ${percent}%`;
+          statusText.innerText = `taking permissions from web server ${percent}%`;
 
-          if (percent === 90) {
+          if (percent === 100) {
             clearInterval(interval);
-            statusText.innerText = "transfering you to EMG Controlled Wheelchair site";
-            setTimeout(() => {
-
-              if (percent === 100) {
-            clearInterval(interval);
-            statusText.innerText = "Welcome Niti Aayog ";
+            statusText.innerText = "Welcome Niti Aayog";
             setTimeout(() => {
               window.location.href = "emg-wheelchair.html";
             }, 1500);
           }
+
         }, 50);
+
       } else {
-        alert("Invalid ID Or Password ");
+        alert("Invalid ID Or Password");
       }
     });
   </script>
