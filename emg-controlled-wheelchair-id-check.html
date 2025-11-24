@@ -68,7 +68,7 @@
 </head>
 <body>
   <div class="login-box">
-    <h2>EMG-Controlled-Wheelchair</h2>
+    <h2>EMG-Controlled-Wheelchair Transfering Portal</h2>
     <form id="loginForm">
       <input type="text" id="userid" placeholder="Enter Id To Access Page " required /><br />
       <input type="password" id="password" placeholder="Password" required /><br />
@@ -94,7 +94,7 @@
 
       const validCredentials = {
         "saswata7928": "Neohumanism@2020",
-        "nitiaayog": "nitiaayog@2025"
+        
       };
 
       if (validCredentials[user] === pass) {
@@ -109,7 +109,7 @@
 
           if (percent === 100) {
             clearInterval(interval);
-            statusText.innerText = "Welcome Niti Aayog";
+            statusText.innerText = "Welcome To EMG Portal";
             setTimeout(() => {
               window.location.href = "emg-wheelchair.html";
             }, 1500);
