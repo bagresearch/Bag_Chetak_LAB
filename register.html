@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register — Modern Site</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="dark auth-page">
+  <main class="auth-container">
+    <div class="auth-card">
+      <h2>Create account</h2>
+      <p class="muted">Sign up and start using your dashboard</p>
+
+      <form id="registerForm" class="form">
+        <label for="regEmail">Email</label>
+        <input id="regEmail" type="email" required placeholder="you@example.com" />
+
+        <label for="regPassword">Password</label>
+        <input id="regPassword" type="password" required minlength="6" placeholder="At least 6 chars" />
+
+        <label for="regPassword2">Confirm password</label>
+        <input id="regPassword2" type="password" required minlength="6" placeholder="Repeat password" />
+
+        <button class="btn primary" type="submit">Create account</button>
+      </form>
+
+      <p class="muted">Already registered? <a href="login.html">Sign in</a></p>
+    </div>
+
+    <div class="auth-visual" aria-hidden="true">
+      <div class="anim-panel"></div>
+    </div>
+  </main>
+
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+  <script src="assets/js/firebase.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — Modern Site</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="dark">
+  <nav class="nav">
+    <div class="logo">SB</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#" id="logoutBtn" class="cta">Logout</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section class="content-card">
+      <h1>Dashboard</h1>
+      <p id="userEmail">Checking authentication…</p>
+      <div class="grid">
+        <div class="small-card">Profile</div>
+        <div class="small-card">Settings</div>
+        <div class="small-card">Analytics</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+  <script src="assets/js/firebase.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script>
+    // quick guard in case JS loaded before auth.js
+    window.addEventListener('load', () => {
+      if (typeof auth === 'undefined') console.warn('firebase not initialized yet');
+    });
+  </script>
+</body>
+</html>
