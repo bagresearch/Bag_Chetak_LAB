@@ -117,26 +117,7 @@ p{
     font-size:.9rem;
 }
 
-/* LINK GRID */
-.link-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:14px;
-}
-
-.link-grid a{
-    padding:14px;
-    border-radius:12px;
-    background:#0f766e;
-    color:#ecfeff;
-    text-decoration:none;
-    text-align:center;
-    transition:.25s;
-}
-
-.link-grid a:hover{
-    background:#14b8a6;
-}
+/* LINK GRID fallback removed, using project-grid style */
 
 /* CENTER FOOTER */
 .footer{
@@ -217,14 +198,62 @@ p{
 <div class="section">
     <h2>Profile, Research & Outreach</h2>
 
-    <div class="link-grid">
-        <a href="biography.html">Biography</a>
-        <a href="research.html">My Research Page</a>
-        <a href="achievements.html">Achievements</a>
-        <a href="ourteam.html">Our Team</a>
-        <a href="photo-gallery.html">Photo Gallery</a>
-        <a href="project-funding.html">Project Funding</a>
-        <a href="contact.html">Contact</a>
+    <div class="project-grid">
+        <div class="project-card">
+            <img src="biography_pic.jpg" alt="Biography">
+            <div class="content">
+                <h3>Biography</h3>
+                <a href="biography.html">Visit →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="research_pic.jpg" alt="My Research Page">
+            <div class="content">
+                <h3>My Research Page</h3>
+                <a href="research.html">Visit →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="achievements_pic.jpg" alt="Achievements">
+            <div class="content">
+                <h3>Achievements</h3>
+                <a href="achievements.html">Visit →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="ourteam_pic.jpg" alt="Our Team">
+            <div class="content">
+                <h3>Our Team</h3>
+                <a href="ourteam.html">Visit →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="photogallery_pic.jpg" alt="Photo Gallery">
+            <div class="content">
+                <h3>Photo Gallery</h3>
+                <a href="photo-gallery.html">Visit →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="funding_pic.jpg" alt="Project Funding">
+            <div class="content">
+                <h3>Project Funding</h3>
+                <a href="project-funding.html">Visit →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="contact_pic.jpg" alt="Contact">
+            <div class="content">
+                <h3>Contact</h3>
+                <a href="contact.html">Visit →</a>
+            </div>
+        </div>
     </div>
 </div>
 
