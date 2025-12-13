@@ -1,145 +1,237 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Bagresearch : Site Maintenence </title>
-  <style>
-    :root{
-      --bg-1: #0f1724;
-      --bg-2: #0b5257;
-      --card: rgba(255,255,255,0.06);
-      --accent: #19d3da;
-      --muted: rgba(255,255,255,0.75);
-      --glass: rgba(255,255,255,0.04);
-      --radius: 14px;
-      --max-w: 880px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      min-height:100%;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,var(--bg-1) 0%, #071426 40%, var(--bg-2) 100%);
-      color:#ffffff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:24px;
-    }
+<meta charset="UTF-8">
+<title>Maintenance | Bagresearch</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .container{
-      width:100%;
-      max-width:var(--max-w);
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border-radius:var(--radius);
-      padding:36px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      border:1px solid rgba(255,255,255,0.04);
-      display:flex;
-      gap:28px;
-      align-items:center;
-      backdrop-filter: blur(6px) saturate(120%);
-    }
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at top right,#0f766e,#020617 70%);
+    color:#e5e7eb;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
 
-    .illustration{
-      flex:0 0 160px;
-      display:grid;
-      place-items:center;
-      padding:12px;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    }
+/* MAIN CARD */
+.container{
+    max-width:1100px;
+    width:90%;
+    margin-top:60px;
+    padding:45px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#020617,#022c3a);
+    box-shadow:0 0 60px rgba(0,0,0,.7);
+    border:1px solid #0f172a;
+}
 
-    .content{
-      flex:1 1 auto;
-      min-width:0;
-    }
+/* TEXT */
+h1{
+    color:#ffffff;
+    font-size:2.5rem;
+    margin-bottom:12px;
+}
 
-    h1{margin:0 0 8px 0;font-size:28px;letter-spacing:-0.02em}
-    p{margin:0 0 14px 0;color:var(--muted);line-height:1.5}
+p{
+    color:#cbd5f5;
+    line-height:1.6;
+}
 
-    .email{
-      display:inline-block;
-      margin-top:8px;
-      background:var(--glass);
-      padding:10px 14px;
-      border-radius:10px;
-      font-weight:600;
-      color: #e6fcff;
-      text-decoration:none;
-    }
+.badge{
+    display:inline-block;
+    margin:18px 0;
+    padding:10px 18px;
+    background:#020617;
+    border-radius:999px;
+    font-size:.9rem;
+    color:#94a3b8;
+    border:1px solid #0f172a;
+}
 
-    .meta{margin-top:18px;color:rgba(255,255,255,0.6);font-size:14px}
+.email-box{
+    margin-top:14px;
+    padding:12px 18px;
+    display:inline-block;
+    border-radius:12px;
+    background:#020617;
+    border:1px solid #0f172a;
+    font-weight:600;
+}
 
-    .badge{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:600;color:var(--muted);font-size:13px}
+/* SECTION BELOW RED LINE */
+.section{
+    max-width:1100px;
+    width:90%;
+    margin:70px 0 40px;
+}
 
-    .spinner{
-      width:72px;height:72px;display:inline-grid;place-items:center
-    }
-    @keyframes rotate {
-      to { transform: rotate(360deg); }
-    }
-    .ring{
-      width:56px;height:56px;border-radius:50%;border:6px solid rgba(255,255,255,0.06);border-top-color:var(--accent);
-      animation: rotate 1.4s linear infinite;
-    }
+/* HEADINGS */
+.section h2{
+    color:#22d3ee;
+    margin-bottom:22px;
+    font-size:1.7rem;
+}
 
-    .footer{
-      margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap
-    }
+/* PROJECT GRID */
+.project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:24px;
+}
 
-    .btn{
-      display:inline-block;padding:10px 14px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);font-weight:700;text-decoration:none;color:var(--accent);backdrop-filter: blur(4px);
-    }
+.project-card{
+    background:linear-gradient(135deg,#020617,#022c3a);
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #0f172a;
+    transition:.3s;
+}
 
-    .brand{font-weight:700;color:#fff}
+.project-card:hover{
+    transform:translateY(-6px);
+}
 
-    @media (max-width:740px){
-      .container{flex-direction:column;gap:18px;padding:22px}
-      .illustration{flex:0 0 auto}
-      h1{font-size:22px}
-    }
+.project-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
 
-  </style>
+.project-card .content{
+    padding:16px;
+}
+
+.project-card h3{
+    margin:0 0 8px;
+    color:#38bdf8;
+    font-size:1.1rem;
+}
+
+.project-card a{
+    text-decoration:none;
+    color:#a5f3fc;
+    font-size:.9rem;
+}
+
+/* LINK GRID */
+.link-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:14px;
+}
+
+.link-grid a{
+    padding:14px;
+    border-radius:12px;
+    background:#0f766e;
+    color:#ecfeff;
+    text-decoration:none;
+    text-align:center;
+    transition:.25s;
+}
+
+.link-grid a:hover{
+    background:#14b8a6;
+}
+
+/* CENTER FOOTER */
+.footer{
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    font-size:.85rem;
+    color:#94a3b8;
+    animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{transform:translate(-50%,0)}
+    50%{transform:translate(-50%,-10px)}
+    100%{transform:translate(-50%,0)}
+}
+</style>
 </head>
+
 <body>
-  <div class="container" role="main" aria-labelledby="title">
-    <div class="illustration" aria-hidden="true">
-      <div class="spinner" title="Loading">
-        <div class="ring" aria-hidden="true"></div>
-      </div>
-    </div>
 
-    <div class="content">
-      <h1 id="title">We’ll be back soon!</h1>
-      <p>Sorry for the inconvenience. We’re performing some maintenance at the moment. at that time visit my research page  😃 </p>
+<div class="container">
+    <h1>We’ll be back soon!</h1>
 
-      <div class="meta">
-        <div class="badge">Maintenance mode started by Owner of this Website </div>
-        <div style="height:10px"></div>
-        <p style="margin:0">If you need to reach us, email:</p>
-        <a class="email" href="mailto:saswata7928@gmail.com">saswata7928@gmail.com</a>
+    <p>
+        Sorry for the inconvenience. We’re performing some maintenance at the moment.
+        At that time, visit my research page 🙂
+    </p>
 
-        <div class="footer">
-          <span class="brand">Team Bagresearch </span>
-          <a class="btn" href="research.html">Visit My Research Page</a>
+    <div class="badge">Maintenance mode started by Owner of this Website</div>
+
+    <p>If you need to reach us, email:</p>
+    <div class="email-box">saswata7928@gmail.com</div>
+</div>
+
+<!-- 🔴 BELOW RED LINE AREA -->
+
+<div class="section">
+    <h2>My Projects</h2>
+
+    <div class="project-grid">
+        <div class="project-card">
+            <img src="tetries.jpg" alt="Arduino Project">
+            <div class="content">
+                <h3>Arduino Project</h3>
+                <a href="ardui-no.html">View Project →</a>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <script>
-    // Small accessibility enhancement: announce that the site is in maintenance for assistive tech
-    if (typeof window !== 'undefined'){
-      const live = document.createElement('div');
-      live.setAttribute('aria-live','polite');
-      live.setAttribute('style','position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px');
-      live.textContent = 'The site is currently under maintenance. Expected back shortly.';
-      document.body.appendChild(live);
-    }
-  </script>
+        <div class="project-card">
+            <img src="chetak_pic.jpg" alt="Chetak">
+            <div class="content">
+                <h3>Chetak</h3>
+                <a href="chetak.html">View Project →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="smarthelmet4.jpg" alt="Smart Helmet">
+            <div class="content">
+                <h3>Smart Helmet</h3>
+                <a href="smart-helmet.html">View Project →</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="emg-wheelchair89.jpg" alt="EMG Wheelchair">
+            <div class="content">
+                <h3>EMG Controlled Wheelchair</h3>
+                <a href="emg-controlled-wheelchair-id-check.html">View Project →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Profile, Research & Outreach</h2>
+
+    <div class="link-grid">
+        <a href="biography.html">Biography</a>
+        <a href="research.html">My Research Page</a>
+        <a href="achievements.html">Achievements</a>
+        <a href="ourteam.html">Our Team</a>
+        <a href="photo-gallery.html">Photo Gallery</a>
+        <a href="project-funding.html">Project Funding</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</div>
+
+<div class="footer">
+    © 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation<br>
+    Last updated on: 14 December 2025
+</div>
+
 </body>
 </html>
