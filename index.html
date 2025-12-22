@@ -1,140 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
-<title>Saswata Bag | Official  Website </title>
+<title>Saswata Bag | Official Website </title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ✅ FAVICON -->
+
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+
 <style>
-body{
+*{
     margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: radial-gradient(circle at top right,#0f766e,#020617 70%);
-    color:#e5e7eb;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+body{
     min-height:100vh;
     display:flex;
-    flex-direction:column;
     align-items:center;
+    justify-content:center;
+    background: radial-gradient(circle at top right,#0f766e,#020617 70%);
+    color:#e5e7eb;
 }
 
-/* MAIN CARD */
 .container{
-    max-width:1100px;
-    width:90%;
-    margin-top:60px;
-    padding:45px;
-    border-radius:22px;
-    background:linear-gradient(135deg,#020617,#022c3a);
-    box-shadow:0 0 60px rgba(0,0,0,.7);
-    border:1px solid #0f172a;
+    max-width:650px;
+    padding:45px 30px;
+    background:rgba(15,23,42,0.65);
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 0 50px rgba(0,0,0,0.6);
+    backdrop-filter:blur(12px);
 }
 
-/* TEXT */
+/* Loader */
+.loader{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.loader span{
+    width:14px;
+    height:14px;
+    background:#22c55e;
+    border-radius:50%;
+    animation:bounce 1.2s infinite ease-in-out;
+}
+
+.loader span:nth-child(2){ animation-delay:0.2s }
+.loader span:nth-child(3){ animation-delay:0.4s }
+
+@keyframes bounce{
+    0%,80%,100%{ transform:scale(0) }
+    40%{ transform:scale(1) }
+}
+
 h1{
-    color:#ffffff;
-    font-size:2.5rem;
+    font-size:2.4rem;
     margin-bottom:12px;
+}
+
+h2{
+    font-size:1.2rem;
+    font-weight:400;
+    color:#94a3b8;
+    margin-bottom:20px;
 }
 
 p{
     color:#cbd5f5;
     line-height:1.6;
+    margin-bottom:25px;
 }
 
-.badge{
+.status{
     display:inline-block;
-    margin:18px 0;
-    padding:10px 18px;
-    background:#020617;
+    padding:10px 20px;
     border-radius:999px;
-    font-size:.9rem;
-    color:#94a3b8;
-    border:1px solid #0f172a;
-}
-
-.email-box{
-    margin-top:14px;
-    padding:12px 18px;
-    display:inline-block;
-    border-radius:12px;
-    background:#020617;
-    border:1px solid #0f172a;
+    background:rgba(34,197,94,0.15);
+    color:#22c55e;
     font-weight:600;
+    margin-bottom:25px;
 }
 
-/* SECTION BELOW RED LINE */
-.section{
-    max-width:1100px;
-    width:90%;
-    margin:70px 0 40px;
+/* Countdown */
+.countdown{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:28px;
 }
 
-/* HEADINGS */
-.section h2{
-    color:#22d3ee;
-    margin-bottom:22px;
-    font-size:1.7rem;
+.time-box{
+    background:rgba(2,6,23,0.6);
+    padding:15px 18px;
+    border-radius:12px;
+    min-width:80px;
 }
 
-/* PROJECT GRID */
-.project-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:24px;
+.time-box h3{
+    font-size:1.6rem;
+    color:#22c55e;
 }
 
-.project-card{
-    background:linear-gradient(135deg,#020617,#022c3a);
-    border-radius:18px;
-    overflow:hidden;
-    border:1px solid #0f172a;
-    transition:.3s;
-}
-
-.project-card:hover{
-    transform:translateY(-6px);
-}
-
-.project-card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
-
-.project-card .content{
-    padding:16px;
-}
-
-.project-card h3{
-    margin:0 0 8px;
-    color:#38bdf8;
-    font-size:1.1rem;
-}
-
-.project-card a{
-    text-decoration:none;
-    color:#a5f3fc;
-    font-size:.9rem;
-}
-
-/* LINK GRID fallback removed, using project-grid style */
-
-/* CENTER FOOTER */
-.footer{
-    position:fixed;
-    bottom:15px;
-    left:50%;
-    transform:translateX(-50%);
-    text-align:center;
-    font-size:.85rem;
+.time-box span{
+    font-size:0.75rem;
     color:#94a3b8;
-    animation:float 6s ease-in-out infinite;
 }
 
-@keyframes float{
-    0%{transform:translate(-50%,0)}
-    50%{transform:translate(-50%,-10px)}
-    100%{transform:translate(-50%,0)}
+/* Links */
+.links a{
+    margin:0 12px;
+    text-decoration:none;
+    color:#38bdf8;
+    font-weight:500;
+}
+
+.links a:hover{
+    text-decoration:underline;
+}
+
+footer{
+    margin-top:22px;
+    font-size:0.85rem;
+    color:#64748b;
 }
 </style>
 </head>
@@ -142,124 +134,63 @@ p{
 <body>
 
 <div class="container">
-    <h1>We’ll be back soon!</h1>
 
-    <p>
-        Sorry for the inconvenience. We’re performing some maintenance at the moment.
-    </p>
+    <div class="loader">
+        <span></span><span></span><span></span>
+    </div>
 
+    <h1>Website Closed Permanently</h1>
+    <h2>Sorry everyone — no more projects from today.</h2>
+
+    <p>A journey of learning, experiments, mistakes, and growth pauses here.
+Built with curiosity and effort, and as one chapter closes to move forward,
+thank you to everyone who supported, visited, and believed — bye bye.
+
+
+       </p>
+
+    <div class="status">
+         Web Closed 
+    </div>
+
+    <!-- Countdown -->
     
 
-    <p>If you need to reach us, email:</p>
-    <div class="email-box">saswata@bagresearch.co.in</div>
-</div>
-
-<!-- 🔴 BELOW RED LINE AREA -->
-
-<div class="section">
-    <h2>My Projects</h2>
-
-    <div class="project-grid">
-        <div class="project-card">
-            <img src="tetries.jpg" alt="Arduino Project">
-            <div class="content">
-                <h3>Arduino Project</h3>
-                <a href="ardui-no.html">View Project →</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <img src="chetak_pic.jpg" alt="Chetak">
-            <div class="content">
-                <h3>Chetak</h3>
-                <a href="chetak.html">View Project →</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <img src="smarthelmet4.jpg" alt="Smart Helmet">
-            <div class="content">
-                <h3>Smart Helmet</h3>
-                <a href="smart-helmet.html">View Project →</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <img src="emg-wheelchair89.jpg" alt="EMG Wheelchair">
-            <div class="content">
-                <h3>EMG Controlled Wheelchair</h3>
-                <a href="emg-controlled-wheelchair-id-check.html">View Project →</a>
-            </div>
-        </div>
+    <!-- Links -->
+    <div class="links">
+        <a href="mailto:saswata@bagresearch.co.in">Email</a>
+        <a href="https://github.com/bagresearch" target="_blank">GitHub</a>
     </div>
+
+    <footer>
+        © 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation
+    </footer>
+<footer>
+       Last Updated 22-12-2025
+    </footer>
+
 </div>
 
-<div class="section">
-    <h2>Profile, Research & Outreach</h2>
+<script>
+/* 72-hour countdown (starts on page load) */
+let totalSeconds = 72 * 60 * 60;
 
-    <div class="project-grid">
-        <div class="project-card">
-            <img src="biography_pic.jpg" alt="Biography">
-            <div class="content">
-                <h3>Biography</h3>
-                <a href="biography.html">Visit →</a>
-            </div>
-        </div>
+const timer = setInterval(() => {
+    let days = Math.floor(totalSeconds / (24 * 3600));
+    let hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+    let minutes = Math.floor((totalSeconds % 3600) / 60);
+    let seconds = totalSeconds % 60;
 
-        <div class="project-card">
-            <img src="research_pic.jpg" alt="My Research Page">
-            <div class="content">
-                <h3>My Research Page</h3>
-                <a href="research.html">Visit →</a>
-            </div>
-        </div>
+    document.getElementById("days").innerText = String(days).padStart(2, "0");
+    document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+    document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
 
-        <div class="project-card">
-            <img src="achievements_pic.jpg" alt="Achievements">
-            <div class="content">
-                <h3>Achievements</h3>
-                <a href="achievements.html">Visit →</a>
-            </div>
-        </div>
+    if (totalSeconds <= 0) clearInterval(timer);
+    totalSeconds--;
+}, 1000);
+</script>
 
-        <div class="project-card">
-            <img src="chetak123.jpg" alt="Our Team">
-            <div class="content">
-                <h3>Our Team</h3>
-                <a href="ourteam.html">Visit →</a>
-            </div>
-        </div>
 
-        <div class="project-card">
-            <img src="photogallery_pic.jpg" alt="Photo Gallery">
-            <div class="content">
-                <h3>Photo Gallery</h3>
-                <a href="photo-gallery.html">Visit →</a>
-            </div>
-        </div>
 
-        <div class="project-card">
-            <img src="projectfunding_pic.jpg" alt="Project Funding">
-            <div class="content">
-                <h3>Project Funding</h3>
-                <a href="project-funding.html">Visit →</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <img src="contact_pic.jpg" alt="Contact">
-            <div class="content">
-                <h3>Contact</h3>
-                <a href="contact.html">Visit →</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="footer">
-    © 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation<br>
-    Last updated on: 14 December 2025
-</div>
-
-</body>
-</html>
+</body></html>
