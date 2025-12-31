@@ -1,312 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saswata Bag | Official Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy New Year 2026 </title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; color: #fff; font-family: 'Poppins', sans-serif; 
+            overflow: hidden; touch-action: manipulation;
+        }
+        #canvas { position: absolute; top: 0; left: 0; z-index: 1; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        .container {
+            position: relative; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+            height: 100%; width: 100%; padding: 15px;
+        }
 
-<style>
-:root{
-    --accent:#00d4ff;
-    --dark:#0f172a;
-    --light:#f8fafc;
-}
+        .card { 
+            background: rgba(10, 10, 10, 0.92); 
+            padding: 25px; border-radius: 30px; 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.3); 
+            width: 100%; max-width: 450px; text-align: center;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-    scroll-behavior:smooth;
-}
+        .hidden { opacity: 0; pointer-events: none; transform: translateY(100vh) scale(0.5); }
 
-body{
-    background:linear-gradient(180deg,#f8fafc,#e2e8f0);
-    color:#1e293b;
-}
+        h1 { font-family: 'Montserrat'; font-size: 1.6rem; margin: 0; color: #fff; }
+        .yr { font-family: 'Montserrat'; font-size: 3.5rem; color: #FFD700; margin: 5px 0; text-shadow: 0 0 25px #FFD700; line-height: 1; }
+        h2 { font-family: 'Montserrat'; font-size: 1rem; margin-bottom: 10px; color: #eee; font-weight: 400; }
 
-/* NAVBAR */
-nav{
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:1000;
-    backdrop-filter: blur(12px);
-    background:rgba(15,23,42,0.75);
-    padding:14px 0;
-    box-shadow:0 8px 30px rgba(0,0,0,0.3);
-}
+        .txt { 
+            font-size: 0.85rem; line-height: 1.6; color: #ddd; 
+            max-height: 25vh; overflow-y: auto; margin: 15px 0;
+            padding: 0 10px; border-left: 2px solid #FFD700; text-align: left;
+        }
+        .txt::-webkit-scrollbar { width: 3px; }
+        .txt::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
 
-nav ul{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:18px;
-    list-style:none;
-}
+        .highlight { color: #FFD700; font-weight: 600; }
 
-nav a{
-    color:#fff;
-    text-decoration:none;
-    padding:8px 14px;
-    border-radius:999px;
-    font-size:0.95rem;
-    transition:0.3s;
-}
+        #overlay-text {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: 'Montserrat'; font-size: 8rem; color: #fff;
+            text-shadow: 0 0 40px #FFD700; display: none; z-index: 20; text-align: center;
+            width: 100%; pointer-events: none;
+        }
 
-nav a:hover{
-    background:var(--accent);
-    color:#000;
-}
+        .btn { 
+            background: linear-gradient(45deg, #FFD700, #fff7ad);
+            color: #000; border: none; padding: 15px; 
+            font-size: 1rem; font-weight: 900; border-radius: 50px; cursor: pointer; 
+            font-family: 'Montserrat'; width: 100%; margin-top: 10px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
 
-/* MOVING HEADER */
-.moving-header{
-    margin-top:70px;
-    background:linear-gradient(90deg,#020617,#020617,#020617);
-    color:#fff;
-    height:48px;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-}
+        .footer {
+            font-size: 0.65rem; color: #666; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;
+        }
 
-.moving-text{
-    white-space:nowrap;
-    font-weight:600;
-    letter-spacing:2px;
-    animation:scroll 15s linear infinite;
-}
+        /* ✅ ONLY ADDITION — MAKES BACK BUTTON VISIBLE */
+        .back-button {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
 
-@keyframes scroll{
-    from{transform:translateX(100%);}
-    to{transform:translateX(-100%);}
-}
-
-/* WELCOME */
-.welcome-section{
-    padding:80px 20px;
-    text-align:center;
-    background:linear-gradient(135deg,#020617,#0f172a);
-    color:#fff;
-}
-
-.profile-photo{
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    border:4px solid var(--accent);
-    box-shadow:0 0 40px rgba(0,212,255,0.6);
-    object-fit:cover;
-    margin-bottom:25px;
-    transition:0.4s;
-}
-
-.profile-photo:hover{
-    transform:scale(1.08);
-}
-
-.welcome-speech{
-    max-width:700px;
-    margin:auto;
-    padding:30px;
-    border-radius:18px;
-    background:rgba(255,255,255,0.08);
-    backdrop-filter: blur(14px);
-    box-shadow:0 10px 40px rgba(0,0,0,0.4);
-}
-
-.welcome-speech h1{
-    font-size:2.3rem;
-    margin-bottom:12px;
-}
-
-.welcome-speech p{
-    opacity:0.9;
-}
-
-/* PROJECTS */
-.projects-section{
-    padding:80px 20px;
-}
-
-.projects-section h2{
-    text-align:center;
-    font-size:2.4rem;
-    margin-bottom:50px;
-}
-
-.projects-container{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:35px;
-}
-
-.project-card{
-    border-radius:20px;
-    overflow:hidden;
-    text-decoration:none;
-    color:inherit;
-    background:linear-gradient(180deg,#ffffff,#f1f5f9);
-    box-shadow:0 20px 40px rgba(0,0,0,0.15);
-    transition:0.4s;
-    position:relative;
-}
-
-.project-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(120deg,transparent,rgba(0,212,255,0.35),transparent);
-    opacity:0;
-    transition:0.4s;
-}
-
-.project-card:hover::before{
-    opacity:1;
-}
-
-.project-card:hover{
-    transform:translateY(-12px) scale(1.02);
-}
-
-.project-image{
-    width:100%;
-    height:190px;
-    object-fit:cover;
-}
-
-.project-content{
-    padding:20px;
-}
-
-.project-title{
-    font-size:1.3rem;
-    font-weight:600;
-    margin-bottom:8px;
-}
-
-.project-description{
-    color:#475569;
-    font-size:0.95rem;
-}
-
-/* FOOTER */
-footer{
-    background:linear-gradient(90deg,#020617,#0f172a);
-    color:#e2e8f0;
-    text-align:center;
-    padding:28px 15px;
-    font-size:0.9rem;
-    box-shadow:0 -10px 30px rgba(0,0,0,0.4);
-}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-    .welcome-speech h1{
-        font-size:1.8rem;
-    }
-}
-</style>
+        .back-button a {
+            padding: 10px 24px;
+            background: rgba(255, 215, 0, 0.95);
+            color: #000;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            border-radius: 40px;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);
+        }
+    </style>
 </head>
-
 <body>
+    <canvas id="canvas"></canvas>
+    <div id="overlay-text">10</div>
 
-<div class="moving-header">
-<div class="moving-text">WELCOME TO THE OFFICIAL WEBSITE OF SASWATA BAG</div>
-</div>
-<nav>
-<ul>
-<li><a href="biography.html">Biography</a></li>
-<li><a href="achievements.html">Achievements</a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="research.html">Research</a></li>
-<li><a href="ourteam.html">Team</a></li>
-<li><a href="myfriends.html">Friends</a></li>
-<li><a href="project-funding.html">Funding</a></li>
-<li><a href="photo-gallery.html">Gallery</a></li>
-</ul>
-</nav>
+    <div class="container">
+        <div class="card" id="mainCard">
+            <h1>Happy New Year</h1>
+            <div class="yr">2026</div>
+            <h2>Welcome to a New Beginning</h2>
 
+            <div class="txt" id="msg">
+                <p>As we step into this new year, we carry forward the lessons of yesterday, the strength of today, and the hope of tomorrow. A new year is not just a change of date — it is a fresh opportunity to <span class="highlight">dream bigger, work smarter, and build better</span>.</p>
+                <p>May this year bring clarity to your goals, confidence in your actions, and courage to explore new ideas. Let innovation guide us, curiosity challenge us, and knowledge empower us to create meaningful impact.</p>
+                <p>Thank you for being a part of our journey. Together, let’s continue to learn, research, create, and move forward — one step at a time.</p>
+            </div>
 
-<section class="welcome-section">
-<img src="profile-photo.jpg" class="profile-photo" alt="Saswata Bag">
-<div class="welcome-speech">
-<h1>Hello, I'm Saswata Bag</h1>
-<p>
-Inventor • Researcher • Innovator  
-<br><br>
-Welcome to my personal portfolio — a space where engineering meets imagination.
-</p>
-</div>
-</section>
+            <button class="btn" onclick="startSequence()">CLICK TO SEE SURPRISE 🎁</button>
+            <div class="footer">
+                © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation<br>
+                All Rights Reserved | Last updated: 31 Dec 2025
+            </div>
+        </div>
+    </div>
 
-<section class="projects-section">
-<h2>My Projects</h2>
+    <script>
+        const canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+        const overlay = document.getElementById('overlay-text');
+        let particles = [], rockets = [], smoke = [];
 
-<div class="projects-container">
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
 
-<a href="chetak.html" class="project-card">
-<img src="chetak-thumbnail.jpg" class="project-image">
-<div class="project-content">
-<h3 class="project-title">Chetak</h3>
-<p class="project-description">Advanced engineering & innovation platform.</p>
-</div>
-</a>
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            const v = window.speechSynthesis.getVoices();
+            u.voice = v.find(v => v.name.includes('Female') || v.name.includes('Google')) || v[0];
+            u.pitch = 1.3; u.rate = 1.0;
+            window.speechSynthesis.speak(u);
+        }
 
-<a href="emg-wheelchair.html" class="project-card">
-<img src="emg-wheelchair-thumbnail.jpg" class="project-image">
-<div class="project-content">
-<h3 class="project-title">EMG Wheelchair</h3>
-<p class="project-description">EMG-based intelligent mobility solution.</p>
-</div>
-</a>
+        function startSequence() {
+            document.getElementById('mainCard').classList.add('hidden');
+            overlay.style.display = 'block';
+            overlay.style.fontSize = '8rem';
+            
+            let count = 10;
+            const cd = setInterval(() => {
+                if (count > 0) {
+                    overlay.innerText = count;
+                    speak(count.toString());
+                } else if (count === 0) {
+                    overlay.innerText = "LAUNCH!";
+                    overlay.style.fontSize = "4.5rem";
+                    speak("Launch!");
+                }
+                
+                if (count < 0) {
+                    clearInterval(cd);
+                    overlay.style.display = 'none';
+                    launchRockets();
+                }
+                count--;
+            }, 1000);
+        }
 
-<a href="smart-bin.html" class="project-card">
-<img src="smart-bin-thumbnail.jpg" class="project-image">
-<div class="project-content">
-<h3 class="project-title">Smart Bin</h3>
-<p class="project-description">IoT-driven waste management system.</p>
-</div>
-</a>
+        function launchRockets() {
+            for(let i=0; i<3; i++) {
+                setTimeout(() => {
+                    rockets.push({
+                        x: (canvas.width * 0.2) + (canvas.width * 0.3 * i),
+                        y: canvas.height,
+                        targetY: canvas.height * (0.15 + Math.random() * 0.2)
+                    });
+                }, i * 700);
+            }
+        }
 
-<a href="tetries.html" class="project-card">
-<img src="tetries-thumbnail.jpg" class="project-image">
-<div class="project-content">
-<h3 class="project-title">Tetries</h3>
-<p class="project-description">Creative & interactive gaming project.</p>
-</div>
-</a>
+        function explode(x, y) {
+            for(let i=0; i<150; i++) {
+                particles.push({
+                    x: x, y: y,
+                    color: `hsl(${Math.random()*360}, 100%, 65%)`,
+                    v: { x: (Math.random()-0.5)*16, y: (Math.random()-0.5)*16 },
+                    a: 1
+                });
+            }
+            overlay.innerText = "HAPPY NEW YEAR!";
+            overlay.style.fontSize = "3rem";
+            overlay.style.display = "block";
+            setTimeout(() => {
+                overlay.style.display = "none";
+                document.getElementById('mainCard').classList.remove('hidden');
+            }, 5000);
+        }
 
-<a href="early-syclone-dector.html" class="project-card">
-<img src="early-cyclone-detector-thumbnail.jpg" class="project-image">
-<div class="project-content">
-<h3 class="project-title">Early Cyclone Detector</h3>
-<p class="project-description">Smart disaster early warning system.</p>
-</div>
-</a>
+        function update() {
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-<a href="smart-helmet.html" class="project-card">
-<img src="smart-helmet-thumbnail.jpg" class="project-image">
-<div class="project-content">
-<h3 class="project-title">Smart Helmet</h3>
-<p class="project-description">Next-gen helmet with intelligent sensors.</p>
-</div>
-</a>
+            smoke.forEach((s, i) => {
+                s.y += 0.5; s.a -= 0.02; s.size += 0.2;
+                if(s.a <= 0) smoke.splice(i, 1);
+                else {
+                    ctx.globalAlpha = s.a; ctx.fillStyle = s.color;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, 7); ctx.fill();
+                }
+            });
 
-</div>
-</section>
+            rockets.forEach((r, i) => {
+                smoke.push({x: r.x + 2, y: r.y + 10, color: '#555', a: 0.6, size: 2});
+                smoke.push({x: r.x + 2, y: r.y + 15, color: '#FF4500', a: 0.4, size: 3});
+                ctx.fillStyle = '#FFD700';
+                ctx.shadowBlur = 15; ctx.shadowColor = '#FFD700';
+                ctx.fillRect(r.x, r.y, 4, 22);
+                r.y -= 15;
+                if(r.y <= r.targetY) {
+                    explode(r.x, r.y);
+                    rockets.splice(i, 1);
+                }
+            });
 
-<footer>
-© 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation  
-</footer>
+            particles.forEach((p, i) => {
+                p.x += p.v.x; p.y += p.v.y; p.v.y += 0.12; p.a -= 0.01;
+                if (p.a <= 0) particles.splice(i, 1);
+                else {
+                    ctx.globalAlpha = p.a; ctx.fillStyle = p.color;
+                    ctx.shadowBlur = 5; ctx.shadowColor = p.color;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 7); ctx.fill();
+                }
+            });
+            ctx.shadowBlur = 0;
+            requestAnimationFrame(update);
+        }
+
+        window.speechSynthesis.onvoiceschanged = () => {};
+        update();
+    </script>
 
     <div class="back-button">
         <a href="index.html">Back to Home</a>
     </div>
-    
 </body>
 </html>
