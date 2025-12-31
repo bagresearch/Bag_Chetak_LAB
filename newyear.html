@@ -64,6 +64,26 @@
         .footer {
             font-size: 0.65rem; color: #666; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px;
         }
+
+        /* ✅ ONLY ADDITION — MAKES BACK BUTTON VISIBLE */
+        .back-button {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .back-button a {
+            padding: 10px 24px;
+            background: rgba(255, 215, 0, 0.95);
+            color: #000;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            border-radius: 40px;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -206,5 +226,8 @@
         update();
     </script>
 
+    <div class="back-button">
+        <a href="index.html">Back to Home</a>
+    </div>
 </body>
 </html>
