@@ -2,156 +2,155 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy New Year 2026 | S.Bag</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy New Year 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Poppins', sans-serif; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        #canvas { position: absolute; top: 0; left: 0; z-index: 1; }
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; color: #fff; font-family: 'Poppins', sans-serif; 
+            overflow: hidden; touch-action: manipulation;
+        }
         
-        .card { 
-            position: relative; 
-            z-index: 2; 
-            text-align: center; 
-            background: rgba(5, 5, 5, 0.82); 
-            padding: 30px; 
-            border-radius: 35px; 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            max-width: 550px; 
-            box-shadow: 0 0 80px rgba(138, 43, 226, 0.3);
-            animation: fadeIn 1s ease;
+        #canvas { position: absolute; top: 0; left: 0; z-index: 1; width: 100%; height: 100%; }
+        
+        .container {
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100%; width: 100%; padding: 15px; text-align: center;
         }
 
-        h1 { font-family: 'Montserrat'; font-size: 2.8rem; margin: 0; color: #fff; text-shadow: 0 0 20px #8a2be2, 0 0 40px #4b0082; }
-        .yr { font-family: 'Montserrat'; font-size: 4.8rem; color: #FFD700; margin: 0; text-shadow: 0 0 35px #FFD700; line-height: 1; }
-        h2 { font-family: 'Montserrat'; font-size: 1.3rem; margin: 15px 0 5px 0; color: #eee; font-weight: 400; }
+        .card { 
+            background: rgba(10, 10, 10, 0.85); 
+            padding: 20px; border-radius: 25px; 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            width: 100%; max-width: 450px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.3);
+        }
 
-        #tm { font-size: 0.9rem; color: #bbb; margin-bottom: 20px; letter-spacing: 2px; font-weight: 600; }
+        h1 { font-family: 'Montserrat'; font-size: 1.8rem; margin: 0; text-shadow: 0 0 10px #8a2be2; }
+        .yr { font-family: 'Montserrat'; font-size: 3.5rem; color: #FFD700; margin: 5px 0; text-shadow: 0 0 20px #FFD700; line-height: 1; }
+        h2 { font-family: 'Montserrat'; font-size: 1.1rem; margin-bottom: 5px; color: #eee; font-weight: 400; }
 
-        .txt { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 25px; }
-        .highlight { color: #FFD700; font-weight: 600; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        #tm { font-size: 0.8rem; color: #aaa; margin-bottom: 15px; letter-spacing: 1px; font-weight: 600; }
+
+        .txt { 
+            font-size: 0.85rem; line-height: 1.5; color: #ddd; 
+            max-height: 35vh; overflow-y: auto; padding-right: 5px; margin-bottom: 15px;
+        }
+        /* Mobile Scrollbar Style */
+        .txt::-webkit-scrollbar { width: 3px; }
+        .txt::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+
+        .highlight { color: #FFD700; font-weight: 600; }
 
         .btn { 
             background: linear-gradient(45deg, #FFD700, #fff7ad);
-            color: #000; border: none; padding: 14px 45px; 
-            font-size: 1.1rem; font-weight: 800; border-radius: 50px; cursor: pointer; 
-            transition: 0.3s; font-family: 'Montserrat'; margin-bottom: 25px;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            color: #000; border: none; padding: 12px 30px; 
+            font-size: 1rem; font-weight: 800; border-radius: 50px; cursor: pointer; 
+            font-family: 'Montserrat'; margin-bottom: 15px; width: 100%;
         }
-        .btn:hover { transform: scale(1.1); box-shadow: 0 0 40px #FFD700; }
 
         .footer {
             border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 15px; font-size: 0.7rem; color: #777;
+            padding-top: 10px; font-size: 0.65rem; color: #666; line-height: 1.4;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Adjustments for very small phones */
+        @media (max-height: 600px) {
+            .yr { font-size: 2.5rem; }
+            h1 { font-size: 1.4rem; }
+            .txt { font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
 
-    <div class="card">
-        <h1>Happy New Year</h1>
-        <div class="yr">2026</div>
-        <h2>Welcome to a New Beginning</h2>
-        <div id="tm">Loading...</div>
+    <div class="container">
+        <div class="card">
+            <h1>Happy New Year</h1>
+            <div class="yr">2026</div>
+            <h2>Welcome to a New Beginning</h2>
+            <div id="tm">0d 0h 0m 0s to go!</div>
 
-        <div class="txt" id="msg">
-            <p>
-                As we step into this new year, we carry forward the lessons of yesterday, 
-                the strength of today, and the hope of tomorrow. 
-                A new year is not just a change of date — it is a fresh opportunity to 
-                <span class="highlight">dream bigger, work smarter, and build better</span>.
-            </p>
-            <p>
-                May this year bring clarity to your goals, confidence in your actions, 
-                and courage to explore new ideas. Let innovation guide us, curiosity 
-                challenge us, and knowledge empower us to create meaningful impact.
-            </p>
-            <p>
-                Thank you for being a part of our journey. 
-                Together, let’s continue to learn, research, create, and move forward — 
-                one step at a time.
-            </p>
-        </div>
+            <div class="txt" id="msg">
+                <p>As we step into this new year, we carry forward the lessons of yesterday, the strength of today, and the hope of tomorrow. A new year is a fresh opportunity to <span class="highlight">dream bigger, work smarter, and build better</span>.</p>
+                <p>May this year bring clarity to your goals, confidence in your actions, and courage to explore new ideas. Let innovation guide us, curiosity challenge us, and knowledge empower us.</p>
+                <p>Thank you for being a part of our journey. Together, let’s move forward — one step at a time.</p>
+            </div>
 
-        <button class="btn" onclick="celebrate()">Launch Celebration ✨</button>
+            <button class="btn" onclick="celebrate()">Hear Message & Launch ✨</button>
 
-        <div class="footer">
-            © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation<br>
-            All Rights Reserved | Last updated: 31 December 2025
+            <div class="footer">
+                © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation<br>
+                All Rights Reserved | Last updated: 31 Dec 2025
+            </div>
         </div>
     </div>
 
     <script>
-        // --- 1. COUNTDOWN ---
+        // 1. MOBILE RESPONSIVE CANVAS
+        const c = document.getElementById('canvas'), x = c.getContext('2d');
+        let p = [];
+        function resize() {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // 2. COUNTDOWN
         const target = new Date("Jan 1, 2026 00:00:00").getTime();
-        setInterval(() => {
+        function updateTimer() {
             const d = target - new Date().getTime();
             const days = Math.floor(d / 86400000), hrs = Math.floor((d % 86400000) / 3600000), 
                   mins = Math.floor((d % 3600000) / 60000), secs = Math.floor((d % 60000) / 1000);
             document.getElementById("tm").innerText = `${days}d ${hrs}h ${mins}m ${secs}s to go!`;
-        }, 1000);
+        }
+        setInterval(updateTimer, 1000);
 
-        // --- 2. SWEET VOICE ---
+        // 3. SWEET VOICE
         function celebrate() {
             window.speechSynthesis.cancel();
             const u = new SpeechSynthesisUtterance("Welcome to a New Beginning. Happy New Year 2026. " + document.getElementById("msg").innerText);
             const v = window.speechSynthesis.getVoices();
             u.voice = v.find(x => x.name.includes('Female') || x.name.includes('Google') || x.name.includes('Samantha')) || v[0];
-            u.pitch = 1.3; u.rate = 0.85;
+            u.pitch = 1.3; u.rate = 0.9;
             window.speechSynthesis.speak(u);
             
-            // Trigger massive burst on click
-            for(let i=0; i<8; i++) setTimeout(createBurst, i * 150);
+            for(let i=0; i<6; i++) setTimeout(createBurst, i * 200);
         }
 
-        // --- 3. HIGH INTENSITY FIREWORKS ---
-        const c = document.getElementById('canvas'), x = c.getContext('2d');
-        let p = [];
-        window.onresize = () => { c.width = window.innerWidth; c.height = window.innerHeight; };
-        window.onresize();
-
+        // 4. CRACKERS (Optimized for Mobile)
         function createBurst() {
             let rx = Math.random() * c.width;
-            let ry = Math.random() * (c.height * 0.7);
+            let ry = Math.random() * (c.height * 0.6);
             let hue = Math.random() * 360;
-            let col = `hsla(${hue}, 100%, 60%, 1)`;
-            // Increase particle count for "more crackers" effect
-            for(let i=0; i<100; i++) {
+            let col = `hsla(${hue}, 100%, 70%, 1)`;
+            let count = window.innerWidth < 600 ? 40 : 80; // Fewer particles on mobile for performance
+            for(let i=0; i<count; i++) {
                 p.push({
                     x: rx, y: ry, c: col, 
-                    vx: (Math.random() - 0.5) * 15, 
-                    vy: (Math.random() - 0.5) * 15, 
-                    a: 1,
-                    s: Math.random() * 3 + 1
+                    vx: (Math.random() - 0.5) * 10, 
+                    vy: (Math.random() - 0.5) * 10, 
+                    a: 1
                 });
             }
         }
 
         function loop() {
-            // Darker trail for brighter appearance
-            x.fillStyle = 'rgba(0,0,0,0.15)'; 
+            x.fillStyle = 'rgba(0,0,0,0.2)'; 
             x.fillRect(0,0,c.width,c.height);
-            
-            // More frequent automatic launches
-            if(Math.random() < 0.08) createBurst();
-
+            if(Math.random() < 0.04) createBurst();
             p.forEach((i, idx) => {
-                i.x += i.vx; i.y += i.vy;
-                i.vy += 0.18; // Stronger gravity
-                i.a -= 0.012; // Faster fade
+                i.x += i.vx; i.y += i.vy; i.vy += 0.15; i.a -= 0.015;
                 if(i.a <= 0) p.splice(idx, 1);
                 else {
-                    x.globalAlpha = i.a;
-                    x.fillStyle = i.c;
-                    x.shadowBlur = 10;
-                    x.shadowColor = i.c;
-                    x.beginPath();
-                    x.arc(i.x, i.y, i.s, 0, 7);
-                    x.fill();
+                    x.globalAlpha = i.a; x.fillStyle = i.c;
+                    x.beginPath(); x.arc(i.x, i.y, 2, 0, 7); x.fill();
                 }
             });
             requestAnimationFrame(loop);
