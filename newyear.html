@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        background: radial-gradient(circle at bottom, #020111 0%, #000000 70%);
+        overflow: hidden;
+        color: white;
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        text-shadow: 0 0 20px #00f6ff, 0 0 40px #ff00f6;
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            text-shadow: 0 0 10px #00f6ff;
+        }
+        to {
+            text-shadow: 0 0 30px #ff00f6, 0 0 60px #00f6ff;
+        }
+    }
+
+    .year {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: bold;
+        margin-top: 10px;
+        color: #ffd700;
+        text-shadow: 0 0 30px gold;
+    }
+
+    .countdown {
+        margin-top: 20px;
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        text-align: center;
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+    <h1>🎉 Happy New Year 🎉</h1>
+    <div class="year" id="year"></div>
+    <div class="countdown" id="countdown">Loading...</div>
+</div>
+
+<footer>
+    ✨ New beginnings • New dreams • New vibes ✨
+</footer>
+
+<script>
+    // Set Year
+    const currentYear = new Date().getFullYear();
+    document.getElementById("year").textContent = currentYear + 1;
+
+    // Countdown
+    const newYear = new Date(`January 1, ${currentYear + 1} 00:00:00`).getTime();
+    const countdownEl = document.getElementById("countdown");
+
+    setInterval(() => {
+        const now = new Date().getTime();
+        const distance = newYear - now;
+
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((distance / (1000 * 60)) % 60);
+        const s = Math.floor((distance / 1000) % 60);
+
+        countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s to go!`;
+    }, 1000);
+
+    // Fireworks animation
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Firework {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height;
+            this.targetY = Math.random() * canvas.height / 2;
+            this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+            this.speed = Math.random() * 3 + 2;
+            this.exploded = false;
+            this.particles = [];
+        }
+
+        explode() {
+            for (let i = 0; i < 50; i++) {
+                this.particles.push({
+                    x: this.x,
+                    y: this.y,
+                    vx: Math.cos(i) * Math.random() * 4,
+                    vy: Math.sin(i) * Math.random() * 4,
+                    alpha: 1
+                });
+            }
+        }
+
+        update() {
+            if (!this.exploded) {
+                this.y -= this.speed;
+                if (this.y <= this.targetY) {
+                    this.exploded = true;
+                    this.explode();
+                }
+            } else {
+                this.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.alpha -= 0.02;
+                });
+            }
+        }
+
+        draw() {
+            if (!this.exploded) {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, 3, 3);
+            } else {
+                this.particles.forEach(p => {
+                    ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+                    ctx.fillRect(p.x, p.y, 2, 2);
+                });
+            }
+        }
+    }
+
+    let fireworks = [];
+
+    function animate() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        if (Math.random() < 0.05) {
+            fireworks.push(new Firework());
+        }
+
+        fireworks.forEach((f, i) => {
+            f.update();
+            f.draw();
+            if (f.exploded && f.particles[0]?.alpha <= 0) {
+                fireworks.splice(i, 1);
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+
+</body>
+</html>
