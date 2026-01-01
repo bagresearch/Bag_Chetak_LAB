@@ -1,2 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Maintenance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Space Grotesk', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#0a0f1a;
+    color:#e6ebff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* subtle grid */
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:0.6;
+}
+
+.panel{
+    position:relative;
+    max-width:780px;
+    padding:45px 50px;
+    background:#0f1526;
+    border:1px solid rgba(120,140,255,0.25);
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:25px;
+}
+
+.header span{
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#8ea2ff;
+}
+
+h1{
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+p{
+    font-size:15px;
+    line-height:1.7;
+    color:#cfd6ff;
+}
+
+a{
+    color:#8ea2ff;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+.divider{
+    height:1px;
+    background:linear-gradient(to right, transparent, #5c6cff, transparent);
+    margin:28px 0;
+}
+
+.footer{
+    font-size:13px;
+    color:#9aa4ff;
+    line-height:1.6;
+}
+
+.timestamp{
+    margin-top:8px;
+    font-size:12px;
+    color:#6f7cff;
+}
+
+@media(max-width:600px){
+    .panel{
+        padding:30px 25px;
+    }
+    h1{
+        font-size:22px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="panel">
+    <div class="header">
+        <span>SYSTEM STATUS</span>
+        <span>MAINTENANCE MODE</span>
+    </div>
+
+    <h1>Service Temporarily Offline</h1>
+
+    <p>
+        This system is currently undergoing scheduled maintenance.
+        Public access is disabled until operations are restored.
+    </p>
+
+    <p style="margin-top:15px;">
+        Administrators or webmasters may access the secure console at:
+        <br>
+        <a href="https://secureserver.bagresearch.co.in">
+            secureserver.bagresearch.co.in
+        </a>
+    </p>
+
+    <p style="margin-top:15px;">
+        If the endpoint returns <em>Site Not Found</em>, ensure a secure VPN
+        connection is active using authorized credentials.
+    </p>
+
+    <p style="margin-top:15px;">
+        Contact system administration:
+        <a href="mailto:saswata@bagresearch.co.in">saswata@bagresearch.co.in</a>
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="footer">
+        © 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation<br>
+        All Rights Reserved
+        <div class="timestamp">
+            Last updated: 1 January 2026
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
 
 On Maintenance  till 2nd january 2026
