@@ -1,158 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Saswata Bag | Official Website </title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Space Grotesk', sans-serif;
-}
-
-body{
-    min-height:100vh;
-    background:#0a0f1a;
-    color:#e6ebff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* subtle grid */
-body::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size:40px 40px;
-    opacity:0.6;
-}
-
-.panel{
-    position:relative;
-    max-width:780px;
-    padding:45px 50px;
-    background:#0f1526;
-    border:1px solid rgba(120,140,255,0.25);
-}
-
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:25px;
-}
-
-.header span{
-    font-size:12px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    color:#8ea2ff;
-}
-
-h1{
-    font-size:28px;
-    font-weight:600;
-    margin-bottom:10px;
-}
-
-p{
-    font-size:15px;
-    line-height:1.7;
-    color:#cfd6ff;
-}
-
-a{
-    color:#8ea2ff;
-    text-decoration:none;
-}
-
-a:hover{
-    text-decoration:underline;
-}
-
-.divider{
-    height:1px;
-    background:linear-gradient(to right, transparent, #5c6cff, transparent);
-    margin:28px 0;
-}
-
-.footer{
-    font-size:13px;
-    color:#9aa4ff;
-    line-height:1.6;
-}
-
-.timestamp{
-    margin-top:8px;
-    font-size:12px;
-    color:#6f7cff;
-}
-
-@media(max-width:600px){
-    .panel{
-        padding:30px 25px;
-    }
-    h1{
-        font-size:22px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reading Platform – Registration</title>
+    <style>
+        :root{
+            --peach:#fdf6f0;
+            --light-peach:#fffaf5;
+            --kindle-orange:#d46a2a;
+            --kindle-dark:#b85a22;
+            --text-brown:#7a4f35;
+            --border-peach:#f0d9c5;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+            background:var(--peach);
+            padding:20px;
+        }
+        .container{
+            max-width:600px;
+            margin:0 auto;
+            background:var(--light-peach);
+            padding:40px;
+            border-radius:12px;
+            box-shadow:0 4px 20px rgba(0,0,0,.05);
+        }
+        h1{color:var(--kindle-orange);text-align:center;margin-bottom:10px;font-weight:600}
+        .subtitle{text-align:center;color:var(--text-brown);margin-bottom:30px;font-size:18px}
+        .form-group{margin-bottom:20px}
+        label{display:block;margin-bottom:6px;color:var(--text-brown);font-weight:500}
+        input[type=text],input[type=email],input[type=tel]{
+            width:100%;padding:12px;border:1px solid var(--border-peach);border-radius:6px;font-size:16px;background:#fffdfa;transition:border-color .3s
+        }
+        input:focus{outline:none;border-color:var(--kindle-orange)}
+        .user-pass-section{background:#fff5eb;padding:20px;border-radius:6px;margin-bottom:20px}
+        .user-pass-section h3{color:var(--kindle-orange);margin-bottom:15px}
+        .info-text{color:var(--text-brown);font-size:14px;margin-top:10px;line-height:1.5}
+        .submit-btn{
+            width:100%;padding:15px;background:var(--kindle-orange);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer;transition:background .3s
+        }
+        .submit-btn:hover{background:var(--kindle-dark)}
+        .required{color:var(--kindle-orange)}
+        .login-link{text-align:center;margin-top:20px;color:var(--text-brown)}
+        .login-link a{color:var(--kindle-orange);font-weight:600;text-decoration:none}
+        .login-link a:hover{text-decoration:underline}
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Book Reading Platform</h1>
+        <p class="subtitle">Please register yourself to read more books</p>
 
-<div class="panel">
-    <div class="header">
-        <span>SYSTEM STATUS</span>
-        <span>MAINTENANCE MODE</span>
-    </div>
+        <form id="regForm" action="https://formsubmit.co/saswata@bagresearch.co.in" method="POST">
+            <!-- formSubmit extras -->
+            <input type="hidden" name="_subject" value="New User Registration - Book Reading Platform">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_ip" id="userIp">
 
-    <h1>Service Temporarily Offline</h1>
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Mobile Number <span class="required">*</span></label>
+                <input type="tel" name="mobile" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label>Email ID <span class="required">*</span></label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Country <span class="required">*</span></label>
+                <input type="text" name="country" required>
+            </div>
 
-    <p>
-        This system is currently undergoing scheduled maintenance.
-        Public access is disabled until operations are restored.
-    </p>
+            <div class="user-pass-section">
+                <h3>Choose Your Login Details</h3>
+                <div class="form-group">
+                    <label>Preferred User ID <span class="required">*</span></label>
+                    <input type="text" name="preferredUserId" required>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Password <span class="required">*</span></label>
+                    <input type="text" name="preferredPassword" required>
+                </div>
+                <p class="info-text">Submit your details and we will create your account.  
+                Your login credentials will be mailed to you at the provided email address.</p>
+            </div>
 
-    <p style="margin-top:15px;">
-        Administrators or webmasters may access the secure console at:
-        <br>
-        <a href="https://secureserver.bagresearch.co.in">
-            secureserver.bagresearch.co.in
-        </a>
-    </p>
+            <button type="submit" class="submit-btn">Submit Details</button>
+        </form>
 
-    <p style="margin-top:15px;">
-        If the endpoint returns <em>Site Not Found</em>, ensure a secure VPN
-        connection is active using authorized credentials.
-    </p>
-
-    <p style="margin-top:15px;">
-        Contact system administration:
-        <a href="mailto:saswata@bagresearch.co.in">saswata@bagresearch.co.in</a>
-    </p>
-
-    <div class="divider"></div>
-
-    <div class="footer">
-        © 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation<br>
-        All Rights Reserved
-        <div class="timestamp">
-            Last updated: 6 January 2026
+        <div class="login-link">
+            Already registered? <a href="login/book_library_bagresearch.html">Click here</a>
         </div>
     </div>
-</div>
 
+    <script>
+        /* fetch client IP and inject into hidden field */
+        fetch('https://api.ipify.org?format=json')
+           .then(r=>r.json())
+           .then(data=>document.getElementById('userIp').value=data.ip)
+           .catch(()=>document.getElementById('userIp').value='Unable to detect');
+    </script>
 </body>
 </html>
-
-On Maintenance  till 1st March 2026 
-
