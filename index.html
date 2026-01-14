@@ -1,106 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>Book Reading Platform – Registration</title>
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #fdf6f0;
-        padding: 20px;
-    }
-    .container {
-        max-width: 500px;
-        margin: 0 auto;
-        background: #fffaf5;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-    h1 {
-        text-align: center;
-        color: #d46a2a;
-        margin-bottom: 15px;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #7a4f35;
-    }
-    input[type=text], input[type=email], input[type=tel], input[type=password] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #f0d9c5;
-        border-radius: 5px;
-        font-size: 15px;
-    }
-    input:focus {
-        border-color: #d46a2a;
-        outline: none;
-    }
-    button {
-        width: 100%;
-        padding: 12px;
-        background: #d46a2a;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    button:hover {
-        background: #b85a22;
-    }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #fdf6f0;
+    color: #0b3d3d;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 4em auto;
+    background: #fffaf5;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  h1 {
+    margin-top: 0;
+    color: #d46a2a;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin: 0.5em 0 0.2em;
+    font-weight: 500;
+  }
+
+  input[type=text], input[type=email], input[type=tel], input[type=password] {
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 1em;
+    padding: 0.8em;
+    background: #d46a2a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background: #b85a22;
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Book Reading Platform</h1>
+  <h1>Book Reading Platform</h1>
 
-    <form action="https://formsubmit.co/saswata7928@gmail.com" method="POST">
-        <!-- FormSubmit hidden fields -->
-        <input type="hidden" name="_subject" value="New User Registration">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+  <form action="https://formsubmit.co/saswata7928@gmail.com" method="POST">
+    <!-- FormSubmit hidden fields -->
+    <input type="hidden" name="_subject" value="New User Registration!">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="thanks.html">
 
-        <div class="form-group">
-            <label>Full Name *</label>
-            <input type="text" name="name" required>
-        </div>
+    <label for="name">Full Name *</label>
+    <input type="text" id="name" name="name" required>
 
-        <div class="form-group">
-            <label>Mobile Number *</label>
-            <input type="tel" name="mobile" pattern="[0-9]{10}" required>
-        </div>
+    <label for="mobile">Mobile Number *</label>
+    <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
 
-        <div class="form-group">
-            <label>Email ID *</label>
-            <input type="email" name="email" required>
-        </div>
+    <label for="email">Email ID *</label>
+    <input type="email" id="email" name="email" required>
 
-        <div class="form-group">
-            <label>Country *</label>
-            <input type="text" name="country" required>
-        </div>
+    <label for="country">Country *</label>
+    <input type="text" id="country" name="country" required>
 
-        <div class="form-group">
-            <label>Preferred User ID *</label>
-            <input type="text" name="preferredUserId" required>
-        </div>
+    <label for="preferredUserId">Preferred User ID *</label>
+    <input type="text" id="preferredUserId" name="preferredUserId" required>
 
-        <div class="form-group">
-            <label>Preferred Password *</label>
-            <input type="password" name="preferredPassword" required>
-        </div>
+    <label for="preferredPassword">Preferred Password *</label>
+    <input type="password" id="preferredPassword" name="preferredPassword" required>
 
-        <button type="submit">Submit Details</button>
-    </form>
+    <button type="submit">Submit Details</button>
+  </form>
 </div>
 
 </body>
