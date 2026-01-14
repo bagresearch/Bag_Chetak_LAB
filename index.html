@@ -5,52 +5,299 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Saswata Bag | Official Website</title>
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Georgia','Times New Roman',serif; line-height:1.6; color:#2c3e50; background-color:#f8f9fa; }
-    header { background:#1a365d; color:white; padding:1rem 0; position:fixed; width:100%; top:0; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
-    .header-content { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:0 2rem;}
-    .logo h1 { font-size:1.8rem; color:#d4af37; font-weight:600; letter-spacing:0.5px;}
-    nav ul { list-style:none; display:flex; gap:2.5rem;}
-    nav a { color:#e2e8f0; text-decoration:none; transition:color 0.3s; font-weight:500; font-size:0.95rem; letter-spacing:0.3px;}
-    nav a:hover { color:#d4af37;}
-    .hero { background:linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color:white; padding:8rem 2rem 4rem; text-align:center; margin-top:60px;}
-    .hero h1 { font-size:3.2rem; margin-bottom:1.2rem; animation:fadeInUp 1s ease-out; font-weight:300; letter-spacing:1px;}
-    .hero p { font-size:1.3rem; margin-bottom:2.5rem; animation:fadeInUp 1s ease-out 0.2s both; color:#e2e8f0; font-weight:300;}
-    .cta-button { background:#d4af37; color:#1a365d; padding:1rem 2.5rem; border:none; border-radius:3px; cursor:pointer; text-decoration:none; display:inline-block; transition:all 0.3s; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; font-size:0.9rem;}
-    .cta-button:hover { background:#b8941f; transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-    .container { max-width:1200px; margin:0 auto; padding:2rem;}
-    .research-section { background:#ffffff; padding:5rem 0; margin:0;}
-    .section-title { text-align:center; font-size:2.8rem; margin-bottom:3.5rem; color:#1a365d; font-weight:300; letter-spacing:1px;}
-    .research-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(350px,1fr)); gap:2.5rem; margin-bottom:3rem; align-items:stretch;}
-    .research-card { background:#ffffff; padding:2rem; border-radius:0; border:1px solid #e2e8f0; transition:all 0.3s; box-shadow:0 2px 8px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:flex-start; text-decoration:none; color:inherit; height:100%;}
-    .research-card:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,0,0,0.12); border-color:#d4af37;}
-    .research-card img { width:100%; height:200px; object-fit:cover; border-radius:4px; margin-bottom:1rem;}
-    .research-card h3 { color:#1a365d; margin-bottom:1rem; font-size:1.4rem; font-weight:600; letter-spacing:0.3px;}
-    .research-card p { color:#4a5568; line-height:1.7; font-size:0.95rem; flex-grow:1;}
-    .programs-section { background:#f8fafc; padding:5rem 0;}
-    .programs-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:2.5rem;}
-    .program-card { background:#ffffff; border-left:4px solid #d4af37; padding:2.5rem; border-radius:0; box-shadow:0 2px 8px rgba(0,0,0,0.08); transition:all 0.3s;}
-    .program-card:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,0,0,0.12);}
-    .program-card h3 { color:#1a365d; margin-bottom:1.2rem; font-size:1.3rem; font-weight:600;}
-    .program-card p { color:#4a5568; line-height:1.7; font-size:0.95rem;}
-    footer { background:#1a365d; color:#e2e8f0; text-align:center; padding:4rem 2rem;}
-    .footer-content { max-width:1200px; margin:0 auto;}
-    .footer-links { display:flex; justify-content:center; gap:2.5rem; margin-bottom:2.5rem; flex-wrap:wrap;}
-    .footer-links a { color:#d4af37; text-decoration:none; font-weight:500; letter-spacing:0.3px; transition:color 0.3s;}
-    .footer-links a:hover { color:#f4e8b1; text-decoration:underline;}
-    .footer-content p { margin-bottom:0.5rem; font-size:0.9rem;}
-    @keyframes fadeInUp { from { opacity:0; transform:translateY(30px);} to { opacity:1; transform:translateY(0);} }
-    @media (max-width:768px) {
-        .header-content { flex-direction:column; gap:1rem; padding:1rem;}
-        nav ul { flex-direction:column; gap:1rem; text-align:center;}
-        .hero h1 { font-size:2.2rem;}
-        .hero p { font-size:1.1rem;}
-        .section-title { font-size:2.2rem;}
-        .research-grid, .programs-grid { grid-template-columns:1fr;}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+        line-height: 1.6;
+        color: #2c3e50;
+        background-color: #f8f9fa;
+    }
+
+    /* Header Styles */
+    header {
+        background: #1a365d;
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+    .logo h1 {
+        font-size: 1.8rem;
+        color: #d4af37;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2.5rem;
+    }
+
+    nav a {
+        color: #e2e8f0;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+    }
+
+    nav a:hover {
+        color: #d4af37;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+        color: white;
+        padding: 8rem 2rem 4rem;
+        text-align: center;
+        margin-top: 60px;
+    }
+
+    .hero h1 {
+        font-size: 3.2rem;
+        margin-bottom: 1.2rem;
+        animation: fadeInUp 1s ease-out;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+        animation: fadeInUp 1s ease-out 0.2s both;
+        color: #e2e8f0;
+        font-weight: 300;
+    }
+
+    .cta-button {
+        background: #d4af37;
+        color: #1a365d;
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    .cta-button:hover {
+        background: #b8941f;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Main Content */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* Research Section */
+    .research-section {
+        background: #ffffff;
+        padding: 5rem 0;
+        margin: 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.8rem;
+        margin-bottom: 3.5rem;
+        color: #1a365d;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .research-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+        align-items: stretch; /* Make all cards same height */
+    }
+
+    .research-card {
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 0;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-decoration: none;
+        color: inherit;
+        height: 100%; /* Equal height */
+    }
+
+    .research-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        border-color: #d4af37;
+    }
+
+    .research-card img {
+        width: 100%;
+        height: 200px; /* Same height for all images */
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+
+    .research-card h3 {
+        color: #1a365d;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    .research-card p {
+        color: #4a5568;
+        line-height: 1.7;
+        font-size: 0.95rem;
+        flex-grow: 1;
+    }
+
+    /* Academic Programs */
+    .programs-section {
+        background: #f8fafc;
+        padding: 5rem 0;
+    }
+
+    .programs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .program-card {
+        background: #ffffff;
+        border-left: 4px solid #d4af37;
+        padding: 2.5rem;
+        border-radius: 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: all 0.3s;
+    }
+
+    .program-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .program-card h3 {
+        color: #1a365d;
+        margin-bottom: 1.2rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .program-card p {
+        color: #4a5568;
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+        background: #1a365d;
+        color: #e2e8f0;
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-links a {
+        color: #d4af37;
+        text-decoration: none;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+        color: #f4e8b1;
+        text-decoration: underline;
+    }
+
+    .footer-content p {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px), body.force-mobile {
+        .header-content {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            padding: 1rem !important;
+        }
+        nav ul {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            text-align: center !important;
+        }
+        .hero h1 { font-size: 2.2rem !important; }
+        .hero p { font-size: 1.1rem !important; }
+        .section-title { font-size: 2.2rem !important; }
+        .research-grid, .programs-grid { grid-template-columns: 1fr !important; }
     }
 </style>
 </head>
 <body>
+
+<!-- Mobile View Toggle Button -->
+<div style="position:fixed; top:80px; right:20px; z-index:2000;">
+    <button id="mobileToggle" style="
+        background:#d4af37; color:#1a365d; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; font-weight:600; box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    ">Mobile View</button>
+</div>
 
 <!-- Header -->
 <header>
@@ -68,19 +315,10 @@
     </div>
 </header>
 
-<!-- Mobile View Toggle Button -->
-<div style="position:fixed; top:80px; right:20px; z-index:2000;">
-    <button id="mobileToggle" style="
-        background:#d4af37; color:#1a365d; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; font-weight:600; box-shadow:0 2px 6px rgba(0,0,0,0.2);
-    ">Mobile View</button>
-</div>
-
 <!-- Hero Section -->
 <section class="hero" id="home">
     <h1>Advancing Research. Building the Future.</h1>
-    <p>Welcome to the official website of Saswata Bag. Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing humane safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application.
-
-This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.</p>
+    <p>Welcome to the official website of Saswata Bag. Our mission is to design and engineer innovative solutions...</p>
     <a href="research.html" class="cta-button">Explore My Research</a>
 </section>
 
@@ -92,7 +330,7 @@ This platform showcases our achievements, research projects, and collaborations,
             <a href="chetak.html" class="research-card">
                 <img src="chetak_pic.jpg" alt="CHETAK Project">
                 <h3>CHETAK</h3>
-                <p>Innovative Coal Mine  project for rescue , surveillance , alert of land slides , harmful gas alerts etc.</p>
+                <p>Innovative Coal Mine project for rescue, surveillance, alert of landslides, harmful gas alerts, etc.</p>
             </a>
             <a href="smart_helmet.html" class="research-card">
                 <img src="smarthelmet4.jpg" alt="Smart Safety Helmet">
@@ -117,7 +355,7 @@ This platform showcases our achievements, research projects, and collaborations,
             <a href="smart_auto_attendance.html" class="research-card">
                 <img src="chetak123.jpg" alt="Smart Auto Attendance">
                 <h3>Smart Auto Attendance System</h3>
-                <p>Automated attendance tracking and access control for schools and colleges using RFID and fingerprint.</p>
+                <p>Automated attendance tracking system for schools/colleges using RFID and fingerprint.</p>
             </a>
         </div>
     </div>
@@ -130,11 +368,11 @@ This platform showcases our achievements, research projects, and collaborations,
         <div class="programs-grid">
             <div class="program-card">
                 <h3>Launching E Book Reading Platform</h3>
-                <p>This platform presents research books from our projects, capturing our learning and discoveries, and inspiring students to turn projects into meaningful research.</p>
+                <p>This platform presents research books from our projects...</p>
             </div>
             <div class="program-card">
                 <h3>Launching New E Book "Charaibeti"</h3>
-                <p>We are launching our new research book “Charaibeti: EMG-Controlled Wheelchair,” showcasing a hands-free smart mobility solution using muscle signals.</p>
+                <p>Hands-free smart mobility solution using EMG signals.</p>
             </div>
             <div class="program-card">
                 <h3>Coming Soon</h3>
@@ -148,7 +386,7 @@ This platform showcases our achievements, research projects, and collaborations,
 <footer>
     <div class="footer-content">
         <div class="footer-links">
-            <a href="e_projects_books_library.html">E Library </a>
+            <a href="e_projects_books_library.html">E Library</a>
             <a href="https://www.iitg.ac.in/ssbag75/">Dr.SSBag IITG Official Website</a>
             <a href="facilities.html">Facilities</a>
             <a href="webmail.html">Web Mail Login</a>
@@ -161,4 +399,32 @@ This platform showcases our achievements, research projects, and collaborations,
 
 <script>
     // Smooth scrolling
-    document.querySelectorA
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 100) {
+            header.style.background = 'rgba(26, 54, 93, 0.98)';
+        } else {
+            header.style.background = '#1a365d';
+        }
+    });
+
+    // Mobile toggle
+    const btn = document.getElementById('mobileToggle');
+    let mobileMode = false;
+    btn.addEventListener('click', () => {
+        document.body.classList.toggle('force-mobile');
+        mobileMode = !mobileMode;
+        btn.textContent = mobileMode ? 'Desktop View' : 'Mobile View';
+    });
+</script>
+
+</body>
+</html>
