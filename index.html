@@ -1,109 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Reading Platform – Registration</title>
-    <style>
-        :root{
-            --peach:#fdf6f0;
-            --light-peach:#fffaf5;
-            --kindle-orange:#d46a2a;
-            --kindle-dark:#b85a22;
-            --text-brown:#7a4f35;
-            --border-peach:#f0d9c5;
-        }
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{
-            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-            background:var(--peach);
-            padding:20px;
-        }
-        .container{
-            max-width:600px;
-            margin:0 auto;
-            background:var(--light-peach);
-            padding:40px;
-            border-radius:12px;
-            box-shadow:0 4px 20px rgba(0,0,0,.05);
-        }
-        h1{color:var(--kindle-orange);text-align:center;margin-bottom:10px;font-weight:600}
-        .subtitle{text-align:center;color:var(--text-brown);margin-bottom:30px;font-size:18px}
-        .form-group{margin-bottom:20px}
-        label{display:block;margin-bottom:6px;color:var(--text-brown);font-weight:500}
-        input[type=text],input[type=email],input[type=tel]{
-            width:100%;padding:12px;border:1px solid var(--border-peach);border-radius:6px;font-size:16px;background:#fffdfa;transition:border-color .3s
-        }
-        input:focus{outline:none;border-color:var(--kindle-orange)}
-        .user-pass-section{background:#fff5eb;padding:20px;border-radius:6px;margin-bottom:20px}
-        .user-pass-section h3{color:var(--kindle-orange);margin-bottom:15px}
-        .info-text{color:var(--text-brown);font-size:14px;margin-top:10px;line-height:1.5}
-        .submit-btn{
-            width:100%;padding:15px;background:var(--kindle-orange);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer;transition:background .3s
-        }
-        .submit-btn:hover{background:var(--kindle-dark)}
-        .required{color:var(--kindle-orange)}
-        .login-link{text-align:center;margin-top:20px;color:var(--text-brown)}
-        .login-link a{color:var(--kindle-orange);font-weight:600;text-decoration:none}
-        .login-link a:hover{text-decoration:underline}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Reading Platform – Registration</title>
+<style>
+    :root{
+        --peach:#fdf6f0;
+        --light-peach:#fffaf5;
+        --kindle-orange:#d46a2a;
+        --kindle-dark:#b85a22;
+        --text-brown:#7a4f35;
+        --border-peach:#f0d9c5;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        background:var(--peach);
+        padding:20px;
+    }
+    .container{
+        max-width:600px;
+        margin:0 auto;
+        background:var(--light-peach);
+        padding:40px;
+        border-radius:12px;
+        box-shadow:0 4px 20px rgba(0,0,0,.05);
+    }
+    h1{color:var(--kindle-orange);text-align:center;margin-bottom:10px;font-weight:600}
+    .subtitle{text-align:center;color:var(--text-brown);margin-bottom:30px;font-size:18px}
+    .form-group{margin-bottom:20px}
+    label{display:block;margin-bottom:6px;color:var(--text-brown);font-weight:500}
+    input[type=text],input[type=email],input[type=tel],input[type=password]{
+        width:100%;padding:12px;border:1px solid var(--border-peach);border-radius:6px;font-size:16px;background:#fffdfa;transition:border-color .3s
+    }
+    input:focus{outline:none;border-color:var(--kindle-orange)}
+    .user-pass-section{background:#fff5eb;padding:20px;border-radius:6px;margin-bottom:20px}
+    .user-pass-section h3{color:var(--kindle-orange);margin-bottom:15px}
+    .info-text{color:var(--text-brown);font-size:14px;margin-top:10px;line-height:1.5}
+    .submit-btn{
+        width:100%;padding:15px;background:var(--kindle-orange);color:#fff;border:none;border-radius:6px;font-size:18px;cursor:pointer;transition:background .3s
+    }
+    .submit-btn:hover{background:var(--kindle-dark)}
+    .required{color:var(--kindle-orange)}
+    .login-link{text-align:center;margin-top:20px;color:var(--text-brown)}
+    .login-link a{color:var(--kindle-orange);font-weight:600;text-decoration:none}
+    .login-link a:hover{text-decoration:underline}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Book Reading Platform</h1>
-        <p class="subtitle">Please register yourself to read more books</p>
+<div class="container">
+    <h1>Book Reading Platform</h1>
+    <p class="subtitle">Please register yourself to read more books</p>
 
-        <form id="regForm" action="https://formsubmit.co/saswata@bagresearch.co.in" method="POST">
-            <!-- formSubmit extras -->
-            <input type="hidden" name="_subject" value="New User Registration - Book Reading Platform">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_ip" id="userIp">
+    <form id="regForm" action="https://formsubmit.co/saswata@bagresearch.co.in" method="POST">
+        <!-- FormSubmit hidden fields -->
+        <input type="hidden" name="_subject" value="New User Registration - Book Reading Platform">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_ip" id="userIp">
+        <input type="hidden" name="_captcha" value="false">
 
-            <div class="form-group">
-                <label>Full Name <span class="required">*</span></label>
-                <input type="text" name="name" required>
-            </div>
-            <div class="form-group">
-                <label>Mobile Number <span class="required">*</span></label>
-                <input type="tel" name="mobile" pattern="[0-9]{10}" required>
-            </div>
-            <div class="form-group">
-                <label>Email ID <span class="required">*</span></label>
-                <input type="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label>Country <span class="required">*</span></label>
-                <input type="text" name="country" required>
-            </div>
-
-            <div class="user-pass-section">
-                <h3>Choose Your Login Details</h3>
-                <div class="form-group">
-                    <label>Preferred User ID <span class="required">*</span></label>
-                    <input type="text" name="preferredUserId" required>
-                </div>
-                <div class="form-group">
-                    <label>Preferred Password <span class="required">*</span></label>
-                    <input type="text" name="preferredPassword" required>
-                </div>
-                <p class="info-text">Submit your details and we will create your account.  
-                Your login credentials will be mailed to you at the provided email address.</p>
-            </div>
-
-            <button type="submit" class="submit-btn">Submit Details</button>
-        </form>
-
-        <div class="login-link">
-            Already registered? <a href="login/book_library_bagresearch.html">Click here</a>
+        <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" name="name" required>
         </div>
-    </div>
+        <div class="form-group">
+            <label>Mobile Number <span class="required">*</span></label>
+            <input type="tel" name="mobile" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+            <label>Email ID <span class="required">*</span></label>
+            <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label>Country <span class="required">*</span></label>
+            <input type="text" name="country" required>
+        </div>
 
-    <script>
-        /* fetch client IP and inject into hidden field */
+        <div class="user-pass-section">
+            <h3>Choose Your Login Details</h3>
+            <div class="form-group">
+                <label>Preferred User ID <span class="required">*</span></label>
+                <input type="text" name="preferredUserId" required>
+            </div>
+            <div class="form-group">
+                <label>Preferred Password <span class="required">*</span></label>
+                <input type="password" name="preferredPassword" required>
+            </div>
+            <p class="info-text">Submit your details and we will create your account.  
+            Your login credentials will be mailed to you at the provided email address.</p>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Details</button>
+    </form>
+
+    <div class="login-link">
+        Already registered? <a href="login/book_library_bagresearch.html">Click here</a>
+    </div>
+</div>
+
+<script>
+    // Fetch client IP and inject into hidden field
+    document.addEventListener("DOMContentLoaded", function(){
         fetch('https://api.ipify.org?format=json')
-           .then(r=>r.json())
-           .then(data=>document.getElementById('userIp').value=data.ip)
-           .catch(()=>document.getElementById('userIp').value='Unable to detect');
-    </script>
+        .then(r => r.json())
+        .then(data => document.getElementById('userIp').value = data.ip)
+        .catch(() => document.getElementById('userIp').value = 'Unable to detect');
+    });
+</script>
 </body>
 </html>
