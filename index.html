@@ -1,102 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>Book Reading Platform – Registration</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Book Reading Platform – Registration</title>
 
-<style>
-  body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background: #fdf6f0;
-    color: #0b3d3d;
-    padding: 20px;
-  }
+  <style>
+    :root {
+      --teal: #009688;
+      --white: #ffffff;
+      --text: #0b3d3d;
+    }
 
-  .container {
-    max-width: 600px;
-    margin: 4em auto;
-    background: #fffaf5;
-    padding: 2em;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--white);
+    }
 
-  h1 {
-    margin-top: 0;
-    color: #d46a2a;
-    text-align: center;
-  }
+    /* NAVBAR */
+    nav {
+      background: var(--teal);
+      padding: 1em 2em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      margin-left: 1em;
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+    }
+    nav .logo {
+      font-weight: bold;
+      color: var(--white);
+    }
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 600px;
+      margin: 4em auto;
+      background: var(--white);
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
 
-  label {
-    margin: 0.5em 0 0.2em;
-    font-weight: 500;
-  }
+    h1 {
+      margin-top: 0;
+      color: var(--text);
+      text-align: center;
+    }
 
-  input[type=text], input[type=email], input[type=tel], input[type=password] {
-    padding: 0.8em;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
+    /* FORM */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    form label {
+      margin: 0.5em 0 0.2em;
+      font-weight: 500;
+    }
+    form input {
+      padding: 0.8em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+    form button {
+      margin-top: 1em;
+      padding: 0.8em;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    form button:hover {
+      background: #00796b;
+    }
 
-  button {
-    margin-top: 1em;
-    padding: 0.8em;
-    background: #d46a2a;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background 0.3s;
-  }
+    /* FOOTER */
+    footer {
+      text-align: center;
+      margin: 4em 0 2em;
+      color: var(--text);
+    }
+    footer a {
+      color: var(--teal);
+      text-decoration: none;
+    }
 
-  button:hover {
-    background: #b85a22;
-  }
-</style>
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .container {
+        margin: 2em 1em;
+        padding: 1.5em;
+      }
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav a {
+        margin-left: 0;
+        margin-top: 0.5em;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Book Reading Platform</h1>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">Book Reading Platform</div>
+    <div class="menu">
+      <a href="index.html">Back To Home</a>
+    </div>
+  </nav>
 
-  <form action="https://formsubmit.co/saswata7928@gmail.com" method="POST">
-    <!-- FormSubmit hidden fields -->
-    <input type="hidden" name="_subject" value="New User Registration!">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="thanks.html">
+  <!-- REGISTRATION FORM -->
+  <div class="container">
+    <h1>Register to Read Books</h1>
 
-    <label for="name">Full Name *</label>
-    <input type="text" id="name" name="name" placeholder="Your full name" required>
+    <form action="https://formsubmit.co/saswata7928@gmail.com" method="POST">
+      <!-- Disable CAPTCHA -->
+      <input type="hidden" name="_captcha" value="false">
+      <!-- Redirect after submit -->
+      <input type="hidden" name="_next" value="thanks.html">
+      <!-- Email subject -->
+      <input type="hidden" name="_subject" value="New User Registration">
 
-    <label for="mobile">Mobile Number *</label>
-    <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="10-digit number" required>
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required>
 
-    <label for="email">Email ID *</label>
-    <input type="email" id="email" name="email" placeholder="Your email address" required>
+      <label for="mobile">Mobile Number *</label>
+      <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="10-digit number" required>
 
-    <label for="country">Country *</label>
-    <input type="text" id="country" name="country" placeholder="Your country" required>
+      <label for="email">Email ID *</label>
+      <input type="email" id="email" name="email" placeholder="Your email address" required>
 
-    <label for="preferredUserId">Preferred User ID *</label>
-    <input type="text" id="preferredUserId" name="preferredUserId" placeholder="Choose a user ID" required>
+      <label for="country">Country *</label>
+      <input type="text" id="country" name="country" placeholder="Your country" required>
 
-    <label for="preferredPassword">Preferred Password *</label>
-    <input type="password" id="preferredPassword" name="preferredPassword" placeholder="Choose a password" required>
+      <label for="preferredUserId">Preferred User ID *</label>
+      <input type="text" id="preferredUserId" name="preferredUserId" placeholder="Choose a user ID" required>
 
-    <button type="submit">Submit Details</button>
-  </form>
-</div>
+      <label for="preferredPassword">Preferred Password *</label>
+      <input type="password" id="preferredPassword" name="preferredPassword" placeholder="Choose a password" required>
+
+      <button type="submit">Submit Registration</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
+    All Rights Reserved <br>
+    <small id="lastUpdated" style="color:gray;"></small>
+  </footer>
+
+  <script>
+    // Auto "Last Updated" Date
+    const now = new Date();
+    const formatted = now.toLocaleDateString("en-IN", {
+      day: "numeric", month: "long", year: "numeric"
+    });
+    document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
+  </script>
 
 </body>
 </html>
