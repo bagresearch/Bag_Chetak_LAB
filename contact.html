@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Contact</title>
+  <title>Book Reading Platform – Registration</title>
 
   <style>
     :root {
-      --teal: #009688;       /* Teal brand color */
-      --white: #ffffff;      /* White background */
-      --text: #0b3d3d;       /* Dark teal text */
+      --teal: #009688;
+      --white: #ffffff;
+      --text: #0b3d3d;
     }
 
     body {
@@ -51,6 +51,7 @@
     h1 {
       margin-top: 0;
       color: var(--text);
+      text-align: center;
     }
 
     /* FORM */
@@ -62,15 +63,12 @@
       margin: 0.5em 0 0.2em;
       font-weight: 500;
     }
-    form input, form textarea {
+    form input {
       padding: 0.8em;
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 1em;
-      resize: vertical;
-    }
-    form textarea {
-      min-height: 120px;
+      margin-bottom: 10px;
     }
     form button {
       margin-top: 1em;
@@ -120,84 +118,53 @@
 
   <!-- NAVBAR -->
   <nav>
-    <div class="chetak123.jpg"></div>
+    <div class="logo">Book Reading Platform</div>
     <div class="menu">
-      <a href="biography.html">Biography</a>
-      <a href="project-funding.html">Funding</a>
-      <a href="research.html">Research</a>
       <a href="index.html">Back To Home</a>
     </div>
   </nav>
 
-  <!-- CONTACT FORM -->
+  <!-- REGISTRATION FORM -->
   <div class="container">
-    <h1>Get in touch with me</h1>
+    <h1>Register to Read Books</h1>
 
     <form action="https://formsubmit.co/saswata7928@gmail.com" method="POST">
       <!-- Disable CAPTCHA -->
       <input type="hidden" name="_captcha" value="false">
-
-      <!-- Redirect after submit (go to thanks.html inside your site) -->
+      <!-- Redirect after submit -->
       <input type="hidden" name="_next" value="thanks.html">
-
       <!-- Email subject -->
-      <input type="hidden" name="_subject" value="New Contact Form Submission!">
+      <input type="hidden" name="_subject" value="New User Registration">
 
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your name" required />
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Your email" required />
+      <label for="mobile">Mobile Number *</label>
+      <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="10-digit number" required>
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" placeholder="What do you want to say?" required></textarea>
+      <label for="email">Email ID *</label>
+      <input type="email" id="email" name="email" placeholder="Your email address" required>
 
-      <button type="submit">Send Message</button>
+      <label for="country">Country *</label>
+      <input type="text" id="country" name="country" placeholder="Your country" required>
+
+      <label for="preferredUserId">Preferred User ID *</label>
+      <input type="text" id="preferredUserId" name="preferredUserId" placeholder="Choose a user ID" required>
+
+      <label for="preferredPassword">Preferred Password *</label>
+      <input type="password" id="preferredPassword" name="preferredPassword" placeholder="Choose a password" required>
+
+      <button type="submit">Submit Registration</button>
     </form>
   </div>
- <footer>
+
+  <footer>
     © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
     All Rights Reserved <br>
     <small id="lastUpdated" style="color:gray;"></small>
   </footer>
 
   <script>
-    // Theme Changer
-    function changeTheme(theme) {
-      if(theme === "teal"){
-        document.documentElement.style.setProperty("--bg", "#ffffff");
-        document.documentElement.style.setProperty("--ink", "#222");
-        document.documentElement.style.setProperty("--brand", "#00695c");
-        document.documentElement.style.setProperty("--accent", "#f0fafa");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "green"){
-        document.documentElement.style.setProperty("--bg", "#f7fdf9");
-        document.documentElement.style.setProperty("--ink", "#1b1b1b");
-        document.documentElement.style.setProperty("--brand", "#2e7d32");
-        document.documentElement.style.setProperty("--accent", "#eaf6ec");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "blue"){
-        document.documentElement.style.setProperty("--bg", "#f9fbff");
-        document.documentElement.style.setProperty("--ink", "#202633");
-        document.documentElement.style.setProperty("--brand", "#0056d6");
-        document.documentElement.style.setProperty("--accent", "#e7f0ff");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#666");
-      }
-      else if(theme === "violet"){
-        document.documentElement.style.setProperty("--bg", "#fcfbff");
-        document.documentElement.style.setProperty("--ink", "#2b2233");
-        document.documentElement.style.setProperty("--brand", "#8e44ad");
-        document.documentElement.style.setProperty("--accent", "#f4e9fb");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-    }
-
     // Auto "Last Updated" Date
     const now = new Date();
     const formatted = now.toLocaleDateString("en-IN", {
@@ -206,15 +173,5 @@
     document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
   </script>
 
-    <!-- Back to Home Button -->
-   
-    </div>
-  </div>
-
 </body>
-
 </html>
-
-
-
-
