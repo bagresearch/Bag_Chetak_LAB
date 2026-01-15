@@ -1,188 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Achievements</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #faf9e8;
-            text-align: center;
-        }
-
-        .header {
-            margin-top: 20px;
-        }
-
-        .logo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-        }
-
-        .title {
-            font-size: 40px;
-            font-weight: bold;
-            color: #333;
-            text-shadow: 2px 2px 5px #888;
-        }
-
-        .navbar {
-            margin-top: 20px;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #4B0082;
-            font-weight: bold;
-            margin: 0 15px;
-            font-size: 18px;
-        }
-
-        .navbar a:hover {
-            text-decoration: underline;
-        }
-
-        .certificate {
-            margin-top: 40px;
-            padding: 20px;
-        }
-
-        .certificate img {
-            max-width: 90%;
-            height: auto;
-            border: 5px solid #4B0082;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #4B0082;
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- Logo and Title -->
-    <div class="header">
-        <div class="logo">
-            <img src="chetak123.jpg" alt="" width="120">
-            <div class="title">The Bag Laboratory</div>
-            <img src="chetak222.jpg" alt="" width="120">
-        </div>
-    </div>
-
-    <!-- Navigation Menu -->
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="biography.html">Biography</a>
-        <a href="research.html">Research</a>
-        <a href="achievements.html">Achievements</a>
-        
-    </div>
-
-    <!-- Certificate Section -->
-    <div class="certificate">
-        <h2>India International Science Festival 2024</h2>
-        <p><strong>Certificate of Merit – “Ideas for Viksit Bharat S&T Hackathon”</strong></p>
-        <img src="achivments1.jpg" alt="Certificate of Merit - Saswata Bag">
-    </div>
-     <!-- Certificate Section -->
-    <div class="certificate">
-        <h2>Kendriya Vidayala IIT Guwahati</h2>
-        <p><strong>Certificate Of ACHIVEMENT</strong></p>
-        <img src="achivments2.jpg" alt="Certificate of Merit - Saswata Bag">
-    </div>
-     <!-- Certificate Section -->
-    <div class="certificate">
-        <h2>RESEARCH & INDUSTRIAL CONCLAVE</h2>
-        <p><strong>Certificate of ACHIVEMENT”</strong></p>
-        <img src="achivments3.jpg" alt="Certificate of Merit - Saswata Bag">
-    </div>
-    
-     <!-- Certificate Section -->
-    <div class="certificate">
-        <h2>RAJYA STARIYA BAL VIGYANIK PRADARSHANI 2024-2025</h2>
-        <p><strong>CERTIFICATE FOR 1st Position On RSVBP </strong></p>
-        <img src="achivments6.jpg" alt="Certificate of Merit - Saswata Bag">
-    </div>
-     <!-- Certificate Section -->
-    <div class="certificate">
-        <h2>ENVIRONMENTAL HACKATHON 2024</h2>
-        <p><strong>Certificate For First Position ”</strong></p>
-        <img src="achivments5.jpg" alt="Certificate of Merit - Saswata Bag">
-    </div>
-
-
-    <footer>
-    © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
-    All Rights Reserved <br>
-    <small id="lastUpdated" style="color:gray;"></small>
-  </footer>
-
-  <script>
-    // Theme Changer
-    function changeTheme(theme) {
-      if(theme === "teal"){
-        document.documentElement.style.setProperty("--bg", "#ffffff");
-        document.documentElement.style.setProperty("--ink", "#222");
-        document.documentElement.style.setProperty("--brand", "#00695c");
-        document.documentElement.style.setProperty("--accent", "#f0fafa");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "green"){
-        document.documentElement.style.setProperty("--bg", "#f7fdf9");
-        document.documentElement.style.setProperty("--ink", "#1b1b1b");
-        document.documentElement.style.setProperty("--brand", "#2e7d32");
-        document.documentElement.style.setProperty("--accent", "#eaf6ec");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "blue"){
-        document.documentElement.style.setProperty("--bg", "#f9fbff");
-        document.documentElement.style.setProperty("--ink", "#202633");
-        document.documentElement.style.setProperty("--brand", "#0056d6");
-        document.documentElement.style.setProperty("--accent", "#e7f0ff");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#666");
-      }
-      else if(theme === "violet"){
-        document.documentElement.style.setProperty("--bg", "#fcfbff");
-        document.documentElement.style.setProperty("--ink", "#2b2233");
-        document.documentElement.style.setProperty("--brand", "#8e44ad");
-        document.documentElement.style.setProperty("--accent", "#f4e9fb");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achievements - Kindle Style</title>
+<style>
+    body {
+        font-family: 'Georgia', serif;
+        background-color: #fdf6e3; /* Kindle Paperwhite-like background */
+        color: #333;
+        margin: 0;
+        padding: 0 20px;
     }
 
+    .header {
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .header h1 {
+        font-size: 32px;
+        margin: 0;
+    }
+
+    .certificate {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #fff8e1; /* soft peach background for each certificate */
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .certificate h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .certificate p {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .certificate img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    footer {
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+        margin: 40px 0 20px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>The Bag Laboratory - Achievements</h1>
+</div>
+
+<div class="certificate">
+    <h2>India International Science Festival 2024</h2>
+    <p><strong>Certificate of Merit – “Ideas for Viksit Bharat S&T Hackathon”</strong></p>
+    <img src="achivments1.jpg" alt="Certificate of Merit - Saswata Bag">
+</div>
+
+<div class="certificate">
+    <h2>Kendriya Vidyalaya IIT Guwahati</h2>
+    <p><strong>Certificate Of ACHIEVEMENT</strong></p>
+    <img src="achivments2.jpg" alt="Certificate of Merit - Saswata Bag">
+</div>
+
+<div class="certificate">
+    <h2>Research & Industrial Conclave</h2>
+    <p><strong>Certificate of ACHIEVEMENT</strong></p>
+    <img src="achivments3.jpg" alt="Certificate of Merit - Saswata Bag">
+</div>
+
+<div class="certificate">
+    <h2>Rajya Stariya Bal Vigyanik Pradarshani 2024-2025</h2>
+    <p><strong>CERTIFICATE FOR 1st Position On RSVBP</strong></p>
+    <img src="achivments6.jpg" alt="Certificate of Merit - Saswata Bag">
+</div>
+
+<div class="certificate">
+    <h2>Environmental Hackathon 2024</h2>
+    <p><strong>Certificate For First Position</strong></p>
+    <img src="achivments5.jpg" alt="Certificate of Merit - Saswata Bag">
+</div>
+
+<footer>
+    © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation <br>
+    <small id="lastUpdated"></small>
+</footer>
+
+<script>
     // Auto "Last Updated" Date
     const now = new Date();
-    const formatted = now.toLocaleDateString("en-IN", {
-      day: "numeric", month: "long", year: "numeric"
-    });
-    document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
-  </script>
-
-    <!-- Back to Home Button -->
-    <div class="back-button">
-        <a href="index.html">Back to Home</a>
-    </div>
-  </div>
+    const formatted = now.toLocaleDateString("en-IN", {day:"numeric", month:"long", year:"numeric"});
+    document.getElementById("lastUpdated").innerHTML = "Last updated on: " + formatted;
+</script>
 
 </body>
-
 </html>
-
-
-
-
