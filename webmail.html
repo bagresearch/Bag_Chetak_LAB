@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Secure Webmail Access</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Georgia", "Times New Roman", serif;
+    background: #f7f3e9; /* Kindle paper tone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2e2e2e;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 680px;
+    background: #fbf8f1;
+    padding: 42px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid #e2dccf;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .logo img {
+    height: 60px;
+  }
+
+  .secure-badge {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 12px;
+    font-weight: normal;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 28px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  .agree {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  .agree input {
+    transform: scale(1.1);
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: 8px;
+    border: 1px solid #bfb8a8;
+    background: #e6e1d3;
+    color: #666;
+    cursor: not-allowed;
+  }
+
+  button.active {
+    background: #d6cfbd;
+    color: #2e2e2e;
+    cursor: pointer;
+  }
+
+  button.active:hover {
+    background: #cfc7b2;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: #777;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div class="logo">
+    <img src="chetak123.jpg" alt="Chetak Logo">
+  </div>
+
+  <div class="secure-badge">
+    🔒 Secure Webmail Access
+  </div>
+
+  <h1>Webmail Login</h1>
+
+  <ul>
+    <li>Never share your email password with anyone.</li>
+    <li>Log out when using shared or public devices.</li>
+    <li>Be cautious of suspicious emails or links.</li>
+  </ul>
+
+  <div class="agree">
+    <input type="checkbox" id="agree">
+    <label for="agree">I understand and wish to continue.</label>
+  </div>
+
+  <button id="btn" disabled>Continue to Webmail</button>
+
+  <footer>
+    © 2025 S.Bag – The Bag Laboratory | SB.Chetak Innovation. All Rights Reserved.
+  </footer>
+
+</div>
+
+<script>
+  const agree = document.getElementById("agree");
+  const btn = document.getElementById("btn");
+
+  agree.addEventListener("change", () => {
+    btn.disabled = !agree.checked;
+    btn.classList.toggle("active", agree.checked);
+  });
+
+  btn.addEventListener("click", () => {
+    const confirmRedirect = confirm(
+      "You are being redirected to an external site.\n\n" +
+      "SB.Chetak Innovation / BagResearch will not be responsible for any content, privacy practices, or security of the external website.\n\n" +
+      "Do you want to continue?"
+    );
+
+    if (confirmRedirect) {
+      window.location.href = "https://sso.godaddy.com/";
+    }
+  });
+</script>
+
+</body>
+</html>
