@@ -13,28 +13,53 @@
         padding: 0 20px;
     }
 
+    /* Header & Navigation */
     .header {
         text-align: center;
-        padding: 20px 0;
+        padding: 40px 0 20px 0; /* extra top and bottom padding */
     }
 
     .header h1 {
-        font-size: 32px;
-        margin: 0;
+        font-size: 36px;
+        margin: 0 0 30px 0; /* space after the header */
+        color: #6a4f3c; /* soft warm brown, Kindle style */
     }
 
+    .navbar {
+        margin-bottom: 40px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #8b6d5c; /* soft theme color for links */
+        font-weight: bold;
+        margin: 0 15px;
+        font-size: 18px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .navbar a:hover {
+        background-color: #fff3e0; /* subtle soft hover */
+        color: #5e4738; /* slightly darker brown on hover */
+    }
+
+    /* Certificate cards */
     .certificate {
         max-width: 600px;
         margin: 40px auto;
         padding: 20px;
-        background-color: #fff8e1; /* soft peach background for each certificate */
+        background-color: #fff8e1; /* soft peach background */
         border-radius: 8px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        text-align: center; /* center all text */
     }
 
     .certificate h2 {
         font-size: 24px;
         margin-bottom: 10px;
+        color: #6a4f3c; /* soft brown for certificate titles */
     }
 
     .certificate p {
@@ -42,10 +67,15 @@
         margin-bottom: 15px;
     }
 
-    .certificate img {
+    .certificate a img {
         width: 100%;
         height: auto;
         border-radius: 5px;
+        transition: transform 0.2s;
+    }
+
+    .certificate a img:hover {
+        transform: scale(1.02); /* subtle zoom on hover */
     }
 
     footer {
@@ -60,36 +90,51 @@
 
 <div class="header">
     <h1>The Bag Laboratory - Achievements</h1>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="biography.html">Biography</a>
+        <a href="research.html">Research</a>
+    </div>
 </div>
 
 <div class="certificate">
     <h2>India International Science Festival 2024</h2>
     <p><strong>Certificate of Merit – “Ideas for Viksit Bharat S&T Hackathon”</strong></p>
-    <img src="achivments1.jpg" alt="Certificate of Merit - Saswata Bag">
+    <a href="achivments1.jpg" target="_blank">
+        <img src="achivments1.jpg" alt="Certificate of Merit - Saswata Bag">
+    </a>
 </div>
 
 <div class="certificate">
     <h2>Kendriya Vidyalaya IIT Guwahati</h2>
     <p><strong>Certificate Of ACHIEVEMENT</strong></p>
-    <img src="achivments2.jpg" alt="Certificate of Merit - Saswata Bag">
+    <a href="achivments2.jpg" target="_blank">
+        <img src="achivments2.jpg" alt="Certificate of Achievement - Saswata Bag">
+    </a>
 </div>
 
 <div class="certificate">
     <h2>Research & Industrial Conclave</h2>
     <p><strong>Certificate of ACHIEVEMENT</strong></p>
-    <img src="achivments3.jpg" alt="Certificate of Merit - Saswata Bag">
+    <a href="achivments3.jpg" target="_blank">
+        <img src="achivments3.jpg" alt="Certificate of Achievement - Saswata Bag">
+    </a>
 </div>
 
 <div class="certificate">
     <h2>Rajya Stariya Bal Vigyanik Pradarshani 2024-2025</h2>
     <p><strong>CERTIFICATE FOR 1st Position On RSVBP</strong></p>
-    <img src="achivments6.jpg" alt="Certificate of Merit - Saswata Bag">
+    <a href="achivments6.jpg" target="_blank">
+        <img src="achivments6.jpg" alt="Certificate of Achievement - Saswata Bag">
+    </a>
 </div>
 
 <div class="certificate">
     <h2>Environmental Hackathon 2024</h2>
     <p><strong>Certificate For First Position</strong></p>
-    <img src="achivments5.jpg" alt="Certificate of Merit - Saswata Bag">
+    <a href="achivments5.jpg" target="_blank">
+        <img src="achivments5.jpg" alt="Certificate of Achievement - Saswata Bag">
+    </a>
 </div>
 
 <footer>
