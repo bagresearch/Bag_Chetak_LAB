@@ -4,54 +4,75 @@
   <meta charset="UTF-8">
   <title>Project Funding</title>
   <style>
+    /* Kindle-like base */
     body {
       text-align: center;
-      font-family: Arial, sans-serif;
-      background-color: #fcfbe3;
+      font-family: Georgia, "Times New Roman", serif;
+      background-color: #fdf6e3; /* Soft cream */
+      color: #222; /* Dark text for readability */
+      margin: 0;
+      padding: 0;
     }
 
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 50px;
+      padding: 20px 50px;
+      border-bottom: 1px solid #ccc;
+      background-color: #fdf6e3;
     }
 
     .header img {
       height: 80px;
     }
 
-    h3, h4 {
-      margin: 10px;
-      font-weight: bold;
+    h1, h3, h4 {
+      margin: 10px 0;
+      font-weight: normal;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 2em;
     }
 
     .nav {
-      margin: 10px 0;
+      margin: 15px 0;
     }
 
     .nav a {
-      margin: 0 10px;
+      margin: 0 8px;
       text-decoration: none;
-      color: #4b0082;
-      font-weight: bold;
+      color: #555;
+      font-weight: normal;
+      font-size: 0.95em;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+      color: #000;
     }
 
     table {
-      margin: 0 auto;
+      margin: 20px auto;
       border-collapse: collapse;
       width: 95%;
+      font-size: 0.95em;
+      background-color: #fff9e6;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
 
     th, td {
-      border: 1px solid #000;
-      padding: 8px;
+      border: 1px solid #ccc;
+      padding: 10px;
       text-align: center;
       vertical-align: top;
     }
 
     th {
-      background-color: #e0e0e0;
+      background-color: #f5f2da;
+      font-weight: bold;
     }
 
     p a {
@@ -60,9 +81,36 @@
       font-weight: bold;
     }
 
+    p a:hover {
+      text-decoration: underline;
+    }
+
     footer {
-      margin-top: 20px;
+      margin-top: 30px;
       font-size: 14px;
+      color: #555;
+      border-top: 1px solid #ccc;
+      padding: 10px 0;
+      background-color: #fdf6e3;
+    }
+
+    /* Back to Home button */
+    .back-button {
+      margin: 20px 0;
+    }
+
+    .back-button a {
+      text-decoration: none;
+      color: #222;
+      background-color: #f5f2da;
+      padding: 8px 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-weight: bold;
+    }
+
+    .back-button a:hover {
+      background-color: #eae2b7;
     }
   </style>
 </head>
@@ -75,13 +123,13 @@
   </div>
 
   <div class="nav">
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/index.html">Home</a>
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/biography.html">Biography</a>
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/research.html">Research</a>
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/publications.html">Publications</a>
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/courses.html">Courses</a>
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/photo-gallery.html">Group Photos</a>
-    <a href="https://sb-chetak.github.io/Bag_Chetak_LAB/contact.html">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="biography.html">Biography</a>
+    <a href="research.html">Research</a>
+    <a href="publications.html">Publications</a>
+    <a href="courses.html">Courses</a>
+    <a href="photo-gallery.html">Group Photos</a>
+    <a href="contact.html">Contact</a>
   </div>
 
   <h3>PROJECT FUNDING</h3>
@@ -162,8 +210,7 @@
       <td>PI</td>
       <td>Completed</td>
     </tr>
-
-     <tr>
+    <tr>
       <td></td>
       <td></td>
       <td>KVIITG-SIM (School Innovation Marathon), Government of India</td>
@@ -172,51 +219,18 @@
       <td>Completed</td>
     </tr>
   </table>
-  
 
-  < <footer>
+  <div class="back-button">
+    <a href="index.html">Back to Home</a>
+  </div>
+
+  <footer>
     © 2025 S.Bag - The Bag Laboratory | SB.Chetak Innovation  
     All Rights Reserved <br>
     <small id="lastUpdated" style="color:gray;"></small>
   </footer>
 
   <script>
-    // Theme Changer
-    function changeTheme(theme) {
-      if(theme === "teal"){
-        document.documentElement.style.setProperty("--bg", "#ffffff");
-        document.documentElement.style.setProperty("--ink", "#222");
-        document.documentElement.style.setProperty("--brand", "#00695c");
-        document.documentElement.style.setProperty("--accent", "#f0fafa");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "green"){
-        document.documentElement.style.setProperty("--bg", "#f7fdf9");
-        document.documentElement.style.setProperty("--ink", "#1b1b1b");
-        document.documentElement.style.setProperty("--brand", "#2e7d32");
-        document.documentElement.style.setProperty("--accent", "#eaf6ec");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-      else if(theme === "blue"){
-        document.documentElement.style.setProperty("--bg", "#f9fbff");
-        document.documentElement.style.setProperty("--ink", "#202633");
-        document.documentElement.style.setProperty("--brand", "#0056d6");
-        document.documentElement.style.setProperty("--accent", "#e7f0ff");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#666");
-      }
-      else if(theme === "violet"){
-        document.documentElement.style.setProperty("--bg", "#fcfbff");
-        document.documentElement.style.setProperty("--ink", "#2b2233");
-        document.documentElement.style.setProperty("--brand", "#8e44ad");
-        document.documentElement.style.setProperty("--accent", "#f4e9fb");
-        document.documentElement.style.setProperty("--card", "#ffffff");
-        document.documentElement.style.setProperty("--muted", "#555");
-      }
-    }
-
     // Auto "Last Updated" Date
     const now = new Date();
     const formatted = now.toLocaleDateString("en-IN", {
@@ -225,12 +239,5 @@
     document.getElementById("lastUpdated").innerHTML = "Last updated on: <b>" + formatted + "</b>";
   </script>
 
-    <!-- Back to Home Button -->
-    <div class="back-button">
-        <a href="index.html">Back to Home</a>
-    </div>
-  </div>
-
 </body>
-
 </html>
