@@ -1,196 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Facilities Section — Under Development | SB.Chetak Innovation</title>
+<meta charset="UTF-8">
+<title>Facilities | SB.Chetak Innovation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Bootstrap & FontAwesome -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <style>
+<style>
   :root{
-    --accent-1: #0066cc;
-    --accent-2: #00bfff;
-    --muted: #51677a;
-    --card-bg: #ffffff;
-    --glass: rgba(255,255,255,0.85);
+    --bg:#fdf6e3;          /* Kindle paper tone */
+    --ink:#2b2b2b;
+    --muted:#555;
+    --accent:#7a6a3a;      /* soft Kindle brown */
+    --card:#fffdf7;
+    --border:#e2dcc7;
   }
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(180deg, #f5fbff 0%, #eef7ff 100%);
-    color: #0b3a57;
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family: Georgia, "Times New Roman", serif;
   }
 
-  .jumbotron {
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-    color: #ffffff;
-    text-align: center;
-    padding: 20px 15px;
-    margin-bottom: 0;
-    box-shadow: 0 6px 20px rgba(3,18,44,0.12);
-    animation: fadeIn 0.9s ease-in-out;
+  body{
+    background:var(--bg);
+    color:var(--ink);
   }
-  .jumbotron h1 { font-size: 1.6rem; margin: 0; font-weight: 700; letter-spacing: .2px; }
-  .jumbotron p { margin: 4px 0 0; opacity: 0.95; }
 
-  .hero {
-    max-width: 1100px;
-    margin: 28px auto;
-    padding: 28px;
-    border-radius: 14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,0.98));
-    box-shadow: 0 18px 50px rgba(8,40,80,0.06);
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  /* ===== Sticky Menu ===== */
+  nav{
+    position:sticky;
+    top:0;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
   }
-  .hero-left { flex: 1 1 420px; min-width: 260px; }
-  .hero-right { width: 420px; max-width: 46%; min-width: 260px; text-align: center; }
 
-  .headline { color: #00345a; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
-  .sub { color: var(--muted); margin-bottom: 18px; }
-
-  .progress-wrap { margin-top: 12px; margin-bottom: 8px; }
-  .progress { height: 12px; border-radius: 999px; background: rgba(0,0,0,0.06); overflow: hidden; }
-  .progress-bar { background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); }
-
-  .construction { width: 100%; height: auto; max-width: 380px; margin: 0 auto; display: block; }
-
-  .under-text { font-size: 0.92rem; color: var(--muted); margin-top: 10px; }
-
-  footer {
-    background: #111;
-    color: #ddd;
-    padding: 30px 0;
-    margin-top: 32px;
+  .nav-wrap{
+    max-width:1100px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
   }
-  footer a { color: #00c6ff; transition: color 0.3s ease; }
-  footer a:hover { color: #4fc3f7; }
 
-  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .logo{
+    font-weight:bold;
+    font-size:1.1rem;
+  }
 
-  @media (max-width: 880px) {
-    .hero { padding: 18px; gap: 14px; }
-    .hero-right { order: -1; }
+  nav a{
+    text-decoration:none;
+    color:var(--ink);
+    margin-left:20px;
+    font-size:0.95rem;
   }
-  @media (max-width: 576px) {
-    .jumbotron { padding: 16px 12px; }
+
+  nav a:hover{
+    text-decoration:underline;
   }
-  </style>
+
+  /* ===== Header ===== */
+  header{
+    text-align:center;
+    padding:50px 20px 30px;
+  }
+
+  header h1{
+    font-size:2.2rem;
+    margin-bottom:10px;
+  }
+
+  header p{
+    color:var(--muted);
+    font-size:1rem;
+  }
+
+  /* ===== Layout ===== */
+  .container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 20px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:26px;
+  }
+
+  /* ===== Cards ===== */
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:28px 24px;
+    text-align:center;
+    text-decoration:none;
+    color:inherit;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+
+  .card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 26px rgba(0,0,0,0.12);
+  }
+
+  .icon{
+    font-size:2.3rem;
+    margin-bottom:14px;
+    color:var(--accent);
+  }
+
+  .card h3{
+    font-size:1.25rem;
+    margin-bottom:10px;
+  }
+
+  .card p{
+    font-size:0.95rem;
+    line-height:1.6;
+    color:var(--muted);
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+    border-top:1px solid var(--border);
+    font-size:0.9rem;
+    color:var(--muted);
+  }
+</style>
 </head>
+
 <body>
 
-  <!-- Jumbotron -->
-  <header class="jumbotron">
-    <div class="container d-flex align-items-center justify-content-between" style="gap:16px; flex-wrap:wrap;">
-      <div style="min-width:180px;">
-        <a href="index.html" class="fw-bold fs-6 text-white" style="text-decoration:none;">
-          SB.Chetak Innovation
-        </a>
-      </div>
+<!-- Sticky Menu -->
+<nav>
+  <div class="nav-wrap">
+    <div class="logo">SB.Chetak Innovation</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="facilities.htm">Facilities</a>
+      <a href="contact.html">Contact</a>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <!-- Hero -->
-  <main class="container">
-    <section class="hero" role="region" aria-labelledby="under-dev-title">
-      <div class="hero-left">
-        <div id="under-dev-title" class="headline">Facilities Section — Under Development</div>
-        <div class="sub">We're building a secure, easy-to-use online Facilities Management system. Thank you for your patience — it will be live soon.</div>
+<!-- Header -->
+<header>
+  <h1>Our Facilities</h1>
+  <p>Digital tools and services designed for  reading our research works , projects ,  communication etc .</p>
+</header>
 
-        <!-- Progress / ETA -->
-        <div class="progress-wrap" aria-hidden="true">
-          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
-            <div id="pb" class="progress-bar" style="width: 70%;"></div>
-          </div>
-          <div class="small under-text">Estimated completion: <strong id="eta-text">70%</strong></div>
-        </div>
+<!-- Facilities -->
+<div class="container">
+  <div class="grid">
 
-        <div class="under-text mt-3">
-          This section is currently under development and will be available soon.
-        </div>
+    <a href="e_projects_books_library.html" class="card">
+      <div class="icon">📚</div>
+      <h3>E-Library</h3>
+      <p>This platform presents research books from our projects, capturing our learning and discoveries, and inspiring students to turn projects into meaningful research.</p>
+    </a>
 
-        <div class="under-text" style="margin-top:12px;">
-          For any urgent work contact Us: <a href="mailto:saswata@bagresearch.co.in">saswata@bagresearch.co.in</a>
-        </div>
-      </div>
+ <a href="feedback.html" class="card">
+      <div class="icon">📝</div>
+      <h3>Feedback</h3>
+      <p>Your feedback helps us improve our platforms and research initiatives.</p>
+    </a>
 
-      <div class="hero-right" aria-hidden="false">
-        <!-- Simple animated construction SVG -->
-        <svg class="construction" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Under construction">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0" stop-color="#ffb74d"></stop>
-              <stop offset="1" stop-color="#ff7043"></stop>
-            </linearGradient>
-          </defs>
+   
 
-          <rect x="60" y="420" width="480" height="90" rx="6" fill="#fff" stroke="#e6eef8"></rect>
-          <g transform="translate(120,80)">
-            <rect x="65" y="150" width="12" height="230" rx="4" fill="#37474f"></rect>
-            <rect x="70" y="145" width="240" height="12" rx="6" fill="#37474f" transform-origin="70 145">
-              <animateTransform attributeName="transform" type="rotate" from="-6 70 145" to="6 70 145" dur="2.8s" repeatCount="indefinite"></animateTransform>
-            </rect>
+   <a href="queries.html" class="card">
+      <div class="icon">❓</div>
+      <h3>Queries</h3>
+      <p>Submit questions and receive clear, timely responses from our team.</p>
+    </a>
 
-            <g transform="translate(300,150)">
-              <line x1="0" y1="0" x2="0" y2="80" stroke="#37474f" stroke-width="3">
-                <animate attributeName="y2" values="80;92;80" dur="2s" repeatCount="indefinite"></animate>
-              </line>
-              <rect x="-28" y="80" width="56" height="42" rx="6" fill="url(#g1)">
-                <animate attributeName="y" values="80;92;80" dur="2s" repeatCount="indefinite"></animate>
-              </rect>
-              <text x="0" y="108" text-anchor="middle" fill="#fff" font-weight="700" font-size="12" font-family="Segoe UI">SOON</text>
-            </g>
-          </g>
+    <a href="webmail.html" class="card">
+      <div class="icon">📧</div>
+      <h3>Webmail</h3>
+      <p>Secure WebMail service for official communication</p>
+    </a>
 
-          <g transform="translate(80,470)">
-            <polygon points="0,60 24,0 48,60" fill="#ff9800"></polygon>
-            <rect x="6" y="62" width="36" height="8" fill="#fff"></rect>
-          </g>
+    <a href="contact.html" class="card">
+      <div class="icon">☎️</div>
+      <h3>Contact</h3>
+      <p>Connect with us for anything </p>
+    </a>
 
-          <g transform="translate(380,470)">
-            <polygon points="0,60 24,0 48,60" fill="#ff9800"></polygon>
-            <rect x="6" y="62" width="36" height="8" fill="#fff"></rect>
-          </g>
+   
 
-          <text x="300" y="360" text-anchor="middle" font-family="Segoe UI" font-weight="700" font-size="22" fill="#0b3a57">Facilities Section</text>
-          <text x="300" y="387" text-anchor="middle" font-family="Segoe UI" font-size="14" fill="#51677a">Under development — coming soon</text>
-        </svg>
+  </div>
+</div>
 
-        <div class="under-text">We're finishing features: secure login, calendar sync, rules.</div>
-      </div>
-    </section>
-  </main>
+<footer>
+  © 2026 S.Bag - The Bag laboratory | SB.Chetak Innovation . All Rights Reserved
+</footer>
 
-  <footer class="text-center" style="padding:22px 10px; font-size:0.95rem; color:#51677a;">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center" style="gap:12px;">
-      <div>Contact: <a href="mailto:saswata@bagresearch.co.in">saswata@bagresearch.co.in</a></div>
-    </div>
-  </footer>
-
-  <script>
-    // Animate progress bar from 0 to 70%
-    document.addEventListener('DOMContentLoaded', () => {
-      const pb = document.getElementById('pb');
-      const eta = document.getElementById('eta-text');
-      let val = 0;
-      const target = 70;
-      const timer = setInterval(() => {
-        val++;
-        pb.style.width = val + '%';
-        eta.textContent = val + '%';
-        if (val >= target) clearInterval(timer);
-      }, 20);
-    });
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
