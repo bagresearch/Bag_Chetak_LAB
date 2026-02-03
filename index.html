@@ -10,7 +10,9 @@ body { font-family: 'Georgia', 'Times New Roman', serif; line-height: 1.6; color
 /* Header Styles */
 header { background: #1a365d; color: white; padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
-.logo h1 { font-size: 1.8rem; color: #d4af37; font-weight: 600; letter-spacing: 0.5px; }
+.logo { display: flex; align-items: center; gap: 15px; }
+.logo img { width: 50px; height: 50px; border-radius: 4px; object-fit: cover; border: 2px solid #d4af37; }
+.logo h1 { font-size: 0.85rem; color: #d4af37; font-weight: 500; letter-spacing: 0.5px; }
 nav ul { list-style: none; display: flex; gap: 2.5rem; }
 nav a { color: #e2e8f0; text-decoration: none; transition: color 0.3s; font-weight: 500; font-size: 0.95rem; letter-spacing: 0.3px; }
 nav a:hover { color: #d4af37; }
@@ -38,152 +40,191 @@ nav a:hover { color: #d4af37; }
 .program-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
 .program-card h3 { color: #1a365d; margin-bottom: 1.2rem; font-size: 1.3rem; font-weight: 600; }
 .program-card p { color: #4a5568; line-height: 1.7; font-size: 0.95rem; }
-/* Footer */
-footer { background: #1a365d; color: #e2e8f0; text-align: center; padding: 4rem 2rem; }
-.footer-content { max-width: 1200px; margin: 0 auto; }
-.footer-links { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
-.footer-links a { color: #d4af37; text-decoration: none; font-weight: 500; letter-spacing: 0.3px; transition: color 0.3s; }
-.footer-links a:hover { color: #f4e8b1; text-decoration: underline; }
-.footer-content p { margin-bottom: 0.5rem; font-size: 0.9rem; }
 /* Animations */
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 /* Responsive */
 @media (max-width: 768px) {
-  .header-content { flex-direction: column; gap: 1rem; padding: 1rem; }
-  nav ul { flex-direction: column; gap: 1rem; text-align: center; }
-  .hero h1 { font-size: 2.2rem; }
-  .hero p { font-size: 1.1rem; }
-  .section-title { font-size: 2.2rem; }
-  .research-grid, .programs-grid { grid-template-columns: 1fr; }
+ .header-content { flex-direction: column; gap: 1rem; padding: 1rem; }
+ .logo { flex-direction: column; gap: 10px; text-align: center; }
+ nav ul { flex-direction: column; gap: 1rem; text-align: center; }
+ .hero h1 { font-size: 2.2rem; }
+ .hero p { font-size: 1.1rem; }
+ .section-title { font-size: 2.2rem; }
+ .research-grid, .programs-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 <!-- Header -->
 <header>
-  <div class="header-content">
-    <div class="logo">
-      <h1>SB.Chetak Innovation</h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="facilities.html">Facilities</a></li>
-        <li><a href="biography.html">Biography</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
+ <div class="header-content">
+   <div class="logo">
+     <img src="chetak123.jpg" alt="BRIST Logo">
+     <h1>Bag Research Innovation Of Science & Technollogy</h1>
+   </div>
+   <nav>
+     <ul>
+       <li><a href="index.html">Home</a></li>
+       <li><a href="research.html">Research</a></li>
+       <li><a href="facilities.html">Facilities</a></li>
+       <li><a href="biography.html">Biography</a></li>
+       <li><a href="contact.html">Contact</a></li>
+     </ul>
+   </nav>
+ </div>
 </header>
 
 <!-- Hero Section -->
 <section class="hero" id="home">
-  <h1>Advancing Research. Building the Future.</h1>
-  <p>Welcome to the official website of Saswata Bag. Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing human safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application. This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.</p>
-  <a href="research.html" class="cta-button">Explore My Research</a>
+ <h1>Advancing Research. Building the Future.</h1>
+ <p>Welcome to the official website of Saswata Bag. Our mission is to design and engineer innovative solutions that combine safety, accessibility, and real-world impact. From developing human safety systems to creating assistive mobility devices, we focus on taking ideas from concept to prototype and into practical application. This platform showcases our achievements, research projects, and collaborations, while also highlighting our vision of building technology that serves society with responsibility and creativity.</p>
+ <a href="research.html" class="cta-button">Explore My Research</a>
 </section>
 
 <!-- Projects Cards -->
 <section class="research-section" id="research">
-  <div class="container">
-    <h2 class="section-title">Few Projects</h2>
-    <div class="research-grid">
-      <a href="chetak.html" class="research-card">
-        <img src="chetak_pic.jpg" alt="CHETAK Project">
-        <h3>CHETAK</h3>
-        <p>Innovative Coal Mine project for rescue , surveillance , alert of land slides , harmful gas alerts etc.</p>
-      </a>
-      <a href="smart-helmet.html" class="research-card">
-        <img src="smarthelmet4.jpg" alt="Smart Safety Helmet">
-        <h3>Smart Safety Helmet</h3>
-        <p>Helmet embedded with sensors for accident prevention and safety monitoring.</p>
-      </a>
-      <a href="emg-wheelchair.html" class="research-card">
-        <img src="emg_wheelchair_photo.jpg" alt="EMG-Controlled Wheelchair">
-        <h3>EMG-Controlled Wheelchair</h3>
-        <p>Hands-free wheelchair controlled using EMG signals from muscles.</p>
-      </a>
-      <a href="smart-bin.html" class="research-card">
-        <img src="chetak123.jpg" alt="Smart Bin">
-        <h3>Smart Bin</h3>
-        <p>IoT-enabled waste management system for clean and efficient disposal.</p>
-      </a>
-      <a href="ardui-no.html" class="research-card">
-        <img src="tetries1.jpg" alt="Tetris On Arduino">
-        <h3>Tetris On Arduino</h3>
-        <p>Classic game recreated on Arduino as an educational electronics project.</p>
-      </a>
-      <a href="smart-auto-attendance.html" class="research-card">
-        <img src="chetak123.jpg" alt="Smart Auto Attendance">
-        <h3>Smart Auto Attendance System</h3>
-        <p>  Smart Classroom Access and Attendance System with Exit Limit , Unwanted Access Stopperand Real-Time Notifications .</p>
-      </a> 
-    </div>
-  </div>
+ <div class="container">
+   <h2 class="section-title">Few Projects</h2>
+   <div class="research-grid">
+     <a href="chetak.html" class="research-card">
+       <img src="chetak_pic.jpg" alt="CHETAK Project">
+       <h3>CHETAK</h3>
+       <p>Innovative Coal Mine project for rescue , surveillance , alert of land slides , harmful gas alerts etc.</p>
+     </a>
+     <a href="smart-helmet.html" class="research-card">
+       <img src="smarthelmet4.jpg" alt="Smart Safety Helmet">
+       <h3>Smart Safety Helmet</h3>
+       <p>Helmet embedded with sensors for accident prevention and safety monitoring.</p>
+     </a>
+     <a href="emg-wheelchair.html" class="research-card">
+       <img src="emg_wheelchair_photo.jpg" alt="EMG-Controlled Wheelchair">
+       <h3>EMG-Controlled Wheelchair</h3>
+       <p>Hands-free wheelchair controlled using EMG signals from muscles.</p>
+     </a>
+     <a href="smart-bin.html" class="research-card">
+       <img src="chetak123.jpg" alt="Smart Bin">
+       <h3>Smart Bin</h3>
+       <p>IoT-enabled waste management system for clean and efficient disposal.</p>
+     </a>
+     <a href="ardui-no.html" class="research-card">
+       <img src="tetries1.jpg" alt="Tetris On Arduino">
+       <h3>Tetris On Arduino</h3>
+       <p>Classic game recreated on Arduino as an educational electronics project.</p>
+     </a>
+     <a href="smart-auto-attendance.html" class="research-card">
+       <img src="chetak123.jpg" alt="Smart Auto Attendance">
+       <h3>Smart Auto Attendance System</h3>
+       <p>  Smart Classroom Access and Attendance System with Exit Limit , Unwanted Access Stopperand Real-Time Notifications .</p>
+     </a> 
+   </div>
+ </div>
 </section>
 
 <!-- Academic Programs -->
 <section class="programs-section" id="programs">
-  <div class="container">
-    <h2 class="section-title">Announcements</h2>
-    <div class="programs-grid">
-      <div class="program-card">
-        <h3>Launching E Book Reading Platform</h3>
-        <p>This platform presents research books from our projects, capturing our learning and discoveries, and inspiring students to turn projects into meaningful research.</p>
-      </div>
-      <div class="program-card">
-        <h3>Launching New E Book "Charaibeti"</h3>
-        <p>We are launching our new research book “Charaibeti: EMG-Controlled Wheelchair,” showcasing a hands-free smart mobility solution using muscle signals.</p>
-      </div>
-      <div class="program-card">
-        <h3>Coming Soon</h3>
-        <p>More exciting projects and research updates will be added soon!</p>
-      </div>
-    </div>
-  </div>
+ <div class="container">
+   <h2 class="section-title">Announcements</h2>
+   <div class="programs-grid">
+     <div class="program-card">
+       <h3>Launching E Book Reading Platform</h3>
+       <p>This platform presents research books from our projects, capturing our learning and discoveries, and inspiring students to turn projects into meaningful research.</p>
+     </div>
+     <div class="program-card">
+       <h3>Launching New E Book "Charaibeti"</h3>
+       <p>We are launching our new research book "Charaibeti: EMG-Controlled Wheelchair," showcasing a hands-free smart mobility solution using muscle signals.</p>
+     </div>
+     <div class="program-card">
+       <h3>Coming Soon</h3>
+       <p>More exciting projects and research updates will be added soon!</p>
+     </div>
+   </div>
+ </div>
 </section>
 
-<!-- Footer -->
-<footer>
-  <div class="footer-content">
-    <div class="footer-links">
-      <a href="e_projects_books_library.html">E Library </a>
-      
-      <a href="facilities.html">Facilities</a>
-      <a href="webmail.html">Mail</a>
-      <a href="contact.html">Contact</a>
-       <a href="ourteam.html">Team</a>
-       <a href="friends.html">Friends</a>
-       <a href="achievements.html">Achievements</a>
-       <a href="photo-gallery.html">Gallery</a>
-       <a href="project-funding.html">Project Funding</a>
-    </div>
-    <p>&copy; 2026 S.Bag – The Bag Laboratory | SB.Chetak Innovation. All Rights Reserved.</p>
-    <p>For queries contact saswata@bagresearch.co.in</p>
-  </div>
+<!-- Refined Footer -->
+<footer style="background: linear-gradient(180deg, #1a365d 0%, #0f2340 100%); color: #e2e8f0; font-family: 'Arial', sans-serif; padding-top: 60px;">
+ <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+   <!-- Main Footer Content -->
+   <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px;">
+     
+     <!-- Brand Column -->
+     <div style="border-right: 1px solid rgba(212, 175, 55, 0.2); padding-right: 30px;">
+       <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+         <img src="chetak123.jpg" alt="BRIST Logo" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover; border: 2px solid #d4af37;">
+         <div>
+           <h3 style="color: #d4af37; font-size: 1.4rem; margin: 0; letter-spacing: 0.5px;">BRIST </h3>
+           <p style="color: #94a3b8; font-size: 0.85rem; margin: 5px 0 0 0;">Advancing Research. Building the Future.</p>
+         </div>
+       </div>
+              <div style="background: rgba(26, 54, 93, 0.5); padding: 15px; border-radius: 8px; border-left: 3px solid #d4af37;">
+         <p style="color: #e2e8f0; margin: 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📍</span> Guwahati, Assam, India
+         </p>
+         <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📞</span> +91 8811960068
+           
+          <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📧</span> saswata@bagresearch.co.in
+
+
+         </p>
+       </div>
+     </div>
+
+     <!-- Projects Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Projects</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="chetak.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0; border-bottom: 1px solid transparent;">CHETAK Coal Mine System</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-helmet.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Smart Safety Helmet</a></li>
+         <li style="margin-bottom: 12px;"><a href="emg-wheelchair.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">EMG Wheelchair (Charaibeti)</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-bin.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Smart IoT Bin</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-auto-attendance.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Auto Attendance System</a></li>
+         <li><a href="ardui-no.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Tetris on Arduino</a></li>
+       </ul>
+     </div>
+
+     <!-- Academics Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Academics</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="elibrary.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">📚 E-Library Access</a></li>
+         <li style="margin-bottom: 12px;"><a href="courses.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">🎓 Training Courses</a></li>
+         <li style="margin-bottom: 12px;"><a href="queries.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">❓ Research Queries</a></li>
+         <li style="margin-bottom: 12px;"><a href="council.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">🏛️ Council Portal</a></li>
+         <li><a href="outsidercomplain.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">📝 Lodge Complaint</a></li>
+       </ul>
+     </div>
+
+     <!-- Administration Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Administration</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="rnd.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">R&D Section</a></li>
+         <li style="margin-bottom: 12px;"><a href="evaluationcommittee.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Project Evaluation</a></li>
+         <li style="margin-bottom: 12px;"><a href="teamautomation.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Team Automation</a></li>
+         <li style="margin-bottom: 12px;"><a href="internalcomplaints.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Internal Complaints</a></li>
+         <li style="margin-bottom: 12px;"><a href="telephonedirectory.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Contact Directory</a></li>
+         <li><a href="contact.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">General Inquiries</a></li>
+       </ul>
+     </div>
+   </div>
+
+   <!-- Bottom Bar -->
+   <div style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding: 25px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+     <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">
+       © 2026 <span style="color: #d4af37;">Bag Research Innovation of Science & Technology</span>. All rights reserved.
+     </p>
+     <div style="display: flex; gap: 25px; align-items: center;">
+       <a href="legal-disclaimer" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.3s;">Legal Disclaimer |</a>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Hover effects style injection -->
+ <style>
+   footer a:hover { color: #d4af37 !important; transform: translateX(3px); }
+ </style>
 </footer>
-
-<script>
-// Smooth scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});
-
-// Header scroll effect
-window.addEventListener('scroll', function() {
-  const header = document.querySelector('header');
-  if (window.scrollY > 100) {
-    header.style.background = 'rgba(26, 54, 93, 0.98)';
-  } else {
-    header.style.background = '#1a365d';
-  }
-});
-</script>
 </body>
 </html>
