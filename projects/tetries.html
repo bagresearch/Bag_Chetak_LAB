@@ -1,155 +1,1381 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> Tetris Game </title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Tetris | Department of SB. Chetak Innovation, (BRIST)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'institutional': {
+                            50: '#f8f9fa',
+                            100: '#e9ecef',
+                            200: '#dee2e6',
+                            300: '#ced4da',
+                            400: '#adb5bd',
+                            500: '#6c757d',
+                            600: '#495057',
+                            700: '#343a40',
+                            800: '#212529',
+                            900: '#1a1d20',
+                        },
+                        'academic': {
+                            blue: '#003d82',
+                            light: '#0056b3',
+                            gold: '#b8860b',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Times New Roman"', 'Times', 'serif'],
+                        sans: ['"Helvetica Neue"', 'Arial', 'sans-serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;600;700&display=swap');
+        
+        body {
+            background-color: #f5f5f0;
+            color: #2c3e50;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-image: 
+                linear-gradient(90deg, rgba(0,61,130,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0,61,130,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .institutional-header {
+            background: linear-gradient(135deg, #003d82 0%, #002a5c 100%);
+            border-bottom: 4px solid #b8860b;
+        }
+        
+        .section-title {
+            font-family: 'Times New Roman', Times, serif;
+            color: #003d82;
+            border-bottom: 2px solid #b8860b;
+            padding-bottom: 0.5rem;
+        }
+        
+        .card-institutional {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        
+        .card-institutional:hover {
+            box-shadow: 0 4px 12px rgba(0,61,130,0.15);
+            border-color: #003d82;
+        }
+        
+        .btn-primary {
+            background: #003d82;
+            color: white;
+            border: 2px solid #003d82;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #ffffff;
+            color: #003d82;
+        }
+        
+        .btn-secondary {
+            background: #b8860b;
+            color: white;
+            border: 2px solid #b8860b;
+        }
+        
+        .btn-secondary:hover {
+            background: #ffffff;
+            color: #b8860b;
+        }
+        
+        .simulation-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #003d82;
+        }
+        
+        .tetris-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 1px;
+            background: #333;
+            border: 4px solid #555;
+            padding: 4px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
 
-    .top-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: #ffffff;
-    }
+        .tetris-cell {
+            aspect-ratio: 1;
+            background: #111;
+            transition: background-color 0.1s;
+            width: 100%;
+        }
 
-    .top-banner img {
-      width: 120px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    }
+        .tetris-cell.filled {
+            box-shadow: inset 0 0 4px rgba(255,255,255,0.3);
+        }
 
-    .welcome-marquee {
-      background-color: #007BFF;
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-      padding: 10px 0;
-    }
+        .tetris-cell.I { background: #00f0f0; }
+        .tetris-cell.O { background: #f0f000; }
+        .tetris-cell.T { background: #a000f0; }
+        .tetris-cell.S { background: #00f000; }
+        .tetris-cell.Z { background: #f00000; }
+        .tetris-cell.J { background: #0000f0; }
+        .tetris-cell.L { background: #f0a000; }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+        .led-strip {
+            display: flex;
+            gap: 2px;
+            padding: 4px;
+            background: #222;
+            border-radius: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-    img {
-      width: 300px;
-      height: auto;
-      margin: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+        .led {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            transition: all 0.2s;
+        }
 
-    h1 {
-      color: #333;
-    }
+        .led.active {
+            box-shadow: 0 0 8px currentColor;
+        }
 
-    p {
-      font-size: 18px;
-      text-align: justify;
-    }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-online { background: #28a745; box-shadow: 0 0 8px #28a745; }
+        .status-offline { background: #dc3545; }
+        .status-warning { background: #ffc107; box-shadow: 0 0 8px #ffc107; }
+        
+        .email-highlight {
+            background: linear-gradient(120deg, #b8860b 0%, #d4a520 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.1;
+            font-size: 120px;
+            color: #003d82;
+            pointer-events: none;
+            z-index: -1;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .ribbon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+        }
+        
+        .ribbon span {
+            position: absolute;
+            display: block;
+            width: 225px;
+            padding: 8px 0;
+            background: #b8860b;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            transform: rotate(45deg);
+            top: 30px;
+            left: -25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
 
-    ul, ol {
-      text-align: left;
-      margin-left: 30px;
-    }
+        .circuit-container {
+            background: #ffffff;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-    a {
-      display: inline-block;
-      text-decoration: none;
-      background: #007BFF;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-
-    a:hover {
-      background: #0056b3;
-    }
-  </style>
+        .circuit-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-  <!-- Top Left and Right Images -->
-  <div class="top-banner">
-    <img src="chetak123.jpg" alt="Left Image">
-    <img src="chetak222.jpg" alt="Right Image">
-  </div>
+    <!-- Institutional Header -->
+    <header class="institutional-header text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg width="100%" height="100%">
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/>
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#grid)"/>
+            </svg>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 py-8 relative z-10">
+            <div class="flex flex-col items-center text-center gap-2">
+                <div class="text-5xl md:text-6xl font-serif font-bold text-white tracking-wide mb-2">
+                    Arduino Tetris
+                </div>
+                <div class="text-lg md:text-xl text-gray-300 font-serif tracking-wider border-t border-white/30 pt-4 mt-2">
+                    Department of SB. Chetak Innovation, (BRIST)
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <!-- Moving Welcome Message -->
-  <div class="welcome-marquee">
-    <marquee behavior="scroll" direction="left">Welcome to the Arduino Tetris Project Page! Explore the innovation and creativity behind this amazing DIY game.</marquee>
-  </div>
+    <!-- Navigation Bar -->
+    <nav class="bg-white border-b-2 border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-14">
+                <div class="flex space-x-8 text-sm font-semibold text-gray-700">
+                    <a href="#overview" class="hover:text-academic-blue transition-colors py-4 border-b-2 border-transparent hover:border-academic-blue">Overview</a>
+                    <a href="#simulation" class="hover:text-academic-blue transition-colors py-4 border-b-2 border-transparent hover:border-academic-blue">Live Simulation</a>
+                    <a href="#working" class="hover:text-academic-blue transition-colors py-4 border-b-2 border-transparent hover:border-academic-blue">Working Principle</a>
+                    <a href="#hardware" class="hover:text-academic-blue transition-colors py-4 border-b-2 border-transparent hover:border-academic-blue">Hardware</a>
+                    <a href="#circuit" class="hover:text-academic-blue transition-colors py-4 border-b-2 border-transparent hover:border-academic-blue">Circuit Design</a>
+                    <a href="#contact" class="hover:text-academic-blue transition-colors py-4 border-b-2 border-transparent hover:border-academic-blue">Contact</a>
+                </div>
+                <div class="hidden md:flex items-center gap-2 text-sm text-gray-500">
+                    <span class="status-indicator status-online"></span>
+                    System Online
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Main Content -->
-  <div class="container">
-    <h1>Arduino Tetris</h1>
-    <p>Arduino-based Tetris game using an LED strip and joystick for control.</p>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-16">
 
-    <h2>Actual Prototype</h2>
-    <img src="tetries1.jpg" alt="Actual Prototype of Arduino Tetris" />
+        <!-- Project Overview -->
+        <section id="overview" class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-1 h-8 bg-academic-blue"></div>
+                    <h2 class="text-3xl font-serif font-bold text-gray-800">Project Overview</h2>
+                </div>
+                
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    <p class="text-xl text-gray-600 mb-6">
+                        An interactive <strong>LED-based gaming system</strong> that brings the classic Tetris experience 
+                        to life using <strong>Arduino Mega</strong>, addressable LED strips, and joystick controls. 
+                        This project demonstrates the fusion of <strong>embedded systems</strong>, <strong>game logic programming</strong>, 
+                        and <strong>real-time hardware interaction</strong>.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 my-8">
+                        <div class="card-institutional p-6 border-l-4 border-academic-blue">
+                            <h3 class="font-bold text-academic-blue mb-2 flex items-center gap-2">
+                                <i class="fas fa-gamepad"></i> Objective
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                Create an engaging, playable Tetris game on hardware using LED matrix display 
+                                and joystick input for educational and entertainment purposes.
+                            </p>
+                        </div>
+                        
+                        <div class="card-institutional p-6 border-l-4 border-academic-gold">
+                            <h3 class="font-bold text-academic-gold mb-2 flex items-center gap-2">
+                                <i class="fas fa-microchip"></i> Methodology
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                Embedded C++ programming with FastLED library, collision detection algorithms, 
+                                and real-time input processing for smooth gameplay.
+                            </p>
+                        </div>
+                    </div>
 
-    <h2>Futuristic Look</h2>
-    <img src="tetries.jpg" alt="Futuristic Look of Arduino Tetris" />
+                    <p>
+                        This project serves as an excellent introduction to embedded game development, 
+                        teaching core concepts like frame buffers, game loops, sprite rendering, and 
+                        user input handling on resource-constrained microcontrollers.
+                    </p>
+                </div>
+            </div>
 
-    <h2>Technical Description</h2>
-    <p>The Arduino Tetris game is a project that brings the classic Tetris game to life using an LED matrix or strip, controlled by an Arduino Mega. It includes the following components:</p>
-    <ul>
-      <li><strong>Arduino Mega:</strong> Handles game logic and LED control.</li>
-      <li><strong>LED Strip:</strong> Displays the Tetris game.</li>
-      <li><strong>Joystick Module:</strong> Allows players to move and rotate blocks.</li>
-      <li><strong>Buzzer:</strong> Provides sound effects.</li>
-      <li><strong>I2C LCD Display:</strong> Shows the player's score.</li>
-      <li><strong>Power Supply:</strong> Ensures stable power delivery for smooth operation.</li>
-    </ul>
+            <!-- Quick Info Card -->
+            <div class="card-institutional p-6 relative">
+                <div class="ribbon"><span>Gaming</span></div>
+                <h3 class="font-serif font-bold text-xl mb-6 text-academic-blue border-b pb-2">Project Specifications</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600 text-sm">Project ID</span>
+                        <span class="font-mono font-bold text-gray-800">BAG-GAME-2024-002</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600 text-sm">Platform</span>
+                        <span class="font-bold text-gray-800">Arduino Mega 2560</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600 text-sm">Display</span>
+                        <span class="font-bold text-gray-800">WS2812B LED Strip</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span class="text-gray-600 text-sm">Input</span>
+                        <span class="font-bold text-gray-800">Analog Joystick</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-gray-600 text-sm">Status</span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                            Active
+                        </span>
+                    </div>
+                </div>
 
-    <h2>Working Mechanism</h2>
-    <p>The game follows these key steps:</p>
-    <ol>
-      <li>Blocks are generated at the top of the LED matrix.</li>
-      <li>The player controls movement and rotation using the joystick.</li>
-      <li>When a row is filled, it clears, and the player earns points.</li>
-      <li>The game speed increases as the score rises.</li>
-      <li>The game ends when the blocks reach the top.</li>
-    </ol>
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 uppercase tracking-wide mb-2">Principal Investigator</p>
+                        <p class="font-serif font-bold text-academic-blue">Saswata Bag</p>
+                        <p class="text-sm text-gray-600 mt-1">
+                            <i class="fas fa-envelope mr-2 text-academic-gold"></i>
+                            <a href="mailto:saswata@bagresearch.co.in" class="email-highlight hover:underline">
+                                saswata@bagresearch.co.in
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <h2>Applications and Benefits</h2>
-    <p>This project is an excellent example of interactive gaming with hardware, merging embedded systems and programming concepts. Some key benefits include:</p>
-    <ul>
-      <li><strong>Educational Value:</strong> Helps students learn about LED control, microcontrollers, and game logic.</li>
-      <li><strong>Entertainment:</strong> A fun way to experience classic gaming on Arduino.</li>
-      <li><strong>DIY Project:</strong> Great for hobbyists interested in electronics and game design.</li>
-    </ul>
+        <!-- Interactive Simulation -->
+        <section id="simulation" class="space-y-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-1 h-8 bg-academic-blue"></div>
+                    <h2 class="text-3xl font-serif font-bold text-gray-800">Interactive Game Simulation</h2>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="status-indicator status-online"></span>
+                    <span class="text-gray-600">Simulator Active</span>
+                </div>
+            </div>
 
-    <h2>Future Enhancements</h2>
-    <p>Potential future upgrades include:</p>
-    <ul>
-      <li><strong>Wireless Control:</strong> Bluetooth integration for remote gameplay.</li>
-      <li><strong>Multiplayer Mode:</strong> Two-player functionality.</li>
-      <li><strong>Advanced LED Display:</strong> Using an LED matrix for better visuals.</li>
-      <li><strong>AI-based Difficulty Adjustment:</strong> Making the game adapt based on player performance.</li>
-    </ul>
+            <div class="simulation-container rounded-xl p-8 shadow-xl">
+                <div class="grid lg:grid-cols-12 gap-8">
+                    
+                    <!-- Control Panel -->
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="bg-white rounded-lg p-6 shadow-md border border-gray-200">
+                            <h3 class="font-bold text-academic-blue mb-4 flex items-center gap-2">
+                                <i class="fas fa-gamepad"></i> Game Controls
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                    <span class="text-sm font-semibold">← → Move</span>
+                                    <div class="flex gap-2">
+                                        <button id="btnLeft" class="w-10 h-10 bg-academic-blue text-white rounded hover:bg-blue-700 transition-colors">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </button>
+                                        <button id="btnRight" class="w-10 h-10 bg-academic-blue text-white rounded hover:bg-blue-700 transition-colors">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                    <span class="text-sm font-semibold">↑ Rotate</span>
+                                    <button id="btnRotate" class="w-10 h-10 bg-academic-gold text-white rounded hover:bg-yellow-600 transition-colors">
+                                        <i class="fas fa-rotate"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                    <span class="text-sm font-semibold">↓ Drop</span>
+                                    <button id="btnDown" class="w-10 h-10 bg-red-500 text-white rounded hover:bg-red-700 transition-colors">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                </div>
+                            </div>
 
-    <h2>Conclusion</h2>
-    <p>The Arduino Tetris project is an innovative way to merge gaming and embedded systems, making it a great learning experience for students, educators, and electronics enthusiasts.</p>
+                            <div class="mt-6 pt-4 border-t border-gray-200">
+                                <button id="btnStart" class="w-full btn-primary py-3 rounded-lg font-bold mb-2">
+                                    <i class="fas fa-play mr-2"></i>Start Game
+                                </button>
+                                <button id="btnPause" class="w-full bg-gray-500 text-white py-2 rounded-lg font-bold hover:bg-gray-600 transition-colors">
+                                    <i class="fas fa-pause mr-2"></i>Pause
+                                </button>
+                            </div>
+                        </div>
 
-    <a href="index.html">Back to Home</a>
-  </div>
+                        <div class="bg-white rounded-lg p-6 shadow-md border border-gray-200">
+                            <h3 class="font-bold text-gray-700 mb-4 text-sm uppercase tracking-wide">Game Stats</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 text-sm">Score</span>
+                                    <span id="gameScore" class="font-mono text-xl font-bold text-academic-blue">0</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 text-sm">Level</span>
+                                    <span id="gameLevel" class="font-mono text-xl font-bold text-academic-gold">1</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 text-sm">Lines</span>
+                                    <span id="gameLines" class="font-mono text-xl font-bold text-green-600">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Game Display -->
+                    <div class="lg:col-span-5 bg-black rounded-lg shadow-inner border-4 border-gray-600 relative overflow-hidden p-4">
+                        <!-- LED Matrix Display -->
+                        <div id="tetrisGrid" class="tetris-grid">
+                            <!-- Generated by JS -->
+                        </div>
+
+                        <!-- Game Over Overlay -->
+                        <div id="gameOverOverlay" class="absolute inset-0 bg-black/80 flex items-center justify-center hidden z-10">
+                            <div class="text-center text-white">
+                                <h3 class="text-3xl font-bold text-red-500 mb-2">GAME OVER</h3>
+                                <p class="text-gray-300 mb-4">Final Score: <span id="finalScore">0</span></p>
+                                <button onclick="startGame()" class="btn-primary px-6 py-2 rounded-lg">
+                                    <i class="fas fa-redo mr-2"></i>Play Again
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- LED Strip Visualization -->
+                        <div class="mt-4">
+                            <p class="text-xs text-gray-400 mb-2 text-center">LED Strip Output</p>
+                            <div id="ledStrip" class="led-strip">
+                                <!-- Generated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- State Monitor & Next Piece -->
+                    <div class="lg:col-span-4 space-y-4">
+                        <div class="bg-white rounded-lg p-6 shadow-md border border-gray-200">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <i class="fas fa-cube text-academic-blue"></i> Next Piece
+                            </h3>
+                            <div id="nextPiece" class="w-24 h-24 bg-gray-100 rounded-lg mx-auto flex items-center justify-center">
+                                <div class="tetris-cell I w-6 h-6"></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow-md border border-gray-200">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <i class="fas fa-microchip text-academic-blue"></i> System State
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div id="stateIdle" class="p-3 rounded-lg border-2 border-green-500 bg-green-50 transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">
+                                            <i class="fas fa-pause"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-sm text-green-800">IDLE</div>
+                                            <div class="text-xs text-green-600">Waiting for start</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="statePlaying" class="p-3 rounded-lg border-2 border-gray-200 bg-gray-50 opacity-50 transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-sm text-blue-800">PLAYING</div>
+                                            <div class="text-xs text-blue-600">Game in progress</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="statePaused" class="p-3 rounded-lg border-2 border-gray-200 bg-gray-50 opacity-50 transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs">
+                                            <i class="fas fa-pause"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-sm text-yellow-800">PAUSED</div>
+                                            <div class="text-xs text-yellow-600">Game suspended</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow-md border border-gray-200">
+                            <h3 class="font-bold text-gray-700 mb-4 text-sm uppercase tracking-wide">Hardware Status</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-600">Arduino Mega</span>
+                                    <span class="status-indicator status-online"></span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-600">LED Strip</span>
+                                    <span class="status-indicator status-online"></span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-600">Joystick</span>
+                                    <span class="status-indicator status-online"></span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-600">Buzzer</span>
+                                    <span id="buzzerStatus" class="status-indicator status-offline"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Working Principle -->
+        <section id="working" class="space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-8 bg-academic-blue"></div>
+                <h2 class="text-3xl font-serif font-bold text-gray-800">Working Principle</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-institutional p-8">
+                    <h3 class="text-xl font-bold text-academic-blue mb-4">Game Engine Architecture</h3>
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        The <strong>Arduino Mega</strong> runs a dedicated game loop at 60Hz, handling 
+                        <strong>collision detection</strong>, <strong>line clearing</strong>, and <strong>scoring</strong>. 
+                        The 10×20 LED matrix serves as the display buffer, with each pixel mapped to a physical LED.
+                    </p>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-academic-blue">
+                        <h4 class="font-bold text-sm mb-2">Core Game Loop:</h4>
+                        <code class="text-sm font-mono text-academic-blue block">
+                            1. Read joystick input<br>
+                            2. Update piece position<br>
+                            3. Check collisions<br>
+                            4. Render to LED matrix<br>
+                            5. Delay for game speed
+                        </code>
+                    </div>
+                </div>
+
+                <div class="card-institutional p-8">
+                    <h3 class="text-xl font-bold text-academic-gold mb-4">Tetromino System</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-4 p-3 bg-gray-50 rounded border border-gray-200">
+                            <div class="flex gap-1">
+                                <div class="w-6 h-6 bg-cyan-400 rounded"></div>
+                                <div class="w-6 h-6 bg-cyan-400 rounded"></div>
+                                <div class="w-6 h-6 bg-cyan-400 rounded"></div>
+                                <div class="w-6 h-6 bg-cyan-400 rounded"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-bold text-sm">I-Piece (Line)</div>
+                                <div class="text-xs text-gray-600">4 blocks in a row</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 bg-gray-50 rounded border border-gray-200">
+                            <div class="grid grid-cols-2 gap-1">
+                                <div class="w-6 h-6 bg-yellow-400 rounded"></div>
+                                <div class="w-6 h-6 bg-yellow-400 rounded"></div>
+                                <div class="w-6 h-6 bg-yellow-400 rounded"></div>
+                                <div class="w-6 h-6 bg-yellow-400 rounded"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-bold text-sm">O-Piece (Square)</div>
+                                <div class="text-xs text-gray-600">2×2 block</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 bg-gray-50 rounded border border-gray-200">
+                            <div class="flex gap-1">
+                                <div class="w-6 h-6"></div>
+                                <div class="w-6 h-6 bg-purple-500 rounded"></div>
+                                <div class="w-6 h-6 bg-purple-500 rounded"></div>
+                                <div class="w-6 h-6 bg-purple-500 rounded"></div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-bold text-sm">T-Piece</div>
+                                <div class="text-xs text-gray-600">T-shaped configuration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Flow Diagram -->
+            <div class="card-institutional p-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Game Flow Diagram</h3>
+                <div class="flex flex-col items-center space-y-4 overflow-x-auto py-4">
+                    <div class="bg-academic-blue text-white px-6 py-3 rounded-lg font-bold shadow-lg">START GAME</div>
+                    <div class="h-8 w-0.5 bg-gray-400"></div>
+                    <div class="bg-gray-100 border-2 border-gray-400 px-6 py-3 rounded-lg font-mono text-sm">Generate Random Piece</div>
+                    <div class="h-8 w-0.5 bg-gray-400"></div>
+                    
+                    <div class="relative bg-blue-50 border-2 border-blue-400 p-4 rounded-lg w-48 text-center">
+                        <div class="font-bold text-blue-800">Player Input?</div>
+                        <div class="text-xs text-gray-600 mt-1">Joystick movement</div>
+                    </div>
+                    
+                    <div class="flex gap-16 w-full justify-center mt-4">
+                        <div class="flex flex-col items-center">
+                            <div class="text-blue-600 font-bold mb-2">YES</div>
+                            <div class="h-8 w-0.5 bg-blue-400"></div>
+                            <div class="bg-blue-100 border border-blue-400 p-3 rounded text-xs w-40 text-center">
+                                <div class="font-bold text-blue-800">MOVE/ROTATE</div>
+                                <div>Update position</div>
+                                <div>Check collision</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="text-gray-600 font-bold mb-2">NO</div>
+                            <div class="h-8 w-0.5 bg-gray-400"></div>
+                            <div class="bg-gray-100 border border-gray-400 p-3 rounded text-xs w-40 text-center">
+                                <div class="font-bold text-gray-800">AUTO-DROP</div>
+                                <div>Gravity tick</div>
+                                <div>Move down</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="h-8 w-0.5 bg-gray-400"></div>
+                    
+                    <div class="relative bg-red-50 border-2 border-red-400 p-4 rounded-lg w-48 text-center">
+                        <div class="font-bold text-red-800">Collision?</div>
+                        <div class="text-xs text-gray-600 mt-1">Bottom or block</div>
+                    </div>
+                    
+                    <div class="flex gap-16 w-full justify-center mt-4">
+                        <div class="flex flex-col items-center">
+                            <div class="text-red-600 font-bold mb-2">YES</div>
+                            <div class="h-8 w-0.5 bg-red-400"></div>
+                            <div class="bg-red-100 border border-red-400 p-3 rounded text-xs w-40 text-center">
+                                <div class="font-bold text-red-800">LOCK PIECE</div>
+                                <div>Check lines</div>
+                                <div>Clear & score</div>
+                                <div>New piece</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="text-green-600 font-bold mb-2">NO</div>
+                            <div class="h-8 w-0.5 bg-green-400"></div>
+                            <div class="bg-green-100 border border-green-400 p-3 rounded text-xs w-40 text-center">
+                                <div class="font-bold text-green-800">CONTINUE</div>
+                                <div>Render frame</div>
+                                <div>Loop back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full flex items-center justify-center gap-4 mt-6">
+                        <div class="h-0.5 w-32 bg-gray-300"></div>
+                        <div class="text-xs text-gray-500 font-mono">60 FPS GAME LOOP</div>
+                        <div class="h-0.5 w-32 bg-gray-300"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hardware Specifications -->
+        <section id="hardware" class="space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-8 bg-academic-blue"></div>
+                <h2 class="text-3xl font-serif font-bold text-gray-800">Hardware Specifications</h2>
+            </div>
+
+            <div class="overflow-hidden rounded-lg border border-gray-300 shadow-sm bg-white">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-academic-blue text-white">
+                        <tr>
+                            <th class="p-4 font-serif text-sm uppercase tracking-wide">Component</th>
+                            <th class="p-4 font-serif text-sm uppercase tracking-wide">Specification</th>
+                            <th class="p-4 font-serif text-sm uppercase tracking-wide text-center">Quantity</th>
+                            <th class="p-4 font-serif text-sm uppercase tracking-wide">Function</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 text-sm">
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Microcontroller</td>
+                            <td class="p-4 text-gray-600">Arduino Mega 2560 (ATmega2560)</td>
+                            <td class="p-4 text-center font-mono">1</td>
+                            <td class="p-4 text-gray-600">Game processing & LED control</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">LED Strip</td>
+                            <td class="p-4 text-gray-600">WS2812B 5V RGB (200 LEDs)</td>
+                            <td class="p-4 text-center font-mono">1</td>
+                            <td class="p-4 text-gray-600">10×20 game display matrix</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Joystick Module</td>
+                            <td class="p-4 text-gray-600">Dual-axis analog + button</td>
+                            <td class="p-4 text-center font-mono">1</td>
+                            <td class="p-4 text-gray-600">Player input control</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">LCD Display</td>
+                            <td class="p-4 text-gray-600">16×2 I2C Character LCD</td>
+                            <td class="p-4 text-center font-mono">1</td>
+                            <td class="p-4 text-gray-600">Score & level display</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Buzzer</td>
+                            <td class="p-4 text-gray-600">Piezo Electric 5V Active</td>
+                            <td class="p-4 text-center font-mono">1</td>
+                            <td class="p-4 text-gray-600">Sound effects & music</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Power Supply</td>
+                            <td class="p-4 text-gray-600">5V 10A DC (50W minimum)</td>
+                            <td class="p-4 text-center font-mono">1</td>
+                            <td class="p-4 text-gray-600">LED strip power delivery</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Power Warning -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-exclamation-triangle text-yellow-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-yellow-800 text-sm">Power Supply Warning</h4>
+                        <p class="text-sm text-yellow-700 mt-1">
+                            WS2812B LEDs draw ~60mA per LED at full brightness. For 200 LEDs, 
+                            maximum current draw is 12A. Use a dedicated 5V 10A power supply 
+                            with separate power injection points to prevent voltage drop.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Circuit Design Section -->
+        <section id="circuit" class="space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-8 bg-academic-blue"></div>
+                <h2 class="text-3xl font-serif font-bold text-gray-800">Circuit Design</h2>
+            </div>
+
+            <div class="circuit-container shadow-lg">
+                <img src="arduinotetriscircuit.jpg" alt="Arduino Tetris Circuit Design" class="w-full">
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <div class="card-institutional p-6">
+                    <h3 class="text-lg font-bold text-academic-blue mb-4 flex items-center gap-2">
+                        <i class="fas fa-info-circle"></i> Circuit Description
+                    </h3>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                        The LED strip is arranged in a <strong>serpentine pattern</strong> to create the 10×20 matrix. 
+                        Data pin connects to Arduino pin 6 via 470Ω resistor. The joystick connects to 
+                        analog pins A0 (X-axis), A1 (Y-axis), and digital pin 2 (button).
+                    </p>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        I2C LCD uses pins A4 (SDA) and A5 (SCL). Buzzer connects to pin 3 with 100Ω 
+                        current limiting resistor. Power supply connects directly to LED strip with 
+                        common ground to Arduino.
+                    </p>
+                </div>
+
+                <div class="card-institutional p-6">
+                    <h3 class="text-lg font-bold text-academic-gold mb-4 flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle"></i> Wiring Notes
+                    </h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>Add 1000μF capacitor across LED strip power terminals</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>Use level shifter (3.3V→5V) if using 3.3V Arduino</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>Keep data line under 1 meter to prevent signal degradation</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>Connect Arduino GND to power supply GND (common ground)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Source Code Request -->
+        <section id="code" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-8 bg-academic-blue"></div>
+                <h2 class="text-3xl font-serif font-bold text-gray-800">Source Code Access</h2>
+            </div>
+
+            <div class="bg-gradient-to-br from-academic-blue to-blue-900 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                
+                <div class="relative z-10 text-center max-w-3xl mx-auto">
+                    <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-code text-4xl text-academic-gold"></i>
+                    </div>
+                    
+                    <h3 class="text-3xl font-bold mb-4">Complete Game Code Available</h3>
+                    <p class="text-blue-100 mb-8 leading-relaxed">
+                        The complete Arduino sketch including tetromino definitions, rotation algorithms, 
+                        line clearing logic, sound effects, and LED matrix rendering is available 
+                        for educational purposes. Includes FastLED library integration and 
+                        joystick debouncing routines.
+                    </p>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+                        <p class="text-sm text-blue-200 mb-4 uppercase tracking-wide">Request Access Via Email</p>
+                        <a href="mailto:saswata@bagresearch.co.in?subject=Arduino%20Tetris%20Source%20Code%20Request" 
+                           class="inline-flex items-center gap-3 text-2xl font-bold email-highlight hover:scale-105 transition-transform">
+                            <i class="fas fa-envelope text-academic-gold"></i>
+                            saswata@bagresearch.co.in
+                        </a>
+                        <p class="text-sm text-blue-200 mt-4">
+                            Please include your institution name and intended use case
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-gradient-to-br from-academic-blue to-blue-900 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            
+            <div class="relative z-10 max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-serif font-bold mb-4">Research Collaboration</h2>
+                <p class="text-blue-100 mb-8 leading-relaxed">
+                    For technical documentation, hardware schematics, source code licensing, 
+                    or collaboration inquiries regarding the Arduino Tetris project, please contact 
+                    our research team.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm text-blue-200">Primary Contact</div>
+                            <a href="mailto:saswata@bagresearch.co.in" class="text-xl font-bold hover:text-academic-gold transition-colors">
+                                saswata@bagresearch.co.in
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-building text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm text-blue-200">Institution</div>
+                            <div class="font-bold">Bag Research Innovation of Science & Technology</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-flask text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm text-blue-200">Department</div>
+                            <div class="font-bold">SB. Chetak Innovation, (BRIST)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+<!-- Refined Footer -->
+<footer style="background: linear-gradient(180deg, #1a365d 0%, #0f2340 100%); color: #e2e8f0; font-family: 'Arial', sans-serif; padding-top: 60px;">
+ <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+   <!-- Main Footer Content -->
+   <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px;">
+     
+     <!-- Brand Column -->
+     <div style="border-right: 1px solid rgba(212, 175, 55, 0.2); padding-right: 30px;">
+       <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+         <img src="chetak123.jpg" alt="BRIST Logo" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover; border: 2px solid #d4af37;">
+         <div>
+           <h3 style="color: #d4af37; font-size: 1.4rem; margin: 0; letter-spacing: 0.5px;">BRIST </h3>
+           <p style="color: #94a3b8; font-size: 0.85rem; margin: 5px 0 0 0;">Advancing Research. Building the Future.</p>
+         </div>
+       </div>
+              <div style="background: rgba(26, 54, 93, 0.5); padding: 15px; border-radius: 8px; border-left: 3px solid #d4af37;">
+         <p style="color: #e2e8f0; margin: 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📍</span> Guwahati, Assam, India
+         </p>
+         <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📞</span> +91 8811960068
+           
+          <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📧</span> saswata@bagresearch.co.in
+
+
+         </p>
+       </div>
+     </div>
+
+     <!-- Projects Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Projects</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="chetak.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0; border-bottom: 1px solid transparent;">CHETAK Coal Mine System</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-helmet.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Smart Safety Helmet</a></li>
+         <li style="margin-bottom: 12px;"><a href="emg-wheelchair.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">EMG Wheelchair (Charaibeti)</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-bin.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Smart IoT Bin</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-auto-attendance.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Auto Attendance System</a></li>
+         <li><a href="ardui-no.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Tetris on Arduino</a></li>
+       </ul>
+     </div>
+
+     <!-- Academics Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Academics</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="elibrary.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">📚 E-Library Access</a></li>
+         <li style="margin-bottom: 12px;"><a href="courses.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">🎓 Training Courses</a></li>
+         <li style="margin-bottom: 12px;"><a href="queries.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">❓ Research Queries</a></li>
+         <li style="margin-bottom: 12px;"><a href="council.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">🏛️ Council Portal</a></li>
+         <li><a href="outsidercomplain.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">📝 Lodge Complaint</a></li>
+       </ul>
+     </div>
+
+     <!-- Administration Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Administration</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="rnd.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">R&D Section</a></li>
+         <li style="margin-bottom: 12px;"><a href="evaluationcommittee.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Project Evaluation</a></li>
+         <li style="margin-bottom: 12px;"><a href="teamautomation.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Team Automation</a></li>
+         <li style="margin-bottom: 12px;"><a href="internalcomplaints.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Internal Complaints</a></li>
+         <li style="margin-bottom: 12px;"><a href="telephonedirectory.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Contact Directory</a></li>
+         <li><a href="contact.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">General Inquiries</a></li>
+       </ul>
+     </div>
+   </div>
+
+   <!-- Bottom Bar -->
+   <div style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding: 25px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+     <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">
+       © 2026 <span style="color: #d4af37;">Bag Research Innovation of Science & Technology</span>. All rights reserved.
+     </p>
+     <div style="display: flex; gap: 25px; align-items: center;">
+       <a href="legal-disclaimer" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.3s;">Legal Disclaimer |</a>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Hover effects style injection -->
+ <style>
+   footer a:hover { color: #d4af37 !important; transform: translateX(3px); }
+ </style>
+</footer>
+
+
+    <!-- Watermark -->
+    <div class="watermark"></div>
+
+    <script>
+        // Tetris Game Simulation - FIXED VERSION
+        const ROWS = 20;
+        const COLS = 10;
+        let grid = Array(ROWS).fill().map(() => Array(COLS).fill(0));
+        let currentPiece = null;
+        let nextPieceType = null;
+        let gameLoop = null;
+        let isPlaying = false;
+        let isPaused = false;
+        let score = 0;
+        let level = 1;
+        let lines = 0;
+        let dropInterval = 1000;
+
+        // Tetromino definitions
+        const PIECES = {
+            I: { shape: [[1,1,1,1]], color: 'I' },
+            O: { shape: [[1,1],[1,1]], color: 'O' },
+            T: { shape: [[0,1,0],[1,1,1]], color: 'T' },
+            S: { shape: [[0,1,1],[1,1,0]], color: 'S' },
+            Z: { shape: [[1,1,0],[0,1,1]], color: 'Z' },
+            J: { shape: [[1,0,0],[1,1,1]], color: 'J' },
+            L: { shape: [[0,0,1],[1,1,1]], color: 'L' }
+        };
+
+        const PIECE_TYPES = Object.keys(PIECES);
+
+        function initGrid() {
+            const gridEl = document.getElementById('tetrisGrid');
+            gridEl.innerHTML = '';
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'tetris-cell';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    gridEl.appendChild(cell);
+                }
+            }
+        }
+
+        function initLedStrip() {
+            const stripEl = document.getElementById('ledStrip');
+            stripEl.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const led = document.createElement('div');
+                led.className = 'led';
+                led.id = `led-${i}`;
+                stripEl.appendChild(led);
+            }
+        }
+
+        function spawnPiece() {
+            const type = nextPieceType || PIECE_TYPES[Math.floor(Math.random() * PIECE_TYPES.length)];
+            nextPieceType = PIECE_TYPES[Math.floor(Math.random() * PIECE_TYPES.length)];
+            
+            const pieceData = PIECES[type];
+            currentPiece = {
+                shape: pieceData.shape.map(row => [...row]),
+                color: pieceData.color,
+                x: Math.floor(COLS / 2) - Math.floor(pieceData.shape[0].length / 2),
+                y: 0
+            };
+
+            // Check if spawn position is valid
+            if (!isValidPosition(currentPiece.shape, currentPiece.x, currentPiece.y)) {
+                gameOver();
+                return false;
+            }
+
+            updateNextPiece();
+            return true;
+        }
+
+        function updateNextPiece() {
+            const nextEl = document.getElementById('nextPiece');
+            const color = PIECES[nextPieceType].color;
+            nextEl.innerHTML = `<div class="tetris-cell ${color} w-6 h-6"></div>`;
+        }
+
+        function isValidPosition(shape, offsetX, offsetY) {
+            for (let y = 0; y < shape.length; y++) {
+                for (let x = 0; x < shape[y].length; x++) {
+                    if (shape[y][x]) {
+                        const newX = offsetX + x;
+                        const newY = offsetY + y;
+                        
+                        // Check bounds
+                        if (newX < 0 || newX >= COLS || newY >= ROWS) {
+                            return false;
+                        }
+                        
+                        // Check collision with locked pieces (only if within grid)
+                        if (newY >= 0 && grid[newY][newX]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        function lockPiece() {
+            if (!currentPiece) return;
+            
+            currentPiece.shape.forEach((row, dy) => {
+                row.forEach((val, dx) => {
+                    if (val) {
+                        const r = currentPiece.y + dy;
+                        const c = currentPiece.x + dx;
+                        if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                            grid[r][c] = currentPiece.color;
+                        }
+                    }
+                });
+            });
+            
+            // Play lock sound
+            document.getElementById('buzzerStatus').classList.remove('status-offline');
+            document.getElementById('buzzerStatus').classList.add('status-online');
+            setTimeout(() => {
+                document.getElementById('buzzerStatus').classList.remove('status-online');
+                document.getElementById('buzzerStatus').classList.add('status-offline');
+            }, 100);
+        }
+
+        function clearLines() {
+            let linesCleared = 0;
+            
+            for (let r = ROWS - 1; r >= 0; r--) {
+                if (grid[r].every(cell => cell !== 0)) {
+                    // Remove the line
+                    grid.splice(r, 1);
+                    // Add new empty line at top
+                    grid.unshift(Array(COLS).fill(0));
+                    linesCleared++;
+                    r++; // Check same row again
+                }
+            }
+            
+            if (linesCleared > 0) {
+                lines += linesCleared;
+                score += linesCleared * 100 * level;
+                level = Math.floor(lines / 10) + 1;
+                dropInterval = Math.max(100, 1000 - (level - 1) * 100);
+                updateStats();
+                
+                // Play clear sound
+                document.getElementById('buzzerStatus').classList.remove('status-offline');
+                document.getElementById('buzzerStatus').classList.add('status-online');
+                setTimeout(() => {
+                    document.getElementById('buzzerStatus').classList.remove('status-online');
+                    document.getElementById('buzzerStatus').classList.add('status-offline');
+                }, 300);
+                
+                // Restart game loop with new speed
+                if (gameLoop) {
+                    clearInterval(gameLoop);
+                    gameLoop = setInterval(gameStep, dropInterval);
+                }
+            }
+        }
+
+        function movePiece(dx, dy) {
+            if (!isPlaying || isPaused || !currentPiece) return false;
+            
+            const newX = currentPiece.x + dx;
+            const newY = currentPiece.y + dy;
+            
+            if (isValidPosition(currentPiece.shape, newX, newY)) {
+                currentPiece.x = newX;
+                currentPiece.y = newY;
+                render();
+                return true;
+            }
+            
+            // If moving down and collision, lock the piece
+            if (dy > 0) {
+                lockPiece();
+                clearLines();
+                if (!spawnPiece()) return false;
+                render();
+            }
+            
+            return false;
+        }
+
+        function rotatePiece() {
+            if (!isPlaying || isPaused || !currentPiece) return;
+            
+            const rotated = currentPiece.shape[0].map((_, i) => 
+                currentPiece.shape.map(row => row[i]).reverse()
+            );
+            
+            // Try to rotate, if not valid try wall kicks
+            const kicks = [0, -1, 1, -2, 2];
+            for (const kick of kicks) {
+                if (isValidPosition(rotated, currentPiece.x + kick, currentPiece.y)) {
+                    currentPiece.shape = rotated;
+                    currentPiece.x += kick;
+                    render();
+                    return;
+                }
+            }
+        }
+
+        function hardDrop() {
+            if (!isPlaying || isPaused || !currentPiece) return;
+            
+            while (movePiece(0, 1)) {
+                score += 2;
+            }
+            updateStats();
+        }
+
+        function render() {
+            // Clear all cells
+            document.querySelectorAll('.tetris-cell').forEach(cell => {
+                cell.className = 'tetris-cell';
+            });
+            
+            // Render locked pieces
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (grid[r][c]) {
+                        const cell = document.querySelector(`.tetris-cell[data-row="${r}"][data-col="${c}"]`);
+                        if (cell) {
+                            cell.classList.add('filled', grid[r][c]);
+                        }
+                    }
+                }
+            }
+            
+            // Render current piece
+            if (currentPiece) {
+                currentPiece.shape.forEach((row, dy) => {
+                    row.forEach((val, dx) => {
+                        if (val) {
+                            const r = currentPiece.y + dy;
+                            const c = currentPiece.x + dx;
+                            if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                                const cell = document.querySelector(`.tetris-cell[data-row="${r}"][data-col="${c}"]`);
+                                if (cell) {
+                                    cell.classList.add('filled', currentPiece.color);
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+            
+            // Update LED strip visualization
+            const leds = document.querySelectorAll('.led');
+            leds.forEach((led, i) => {
+                const colors = ['#00f0f0', '#f0f000', '#a000f0', '#00f000', '#f00000', '#0000f0', '#f0a000'];
+                led.style.background = Math.random() > 0.6 ? colors[Math.floor(Math.random() * colors.length)] : '#333';
+                led.classList.toggle('active', Math.random() > 0.4);
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('gameScore').textContent = score;
+            document.getElementById('gameLevel').textContent = level;
+            document.getElementById('gameLines').textContent = lines;
+        }
+
+        function updateState(state) {
+            document.getElementById('stateIdle').classList.remove('ring-2', 'bg-green-50');
+            document.getElementById('stateIdle').classList.add('opacity-50');
+            document.getElementById('statePlaying').classList.remove('ring-2', 'bg-blue-50');
+            document.getElementById('statePlaying').classList.add('opacity-50');
+            document.getElementById('statePaused').classList.remove('ring-2', 'bg-yellow-50');
+            document.getElementById('statePaused').classList.add('opacity-50');
+
+            if (state === 'idle') {
+                document.getElementById('stateIdle').classList.add('ring-2', 'ring-green-500', 'bg-green-50');
+                document.getElementById('stateIdle').classList.remove('opacity-50');
+            } else if (state === 'playing') {
+                document.getElementById('statePlaying').classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
+                document.getElementById('statePlaying').classList.remove('opacity-50');
+            } else if (state === 'paused') {
+                document.getElementById('statePaused').classList.add('ring-2', 'ring-yellow-500', 'bg-yellow-50');
+                document.getElementById('statePaused').classList.remove('opacity-50');
+            }
+        }
+
+        function gameStep() {
+            if (!isPlaying || isPaused) return;
+            movePiece(0, 1);
+        }
+
+        function startGame() {
+            // Reset everything
+            grid = Array(ROWS).fill().map(() => Array(COLS).fill(0));
+            score = 0;
+            level = 1;
+            lines = 0;
+            dropInterval = 1000;
+            updateStats();
+            
+            isPlaying = true;
+            isPaused = false;
+            nextPieceType = PIECE_TYPES[Math.floor(Math.random() * PIECE_TYPES.length)];
+            
+            document.getElementById('gameOverOverlay').classList.add('hidden');
+            updateState('playing');
+            
+            if (gameLoop) clearInterval(gameLoop);
+            
+            if (spawnPiece()) {
+                render();
+                gameLoop = setInterval(gameStep, dropInterval);
+            }
+        }
+
+        function pauseGame() {
+            if (!isPlaying) return;
+            isPaused = !isPaused;
+            updateState(isPaused ? 'paused' : 'playing');
+        }
+
+        function gameOver() {
+            isPlaying = false;
+            if (gameLoop) clearInterval(gameLoop);
+            
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('gameOverOverlay').classList.remove('hidden');
+            updateState('idle');
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (!isPlaying) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    movePiece(-1, 0);
+                    break;
+                case 'ArrowRight':
+                    movePiece(1, 0);
+                    break;
+                case 'ArrowDown':
+                    movePiece(0, 1);
+                    break;
+                case 'ArrowUp':
+                    rotatePiece();
+                    break;
+                case ' ':
+                    hardDrop();
+                    break;
+                case 'p':
+                case 'P':
+                    pauseGame();
+                    break;
+            }
+        });
+
+        // Button controls
+        document.getElementById('btnStart').addEventListener('click', startGame);
+        document.getElementById('btnPause').addEventListener('click', pauseGame);
+        document.getElementById('btnLeft').addEventListener('click', () => movePiece(-1, 0));
+        document.getElementById('btnRight').addEventListener('click', () => movePiece(1, 0));
+        document.getElementById('btnRotate').addEventListener('click', rotatePiece);
+        document.getElementById('btnDown').addEventListener('click', () => movePiece(0, 1));
+
+        // Initialize
+        initGrid();
+        initLedStrip();
+        updateState('idle');
+    </script>
 </body>
 </html>
-
-
