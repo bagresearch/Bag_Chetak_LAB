@@ -1,58 +1,1493 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>502 Bad Gateway</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
-      color: #000000;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&D Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #c9a227;
+            --accent: #8b0000;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+        
+        .font-serif {
+            font-family: 'Crimson Text', serif;
+        }
+        
+        /* Government/Institutional Texture */
+        .bg-institutional {
+            background-color: #f8fafc;
+            background-image: 
+                linear-gradient(rgba(30, 58, 95, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 58, 95, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Official Header Pattern */
+        .header-pattern {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            position: relative;
+        }
+        .header-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Official Seal/Emblem Effect */
+        .seal {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(255,255,255,0.1);
+        }
+        .seal::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px solid var(--secondary);
+            border-radius: 50%;
+        }
+        
+        /* Navigation */
+        .nav-official {
+            background: #fff;
+            border-bottom: 3px solid var(--secondary);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        /* Section Headers */
+        .section-header {
+            border-left: 5px solid var(--secondary);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Official Cards */
+        .official-card {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            border-radius: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .official-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+        
+        /* Featured Project - Special Styling */
+        .featured-project {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-project::before {
+            content: 'FLAGSHIP PROJECT';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--secondary);
+            color: #000;
+            padding: 5px 40px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            transform: rotate(45deg);
+            letter-spacing: 1px;
+        }
+        
+        /* Status Badges */
+        .status-operational { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .status-development { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .status-research { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+        .status-pilot { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4; }
+        
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .data-table th {
+            background: #1e3a5f;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .data-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        /* Metric Cards */
+        .metric-card {
+            background: white;
+            border-top: 4px solid var(--secondary);
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        
+        /* Official Buttons */
+        .btn-official {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-official:hover {
+            background: #0f172a;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Quick Links */
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .quick-link:hover {
+            background: #f1f5f9;
+            border-left-color: var(--secondary);
+        }
+        
+        /* Footer Official */
+        .footer-official {
+            background: #0f172a;
+            color: #94a3b8;
+            border-top: 5px solid var(--secondary);
+        }
+    </style>
+</head>
+<body class="bg-institutional">
 
-    .wrapper {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
+    <!-- Top Bar -->
+    <div class="bg-slate-900 text-white text-xs py-2">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span><i class="fas fa-phone mr-2"></i>+918811960068</span>
+                <span><i class="fas fa-envelope mr-2"></i>saswata@bagresearch.co.in</span>
+            </div>
+                    </div>
+    </div>
 
-    h1 {
-      font-size: 26px;
-      font-weight: normal;
-      margin-bottom: 10px;
-    }
+   <!-- Header -->
+<header class="header-pattern text-white py-6">
+    <div class="max-w-7xl mx-auto px-4">
+        
+        <div class="flex items-center gap-6">
+ <div class="seal flex-shrink-0">
+    <img src="chetak123.jpg" alt="Chetak Logo" class="w-12 h-12 object-contain">
+</div>
 
-    p {
-      font-size: 14px;
-      line-height: 1.6;
-      margin: 6px 0;
-    }
+            <div>
+                <h1 class="font-serif text-3xl md:text-4xl font-bold leading-tight">
+                    Bag Research Innovation of Science & Technology (BRIST)
+                </h1>
+            </div>
+        </div>
 
-    hr {
-      border: none;
-      border-top: 1px solid #e0e0e0;
-      margin: 18px 0;
-    }
+        <!-- Centered R&D Section -->
+        <div class="text-center mt-4">
+            <div class="text-lg font-bold text-amber-400">
+                Research & Development Section
+            </div>
+        </div>
 
-    .server {
-      font-size: 12px;
-      color: #555;
-      margin-top: 12px;
-    }
-  </style>
+    </div>
+</header>
+
+            </div>
+        </div>
+    </header>
+
+ 
+        </div>
+    </nav>
+
+<!-- Hero Section -->
+<section class="py-12 bg-white border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        
+        <div class="animate-slide-in">
+            
+            <div class="inline-block bg-amber-100 text-amber-800 px-3 py-1 text-xs font-bold uppercase tracking-wider mb-4">
+                Latest Update
+            </div>
+            
+            <h2 class="font-serif text-4xl text-slate-900 mb-4">
+                Welcome to the Innovation Engine of (BRIST)
+            </h2>
+            
+            <p class="text-slate-600 leading-relaxed mb-6 text-lg">
+                The Research & Development (R&D) section serves as the foundation of our scientific and technological advancement. 
+                Here, we research, innovate, design, and develop solutions that enhance safety, efficiency, and sustainability. 
+                Through continuous experimentation, rigorous testing, and strategic improvement, we transform bold ideas into practical, real-world solutions.
+            </p>
+
+            <p class="text-slate-600 leading-relaxed mb-6 text-lg">
+                Under the leadership of <strong>Saswata Bag</strong>, (BRIST) is committed to driving innovation in science and technology, 
+                turning visionary concepts into impactful realities that shape a smarter and safer future.
+            </p>
+            
+        </div>
+
+    </div>
+</section>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Metrics -->
+    <section class="py-8 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="metric-card text-center">
+                    <div class="text-3xl font-bold text-slate-900 mb-1">10</div>
+                    <div class="text-xs text-slate-600 uppercase tracking-wider">Total Projects</div>
+                </div>
+                <div class="metric-card text-center">
+                    <div class="text-3xl font-bold text-slate-900 mb-1">1</div>
+                    <div class="text-xs text-slate-600 uppercase tracking-wider">Ongoing Project</div>
+                </div>
+                <div class="metric-card text-center">
+                    <div class="text-3xl font-bold text-slate-900 mb-1">1</div>
+                    <div class="text-xs text-slate-600 uppercase tracking-wider">Under Evaluation</div>
+                </div>
+                <div class="metric-card text-center">
+                    <div class="text-3xl font-bold text-slate-900 mb-1">5</div>
+                    <div class="text-xs text-slate-600 uppercase tracking-wider">More New Projects To Come</div>
+                </div> 
+            </div>
+        </div>
+    </section>
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&D Section - Flagship Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #c9a227;
+            --accent: #8b0000;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+        
+        .font-serif {
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Premium Gradient Backgrounds */
+        .bg-premium {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(30, 58, 95, 0.03) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        /* Glass Morphism Cards */
+        .flagship-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 20px 40px -15px rgba(30, 58, 95, 0.15),
+                0 0 0 1px rgba(30, 58, 95, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .flagship-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 30px 60px -20px rgba(30, 58, 95, 0.25),
+                0 0 0 1px rgba(201, 162, 39, 0.3);
+        }
+        
+        .flagship-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), #f59e0b, var(--secondary));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+            z-index: 10;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        /* Image Container with Overlay */
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            height: 280px;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .flagship-card:hover .image-container img {
+            transform: scale(1.08);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            transition: all 0.4s;
+        }
+        
+        .flagship-card:hover .image-overlay {
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.6) 60%, rgba(30, 58, 95, 0.2) 100%);
+        }
+        
+        /* Badge Styling */
+        .flagship-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: -3.5rem;
+            background: linear-gradient(135deg, #c9a227 0%, #f59e0b 100%);
+            color: #0f172a;
+            padding: 0.5rem 4rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 20px rgba(201, 162, 39, 0.5);
+            z-index: 20;
+        }
+        
+        /* Content Area */
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .project-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #c9a227;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .project-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        .project-description {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.03) 0%, rgba(201, 162, 39, 0.03) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(30, 58, 95, 0.06);
+        }
+        
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background: rgba(30, 58, 95, 0.1);
+        }
+        
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a5f;
+            line-height: 1;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-top: 0.35rem;
+            font-weight: 600;
+        }
+        
+        /* View Project Button */
+        .view-project-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .view-project-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .flagship-card:hover .view-project-btn::before {
+            left: 100%;
+        }
+        
+        .view-project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 95, 0.4);
+        }
+        
+        /* Decorative Elements */
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        /* Section Header Enhancement */
+        .section-header-enhanced {
+            position: relative;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+            color: #1e3a5f;
+            padding: 0.6rem 1.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 3.5rem;
+            color: #0f172a;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .section-subtitle {
+            color: #64748b;
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Icon in image overlay */
+        .overlay-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(201, 162, 39, 0.9);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .overlay-icon i {
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.25rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+            .image-container {
+                height: 220px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrapper">
-    <h1>502 Bad Gateway</h1>
-    <p>The server encountered a temporary error and could not complete your request.</p>
-    <p>Please try again later.</p>
 
-    <hr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&D Section - Flagship Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #c9a227;
+            --accent: #8b0000;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+        
+        .font-serif {
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Premium Gradient Backgrounds */
+        .bg-premium {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(30, 58, 95, 0.03) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        /* Glass Morphism Cards */
+        .flagship-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 20px 40px -15px rgba(30, 58, 95, 0.15),
+                0 0 0 1px rgba(30, 58, 95, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .flagship-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 30px 60px -20px rgba(30, 58, 95, 0.25),
+                0 0 0 1px rgba(201, 162, 39, 0.3);
+        }
+        
+        .flagship-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), #f59e0b, var(--secondary));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+            z-index: 10;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        /* Image Container - No Cutting */
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+        }
+        
+        .flagship-card:hover .image-container img {
+            transform: scale(1.05);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.3) 40%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            transition: all 0.4s;
+        }
+        
+        .flagship-card:hover .image-overlay {
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.5) 50%, rgba(30, 58, 95, 0.1) 100%);
+        }
+        
+        /* Badge Styling */
+        .flagship-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: -3.5rem;
+            background: linear-gradient(135deg, #c9a227 0%, #f59e0b 100%);
+            color: #0f172a;
+            padding: 0.5rem 4rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 20px rgba(201, 162, 39, 0.5);
+            z-index: 20;
+        }
+        
+        /* Content Area */
+        .card-content {
+            padding: 2rem;
+        }
+        
+        .project-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #c9a227;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .project-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        .project-description {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.03) 0%, rgba(201, 162, 39, 0.03) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(30, 58, 95, 0.06);
+        }
+        
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background: rgba(30, 58, 95, 0.1);
+        }
+        
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a5f;
+            line-height: 1;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-top: 0.35rem;
+            font-weight: 600;
+        }
+        
+        /* View Project Button */
+        .view-project-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .view-project-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .flagship-card:hover .view-project-btn::before {
+            left: 100%;
+        }
+        
+        .view-project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 95, 0.4);
+        }
+        
+        /* Decorative Elements */
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        /* Section Header Enhancement */
+        .section-header-enhanced {
+            position: relative;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+            color: #1e3a5f;
+            padding: 0.6rem 1.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 3.5rem;
+            color: #0f172a;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .section-subtitle {
+            color: #64748b;
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Icon in image overlay */
+        .overlay-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(201, 162, 39, 0.9);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .overlay-icon i {
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.25rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+            .image-container {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
 
-    <p class="server">nginx</p>
-  </div>
+    <!-- Featured Projects Section -->
+    <section id="projects" class="py-20 bg-premium relative">
+        <!-- Decorative Elements -->
+        <div class="decoration-circle w-96 h-96 -top-48 -left-48 opacity-50"></div>
+        <div class="decoration-circle w-64 h-64 bottom-0 right-0 opacity-30"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            
+            <!-- Enhanced Section Header -->
+            <div class="section-header-enhanced">
+                <div class="">
+                    <i class=""></i>
+                    
+                </div>
+                <h2 class="section-title">Research Projects</h2>
+                <p class="section-subtitle">
+                                    </p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                
+                <!-- CHETAK Project Card -->
+                <a href="chetak" class="flagship-card rounded-2xl group">
+                    
+                    
+                    <!-- Image Area - No Cutting -->
+                    <div class="image-container relative">
+                        <img src="chetakpic.png" alt="CHETAK Coal Mine System">
+                        <div class="image-overlay">
+                            <div class="text-white">
+                                <div class="">
+                                    
+                                </div>
+                               
+                                <h3 class="font-display text-3xl font-bold leading-tight"></h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Area -->
+                    <div class="card-content">
+                        <div class="project-category">
+                            <i class=""></i>
+                            
+                        </div>
+                        
+                        <h3 class="project-title">
+                            CHETAK
+                        </h3>
+                        
+                        <p class="project-description">
+                            Innovative Coal Mine Project for Rescue , Surveillance , Alert of Land Slides , Harmful Gas Alerts etc.                        </p>
+                        
+                        <!-- Stats Grid -->
+                        <div class="">
+                            <div class="stat-item">
+                                
+                            </div>
+                            <div class="stat-item">
+                                
+                                
+                            </div>
+                            <div class="stat-item">
+                                
+                                
+                            </div>
+                        </div>
+                        
+                        <!-- View Project Button -->
+                        <button class="view-project-btn">
+                            View Project Details
+                            <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </a>
+
+                <!-- Smart Helmet Project Card -->
+                <a href="smart-helmet" class="flagship-card rounded-2xl group">
+                   
+                    
+                    <!-- Image Area - No Cutting -->
+                    <div class="image-container relative">
+                        <img src="helmet123.jpg" alt="Smart Safety Helmet">
+                        <div class="image-overlay">
+                            <div class="text-white">
+                                <div class="">
+                                    
+                                </div>
+                                <div class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-2"></div>
+                                <h3 class="font-display text-3xl font-bold leading-tight"></h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Area -->
+                    <div class="card-content">
+                        <div class="project-category">
+                            <i class=""></i>
+                            
+                        </div>
+                        
+                        <h3 class="project-title">
+                            Smart Safety Helmet
+                        </h3>
+                        
+                        <p class="project-description">
+                            Helmet embedded with sensors for accident prevention and safety monitoring.
+                        </p>
+                        
+                        <!-- Stats Grid -->
+                        <div class="">
+                            <div class="stat-item">
+                                
+                                
+                            </div>
+                            <div class="stat-item">
+                                
+                                
+                            </div>
+                            <div class="stat-item">
+                                
+                                
+                            </div>
+                        </div>
+                        
+                        <!-- View Project Button -->
+                        <button class="view-project-btn">
+                            View Project Details
+                            <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </a>
+                
+            </div>
+            
+            <!-- Bottom CTA -->
+            <div class="text-center mt-12">
+  
+
+            
+        </div>
+    </section>
+
+</body>
+</html>
+                                        </a>
+                
+            </div>
+            
+      
+            </div>
+            
+        </div>
+    </section>
+
+</body>
+</html>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Projects Table -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="section-header">
+                <h2 class="font-serif text-3xl text-slate-900">ALL Projects List </h2>
+                <p class="text-slate-600 mt-2">2022-2026</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Project Duration</th>
+                            <th>Project Name</th>
+                            
+                            <th>Funding Agency</th>
+                            <th>Budget </th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-mono text-sm">2024</td>
+                            <td class="font-semibold">CoalMine Hazard Evaluation and Tracking Assessment Kit(CHETAK)</td>
+                            
+                            <td>Center for Environment , IITG </td>
+                            <td>5k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">Completed</span></td>
+                            <td><a href="chetak" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">(2022–2026)</td>
+                            <td class="font-semibold">Design and Development of Smart Safety Helmet for the Detection of Accidents and Monitoring the Health</td>
+                            
+                            <td>DST</td>
+                            <td>10k</td>
+                            <td><span class="status-development px-2 py-1 text-xs font-semibold rounded">ONGOING</span></td>
+                            <td><a href="#" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">(2024–2026)</td>
+                            <td>EMG - Controlled  Wheelchair (Charaibeti)</td>
+                            
+                            <td>NIF(DST)</td>
+                            <td>1.2 lakhs </td>
+                            <td><span class="status-development px-2 py-1 text-xs font-semibold rounded">Under Evaluation</span></td>
+                            <td><a href="emg-wheelchair" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">2025</td>
+                            <td>Smart IoT Bin</td>
+                            
+                            <td>Internal Grant </td>
+                            <td>5k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">COMPLETED</span></td>
+                            <td><a href="smart-bin" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">2024</td>
+                            <td>Smart Security Lock with Auto Attendance System and Auto Unwanted Access Stopper System</td>
+                            
+                            <td>KVIITGuwahati & SIC , Government of India</td>
+                            <td>5k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">COMPLETED</span></td>
+                            <td><a href="smart-autoattendence" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">2024</td>
+                            <td>Tetris on Arduino</td>
+                            
+                            <td>KVIITGuwahati & SIC , Government of India</td>
+                            <td>3k</td>
+                          <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">Completed</span></td>
+                            <td><a href="tetries" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">2024</td>
+                            <td>Detection of Cyclone Patterns Using Satellite Data and AI/ML</td>
+                            
+                            <td>IISF, Government of India</td>
+                            <td>5k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">Completed</span></td>
+                            <td><a href="503" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">2025</td>
+                            <td>CoalMine Hazard Evaluation and Tracking Assessment Kit(CHETAK) 2.O</td>
+                            
+                            <td>Internal Grant</td>
+                            <td>20k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">Completed</span></td>
+                            <td><a href="chetak" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono text-sm">2024</td>
+                            <td>Reaction Time Tester Using Arduino</td>
+                            
+                            <td>KVIITGuwahati & SIC , Government of India</td>
+                            <td>2k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">Completed</span></td>
+                            <td><a href="503" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+                        <tr>
+<tr>
+                            <td class="font-mono text-sm">2021</td>
+                            <td>A Cheap and User-friendly wastewater filter for application in Flood prone region to mitigate water crisis during emergency</td>
+                            
+                            <td>Internal Grant </td>
+                            <td>5k</td>
+                            <td><span class="status-operational px-2 py-1 text-xs font-semibold rounded">Completed</span></td>
+                            <td><a href="503" class="text-blue-600 hover:underline text-sm">Details →</a></td>
+                        </tr>
+
+                            
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="section-header">
+                <h2 class="font-serif text-3xl text-slate-900">Research Domains</h2>
+                <p class="text-slate-600 mt-2">Core competency areas and expertise</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="official-card p-6">
+                    <div class="w-12 h-12 bg-blue-100 flex items-center justify-center mb-4">
+                        <i class="fas fa-brain text-blue-800 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Artificial Intelligence</h3>
+                    <p class="text-sm text-slate-600">Machine learning, computer vision, and predictive analytics for industrial and climate applications.</p>
+                </div>
+                <div class="official-card p-6">
+                    <div class="w-12 h-12 bg-green-100 flex items-center justify-center mb-4">
+                        <i class="fas fa-network-wired text-green-800 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Industrial IoT</h3>
+                    <p class="text-sm text-slate-600">Smart sensors, automation systems, and Industry 4.0 solutions for manufacturing and mining.</p>
+                </div>
+                <div class="official-card p-6">
+                    <div class="w-12 h-12 bg-red-100 flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-red-800 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Safety Engineering</h3>
+                    <p class="text-sm text-slate-600">Worker safety systems, protective equipment, and emergency response technologies.</p>
+                </div>
+                <div class="official-card p-6">
+                    <div class="w-12 h-12 bg-amber-100 flex items-center justify-center mb-4">
+                        <i class="fas fa-cloud-sun text-amber-800 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Climate Technology</h3>
+                    <p class="text-sm text-slate-600">Weather prediction, environmental monitoring, and disaster management systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div>
+                    <div class="section-header">
+                        <h2 class="font-serif text-3xl text-slate-900">Contact R&D Section</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-slate-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-slate-600"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Address</div>
+                                <div class="text-slate-600 text-sm">Guwahati, Assam, India <br></div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-slate-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-slate-600"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Phone</div>
+                                <div class="text-slate-600 text-sm">+91 8811960068 (Office)<br></div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-slate-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-slate-600"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Email</div>
+                                <div class="text-slate-600 text-sm">saswata@bagresearch.co.in<br>saswata7928@gmail.com</div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Refined Footer -->
+<footer style="background: linear-gradient(180deg, #1a365d 0%, #0f2340 100%); color: #e2e8f0; font-family: 'Arial', sans-serif; padding-top: 60px;">
+ <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+   <!-- Main Footer Content -->
+   <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px;">
+     
+     <!-- Brand Column -->
+     <div style="border-right: 1px solid rgba(212, 175, 55, 0.2); padding-right: 30px;">
+       <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+         <img src="chetak123.jpg" alt="BRIST Logo" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover; border: 2px solid #d4af37;">
+         <div>
+           <h3 style="color: #d4af37; font-size: 1.4rem; margin: 0; letter-spacing: 0.5px;">BRIST </h3>
+           <p style="color: #94a3b8; font-size: 0.85rem; margin: 5px 0 0 0;">Advancing Research. Building the Future.</p>
+         </div>
+       </div>
+              <div style="background: rgba(26, 54, 93, 0.5); padding: 15px; border-radius: 8px; border-left: 3px solid #d4af37;">
+         <p style="color: #e2e8f0; margin: 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📍</span> Guwahati, Assam, India
+         </p>
+         <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📞</span> +91 8811960068
+           
+          <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+           <span>📧</span> saswata@bagresearch.co.in
+
+
+         </p>
+       </div>
+     </div>
+
+     <!-- Projects Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Projects</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="chetak" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0; border-bottom: 1px solid transparent;">CHETAK Coal Mine System</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-helmet" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Smart Safety Helmet</a></li>
+         <li style="margin-bottom: 12px;"><a href="emg-wheelchair" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">EMG Wheelchair (Charaibeti)</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-bin" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Smart IoT Bin</a></li>
+         <li style="margin-bottom: 12px;"><a href="smart-auto-attendance" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Auto Attendance System</a></li>
+         <li><a href="tetries" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Tetris on Arduino</a></li>
+       </ul>
+     </div>
+
+     <!-- Academics Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">utilits</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="elibrary.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">📚 E-Library Access</a></li>
+         <li style="margin-bottom: 12px;"><a href="cources.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">🎓 Training Courses</a></li>
+         <li style="margin-bottom: 12px;"><a href="queries.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">❓ Research Queries</a></li>
+         <li style="margin-bottom: 12px;"><a href="council.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">🏛️ Council Portal</a></li>
+         <li><a href="generalcomplain" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">General Complains </a></li>
+       </ul>
+     </div>
+
+     <!-- Administration Column -->
+     <div>
+       <h4 style="color: #d4af37; font-size: 1.1rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); display: inline-block;">Administration</h4>
+       <ul style="list-style: none; padding: 0; margin: 0;">
+         <li style="margin-bottom: 12px;"><a href="rnd.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">R&D Section</a></li>
+        <li style="margin-bottom: 12px;"><a href="https://intranet.bagresearch.co.in" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Intranet</a></li>
+         
+         <li style="margin-bottom: 12px;"><a href="teamautomation.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Team Automation</a></li>
+         <li style="margin-bottom: 12px;"><a href="https://intranet.bagresearch.co.in/complaint" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Internal Complaints</a></li>
+         <li style="margin-bottom: 12px;"><a href="telephonedirectory" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">Contact Directory</a></li>
+         <li><a href="contact.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.95rem; transition: all 0.3s; display: block; padding: 5px 0;">General Inquiries</a></li>
+       </ul>
+     </div>
+   </div>
+
+   <!-- Bottom Bar -->
+   <div style="border-top: 1px solid rgba(212, 175, 55, 0.2); padding: 25px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+     <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">
+       © 2026 <span style="color: #d4af37;">Bag Research Innovation of Science & Technology</span>. All rights reserved.
+     </p>
+     <div style="display: flex; gap: 25px; align-items: center;">
+       <a href="legaldisclaimer" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.3s;">Legal Disclaimer |</a>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Hover effects style injection -->
+ <style>
+   footer a:hover { color: #d4af37 !important; transform: translateX(3px); }
+ </style>
+</footer>
 </body>
 </html>
